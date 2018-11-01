@@ -6,17 +6,27 @@ import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
 import creditCard from '../components/Charts/PieChart/creditCard.json'; 
 
-const store=createStore(reducer,{color:'#0090c0',
-								data:creditCard.data,
-								name:'b',
-								title:'test',
-								value:123});
 
-const UserAnalyticsDashboard=()=>(
-	<Provider store={store}>
-		<ContainerLabelTag/>
-		<ContainerPieChart/>
-	</Provider>
-)
-
-export default UserAnalyticsDashboard;
+export default class UserAnalyticsDashboard extends React.Component{
+	constructor(){
+		super();
+		this.state={
+			store:createStore(reducer,{color:'#0090c0',
+										data:creditCard.data,
+										name:'b',
+										title:'test',
+										value:123})
+		}
+	}
+	
+	render(){
+		return (
+			<Provider store={this.state.store}>
+				<div>
+					<ContainerLabelTag/>
+					<ContainerPieChart/>
+				</div>
+			</Provider>
+		)
+	}
+}
