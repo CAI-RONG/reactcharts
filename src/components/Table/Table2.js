@@ -6,7 +6,7 @@ import "react-table/react-table.css";
 import makeData from './data2.json';
 import { ReactTableDefaults } from 'react-table';
 import _ from 'lodash';
-
+import Clock from './Clock';
 
 const columns = [
   { 
@@ -84,6 +84,8 @@ const columns = [
   }
 ];
 
+
+
 class Table extends React.Component{
 	constructor() { 
    	super();
@@ -95,7 +97,9 @@ class Table extends React.Component{
 
 	render(){
 
-    	return (      
+    	return (
+        <div> 
+          <Clock />     
 	  		   <ReactTable
 	      		data={this.state.data} 
 	      		columns={columns}
@@ -104,21 +108,15 @@ class Table extends React.Component{
             pageSize={this.state.pageSize}
 	      		className="-striped -highlight"
 	        >
-          {
-            (state, Table, instance) => {
-              if (this.reactTable === null) {
-                this.reactTable = instance
-              }
-                return (Table())
-            }
-          }
+          
           </ReactTable>
-
+        </div>
        
 	    )
 	};
 
 };
+
 //https://react-table.js.org/#/story/pivoting-aggregation-w-sub-components
 
 export default Table;
