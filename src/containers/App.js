@@ -15,7 +15,6 @@ import Users from '../components/Charts/LineChart/Users';
 import Table2 from '../components/Table/Table2';
 
 
-
 class App extends Component {
   constructor(){
     super();
@@ -54,7 +53,7 @@ class App extends Component {
                   <Route path="/" exact component={HomePage} />
                   <Route path="/Users" exact component={Users} />  
                   <Route path="/Table2" exact component={Table2} /> 
-                  
+                  <Route path="/PieChart" exact component={PieChart} />  
                 </div>
                 <div className="col">  
                 </div>

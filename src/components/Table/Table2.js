@@ -6,7 +6,7 @@ import "react-table/react-table.css";
 import makeData from './data2.json';
 import { ReactTableDefaults } from 'react-table';
 import _ from 'lodash';
-import Clock from './Clock';
+
 
 const columns = [
   { 
@@ -58,11 +58,11 @@ const columns = [
       	Header: '（本期-上期）/上期',
         width: 180,
         id:'Ratio',
-        accessor: d => Math.round((d.diff/d.LastOrder)*10000)/100,
+        accessor: d => Math.round(((d.CurrentOrder - d.LastOrder)/d.LastOrder)*10000)/100,
         aggregate: (vals, rows) => {
-              const total_diff= _.sumBy(rows, 'diff')
-              const total_LastOrder = _.sumBy(rows, 'LastOrder')
-              return Math.round((total_diff/total_LastOrder)*10000)/100
+              const total_CurrentOrder = _.sumBy(rows, 'CurrentOrder')
+              const total_LastOrder = _.sumBy(rows, 'LastOrder')              
+              return Math.round(((total_CurrentOrder - total_LastOrder)/total_LastOrder)*10000)/100
             },
         Cell: row => <span>{row.value}%</span>
       }
@@ -91,15 +91,19 @@ class Table extends React.Component{
    	super();
   	this.state={
    		data:makeData.parkingLots,
+      date: new Date(),
+    
     };
     this.reactTable = null
   }
+
+
 
 	render(){
 
     	return (
         <div> 
-          <Clock />     
+          <p>{this.state.date.getMonth()}月份</p> 
 	  		   <ReactTable
 	      		data={this.state.data} 
 	      		columns={columns}
@@ -108,7 +112,6 @@ class Table extends React.Component{
             pageSize={this.state.pageSize}
 	      		className="-striped -highlight"
 	        >
-          
           </ReactTable>
         </div>
        
