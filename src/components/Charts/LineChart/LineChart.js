@@ -1,18 +1,19 @@
 import React from 'react';
 import * as d3 from 'd3';
-import $ from 'jquery';
+import PropTypes from 'prop-types';
 
 export default class LineChart extends React.Component{
-	constructor(props){
-		super(props);
+	constructor(){
+		super();
 		this.state={
 			'width':525,
 			'height':350
 		};
-		{/*props={
-			data,
-			name
-		}*/}
+		
+		this.propTypes={
+			data:PropTypes.array.isRequired,
+			name:PropTypes.string
+		}
 	}
 	
 	componentDidMount(){
@@ -23,7 +24,7 @@ export default class LineChart extends React.Component{
 		const Height=this.state.height;
 		const Width=this.state.width;
 		const data=Object.entries(this.props.data);
-		var focus=svg.append('g').attr('class','focus-total')
+		var focus=svg.append('g').attr('class','focus focus-total')
 									.style('display','none');
 		
 		focus.append('line').attr('class','x-hover-line-total')
@@ -44,13 +45,13 @@ export default class LineChart extends React.Component{
 							.attr('pointer-events','all')
 							.attr('width',Width)
 							.attr('height',Height)
-							.on('mouseover',function(){focus.style('display',null);for(var m=0; m<dataAmount; ++m)focuses[m].style('display',null);})
-							.on('mouseout',function(){focus.style('display','none');for(var m=0; m<dataAmount; ++m)focuses[m].style('display','none');})
+							.on('mouseover',function(){svg.selectAll('g.focus').style('display',null);})
+							.on('mouseout',function(){svg.selectAll('g.focus').style('display','none');})
 							.on('mousemove',move);
 		
 		for(var n=0; n<dataAmount; ++n)
 		{
-			focus=svg.append('g').attr('class','focus-'+data[n][0])
+			focus=svg.append('g').attr('class','focus focus-'+data[n][0])
 									.style('display','none');
 		
 			focus.append('line').attr('class','x-hover-line-'+data[n][0])
