@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import PieChart from '../components/pieChart';
+import PieChart from '../components/Charts/PieChart/PieChart';
 import {changeColor} from '../redux/actions/userActions';
 
 const mapStateToProps=state=>{

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import LabelTag from '../components/Label';
+import LabelTag from '../components/Charts/LineChart/Label';
 
 const mapStateToProps=state=>{
 	return {
