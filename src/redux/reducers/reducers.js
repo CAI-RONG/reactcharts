@@ -1,0 +1,10 @@
+const reducer=(state=[],action)=>{
+	switch(action.type){
+		case "CHANGE_COLOR":
+			return Object.assign({},state,{color:action.bgc});
+		default:
+			return state;
+	}
+}
+
+export default reducer;

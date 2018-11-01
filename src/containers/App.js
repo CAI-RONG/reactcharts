@@ -13,7 +13,7 @@ import Backdrop from '../components/Backdrop/Backdrop';
 import PieChart from '../components/Charts/PieChart/PieChart';
 import Users from '../components/Charts/LineChart/Users';
 import Table2 from '../components/Table/Table2';
-
+import UserAnalyticsDashboard from './userAnalyticsDashboard';
 
 
 class App extends Component {
@@ -54,7 +54,9 @@ class App extends Component {
                   <Route path="/" exact component={HomePage} />
                   <Route path="/Users" exact component={Users} />  
                   <Route path="/Table2" exact component={Table2} /> 
-                  
+                  <Route path="/Piechart" exact component={UserAnalyticsDashboard} />
+
+
                 </div>
                 <div className="col">  
                 </div>

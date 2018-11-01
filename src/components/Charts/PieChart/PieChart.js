@@ -12,7 +12,8 @@ export default class PieChart extends React.Component{
 		
 		this.propTypes={
 			data:PropTypes.array.isRequired,
-			name:PropTypes.string
+			name:PropTypes.string,
+			bgcChange:PropTypes.func
 		}
 	}
 	
@@ -70,6 +71,8 @@ export default class PieChart extends React.Component{
 			.on('mousemove',move)
 			.on('mouseover',over)
 			.on('mouseout',out);
+			
+		const bgcChange=this.props.bgcChange;
 		
 		function move(){
 			svg.select('g.detail').attr('display',null)
@@ -92,8 +95,10 @@ export default class PieChart extends React.Component{
 									});
 			
 			for(var i=0; i<data.length; ++i)
-				if(svg.select('g.pie').select('.p-'+i).select('path').node()===path)
+				if(svg.select('g.pie').select('.p-'+i).select('path').node()===path){
 					svg.select('g.pie').select('.p-'+i).select('path').attr('opacity','0.8');
+					bgcChange(color[i]);
+				}
 		}
 		
 		function out(){
