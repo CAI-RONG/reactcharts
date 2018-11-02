@@ -5,6 +5,7 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
 import creditCard from '../components/Charts/PieChart/creditCard.json'; 
+import TimeScale from '../components/Charts/timeScale';
 
 
 export default class UserAnalyticsDashboard extends React.Component{
@@ -19,12 +20,15 @@ export default class UserAnalyticsDashboard extends React.Component{
 		}
 	}
 	
+	test(){console.log("!")}
+	
 	render(){
 		return (
 			<Provider store={this.state.store}>
 				<div>
 					<ContainerLabelTag/>
 					<ContainerPieChart/>
+					<TimeScale timeScaleChange={this.test}/>
 				</div>
 			</Provider>
 		)
