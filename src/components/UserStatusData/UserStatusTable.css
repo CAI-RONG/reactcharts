@@ -1,0 +1,19 @@
+.AutomaticPaymentButton{
+	padding-left: 4px;
+	padding-top: 0;
+	width: 20px;
+	height: 20px; 
+	margin-left: 7px;
+	border-radius: 50%;
+	background-color:white;
+	color: black ;
+	font-size: 10px;
+}
+
+
+.ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td{
+	background-color:#0b5b7c;
+	color: white;
+	border-right: 2px solid rgba(0,0,0,0.05);
+}
+

@@ -11,8 +11,8 @@ import Toolbar from '../components/Toolbar/Toolbar';
 import SideDrawer from '../components/SideDrawer/SideDrawer';
 import Backdrop from '../components/Backdrop/Backdrop';
 import PieChart from '../components/Charts/PieChart/PieChart';
-import Users from '../components/Charts/LineChart/Users';
-import Table2 from '../components/Table/Table2';
+import User from '../components/User/User';
+import Revenue from '../components/Revenue/Revenue';
 import UserAnalyticsDashboard from './userAnalyticsDashboard';
 
 
@@ -43,30 +43,33 @@ class App extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler}/>;
     }
     return (
-        <div className="App" style={{height:'100%'}}>
-          <Toolbar drawerClickHandler = {this.drawerToggleClickHandler}/>
-          <SideDrawer show={this.state.sideDrawerOpen}/>
-          {backdrop}
-          
-          <div class="container" style={{marginTop:'100px'}}>
-              <div className="row" >
-                <div className="col">
-                  <Route path="/" exact component={HomePage} />
-                  <Route path="/Users" exact component={Users} />  
-                  <Route path="/Table2" exact component={Table2} /> 
-                  <Route path="/Piechart" exact component={UserAnalyticsDashboard} />
 
-
-                </div>
-                <div className="col">  
-                </div>
+        <body class="nav-md">
+          <div class="container body">
+            <div class="main_container">
+            
+              <Toolbar drawerClickHandler = {this.drawerToggleClickHandler}/>
+              <SideDrawer show={this.state.sideDrawerOpen}/>
+              {backdrop}
               
+              <div style={{marginTop:'100px'}}>
+                  
+                <Route path="/" exact component={HomePage} />
+                <Route path="/User" exact component={User} />  
+                <Route path="/Revenue" exact component={Revenue} /> 
+                <Route path="/Piechart" exact component={UserAnalyticsDashboard} />
+                      
               </div>
-              <div>
-                 
-              </div> 
+              <footer>
+                <div class="pull-right">
+                  <a>Copyright &copy; 2018 PKLOT</a>
+                </div>
+                <div class="clearfix"></div>
+              </footer>
+            </div>
           </div>
-        </div>
+        </body>
+
     );
   }
 }
