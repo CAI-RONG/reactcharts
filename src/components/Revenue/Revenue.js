@@ -33,12 +33,8 @@ class Revenue extends React.Component{
 
               {/*-- top tiles --*/} 
               {/*-- /top tiles --*/}  
-           
-         
-
-                    <div><Gird title="路外停車" data={makeData.parkingLots}/> </div>
-                    <div><Gird title="路邊停車" data={makeData.parkingLots}/> </div>
-                
+              <div><Gird title="路外停車" data={makeData.parkingLots}/> </div>
+              <div><Gird title="路邊停車" data={makeData.parkingLots}/> </div>    
               </div>
             </div>
             {/*--/page content--*/}

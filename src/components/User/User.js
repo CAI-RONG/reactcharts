@@ -34,9 +34,9 @@ export default class User extends React.Component{
 					<LabelTag title="綁定用戶" value="8K" bgc="#40a880"/>
 				</div>
 				<LineChart data={data.value} name='a'/>
-				<div class="x_panel">
-					<UserStatusTable/>
-				</div>
+				
+				<UserStatusTable/>
+				
 			</div>
 		);
 	}
