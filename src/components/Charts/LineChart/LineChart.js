@@ -15,6 +15,11 @@ export default class LineChart extends React.Component{
 		this.drawChart();
 	}
 	
+	componentDidUpdate(){
+		this.drawChart();
+	}
+	
+	
 	showValue(sumOfData,dataAmount,svg,scaleX,scaleY,Color='#ff8400'){
 		const Height=this.state.height;
 		const Width=this.state.width;
@@ -73,8 +78,12 @@ export default class LineChart extends React.Component{
 			const valX=scaleX.invert(d3.mouse(this)[0]),
 					i=bisect(sumOfData,valX,1),
 					d0=sumOfData[i-1],
-					d1=sumOfData[i],
-					d=(valX-sumOfData.indexOf(d0))>(sumOfData.indexOf(d1)-valX)?d1:d0;
+					d1=sumOfData[i];
+			var d=0;
+			if(sumOfData.length>1)
+				d=(valX-sumOfData.indexOf(d0))>(sumOfData.indexOf(d1)-valX)?d1:d0;
+			else
+				d=d0;
 			
 			var selector=[];
 			selector.push(svg.selectAll('g.focus-total').attr('transform','translate('+scaleX(sumOfData.indexOf(d))+','+scaleY(d)+')'));
@@ -132,7 +141,7 @@ export default class LineChart extends React.Component{
 							.attr('fill','none')
 							.attr('transform','translate(40,30)');
 										
-			for(var j=0; j<Object.entries(data)[i][1].length;++j){				
+			for(var j=0; j<Object.entries(data)[i][1].value.length;++j){				
 				svg.append('circle').attr('cx',scaleX(j))
 									.attr('cy',scaleY(Object.entries(data)[i][1].value[j]))
 									.attr('r','3')
@@ -156,10 +165,9 @@ export default class LineChart extends React.Component{
 								.attr('transform','translate(40,30)')
 								.attr('fill','#ff8400');
 		
-		var date=[];
-		for(var i=0; i<sumOfData.length; ++i)
-			date.push(d3.timeFormat("%m/%d")(d3.timeParse("%Y-%m-%d")(Object.entries(data)[0][1].date[i])));
-		const axisX=d3.axisBottom(scaleX).tickFormat(function(d){return date[d]});
+		
+		const axisX=d3.axisBottom(scaleX).tickFormat(function(d){return Object.entries(data)[0][1].date[d]})
+					.ticks(Object.entries(data)[0][1].date.length-1==0?1:Object.entries(data)[0][1].date.length-1);
 		const axisY=d3.axisLeft(scaleY);
 		svg.select('#axisX').call(axisX).attr('stroke-width','2')
 										.attr('transform','translate(40,380)');
@@ -179,6 +187,8 @@ export default class LineChart extends React.Component{
 	
 	
 	render(){
+		d3.selectAll("svg#"+this.props.name+" path").remove();
+		d3.selectAll("circle").remove();
 		return (
 			<svg id={this.props.name}>
 				<g id='axisX'></g>

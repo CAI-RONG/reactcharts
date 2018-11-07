@@ -15,8 +15,7 @@ export default class TimeScale extends React.Component{
 		this.propTypes={
 			timeScaleChange:PropTypes.func.isRequired,
 			beginDateChange:PropTypes.func.isRequired,
-			endDateChange:PropTypes.func.isRequired,
-			test:PropTypes.string
+			endDateChange:PropTypes.func.isRequired
 		}
 	}
 	
@@ -25,12 +24,16 @@ export default class TimeScale extends React.Component{
 		switch(filter){
 			case 'day':
 				this.setState({dropdownTitle:'日'});
+				break;
 			case 'week':
 				this.setState({dropdownTitle:'週'});
+				break;
 			case 'month':
 				this.setState({dropdownTitle:'月'});
+				break;
 			case 'year':
 				this.setState({dropdownTitle:'年'});
+				break;
 		}
 		
 	}

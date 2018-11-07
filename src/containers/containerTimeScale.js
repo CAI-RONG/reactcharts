@@ -3,9 +3,7 @@ import TimeScale from '../components/Charts/timeScale';
 import {timeScaleFilter, beginDateFilter, endDateFilter} from '../redux/actions/userActions';
 
 const mapStateToProps=state=>{
-	return {
-		test:state.name
-	}
+	return {}
 }
 
 const mapDispatchToProps=dispatch=>{

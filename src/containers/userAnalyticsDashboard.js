@@ -19,7 +19,8 @@ export default class UserAnalyticsDashboard extends React.Component{
 										userData:userData.data,
 										name:'b',
 										title:'test',
-										value:123})
+										value:123,
+										timeScaleFilter:'week'})
 		}
 	}
 	
