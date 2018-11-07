@@ -1,11 +1,13 @@
 import React from 'react';
 import ContainerPieChart from './containerPieChart';
 import ContainerLabelTag from './containerLabelTag';
+import ContainerTimeScale from './containerTimeScale';
+import ContainerLineChart from './containerLineChart';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
-import creditCard from '../components/Charts/PieChart/creditCard.json'; 
-import TimeScale from '../components/Charts/timeScale';
+import creditCard from '../components/Charts/PieChart/creditCard.json';
+import userData from '../components/Charts/LineChart/data.json';
 
 
 export default class UserAnalyticsDashboard extends React.Component{
@@ -14,13 +16,12 @@ export default class UserAnalyticsDashboard extends React.Component{
 		this.state={
 			store:createStore(reducer,{color:'#0090c0',
 										data:creditCard.data,
+										userData:userData.data,
 										name:'b',
 										title:'test',
 										value:123})
 		}
 	}
-	
-	test(){console.log("!")}
 	
 	render(){
 		return (
@@ -28,7 +29,8 @@ export default class UserAnalyticsDashboard extends React.Component{
 				<div>
 					<ContainerLabelTag/>
 					<ContainerPieChart/>
-					<TimeScale timeScaleChange={this.test}/>
+					<ContainerTimeScale/>
+					<ContainerLineChart/>
 				</div>
 			</Provider>
 		)

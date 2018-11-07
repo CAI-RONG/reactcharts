@@ -14,10 +14,16 @@ export const timeScaleFilter=filter=>{
 	}
 }
 
-export const dateFilter=(begin,end)=>{
+export const beginDateFilter=(begin)=>{
 	return {
-		type:"DATE_FILTER",
-		begin,
+		type:"BEGINDATE_FILTER",
+		begin
+	}
+}
+
+export const endDateFilter=(end)=>{
+	return {
+		type:"ENDDATE_FILTER",
 		end
 	}
 }

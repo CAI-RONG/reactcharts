@@ -48,7 +48,7 @@ class App extends Component {
           <SideDrawer show={this.state.sideDrawerOpen}/>
           {backdrop}
           
-          <div class="container" style={{marginTop:'100px'}}>
+          <div className="container" style={{marginTop:'100px'}}>
               <div className="row" >
                 <div className="col">
                   <Route path="/" exact component={HomePage} />
