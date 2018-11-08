@@ -10,3 +10,8 @@
     font-size: 0.81rem;
     margin: 0.375rem;
 }
+
+
+.ReactTable .rt-thead .rt-tr {
+    text-align: left;
+}

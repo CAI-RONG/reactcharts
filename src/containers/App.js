@@ -47,13 +47,11 @@ class App extends Component {
         <body class="nav-md">
           <div class="container body">
             <div class="main_container">
-            
               <Toolbar drawerClickHandler = {this.drawerToggleClickHandler}/>
               <SideDrawer show={this.state.sideDrawerOpen}/>
               {backdrop}
               
-              <div style={{marginTop:'100px'}}>
-                  
+              <div class="right_col" role="main" style={{marginTop:'100px'}}>
                 <Route path="/" exact component={HomePage} />
                 <Route path="/User" exact component={User} />  
                 <Route path="/Revenue" exact component={Revenue} /> 

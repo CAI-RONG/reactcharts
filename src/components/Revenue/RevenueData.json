@@ -1,203 +1,462 @@
 {
-	"parkingLots": [
-	{
-		"Operator": "嘟嘟房",
-		"Orders":[6725,3861,2197,7702,8487,9689,6743,5016,387,1807,8037,9407],
-		"LastOrder": 1225,
-		"CurrentOrder": 1214,
-		"ParkingLot": "內湖洲子站",
-		"OrderAmount":1527
-	},
-	{
-		"Operator": "嘟嘟房",
-		"Orders":[2880,6799,1322,4120,9874,2816,4264,9090,8821,2780,3519,73],		
-		"LastOrder": 1235,
-		"CurrentOrder": 1451,
-		"ParkingLot": "市政惠中站",
-		"OrderAmount":1464
-	},
-	{
-		"Operator": "嘟嘟房",
-		"LastOrder": 1235,
-		"CurrentOrder": 1451,
-		"ParkingLot": "忠孝復興一站",
-		"OrderAmount":1256
-	},
-	{
-		"Operator": "嘟嘟房",
-		"LastOrder": 1235,
-		"CurrentOrder": 1451,
-		"ParkingLot": "嘉義民雄站",
-		"OrderAmount":1357
-	},
-	{
-		"Operator": "嘟嘟房",
-		"LastOrder": 1235,
-		"CurrentOrder": 1451,
-		"ParkingLot": "板橋巨蛋站",
-		"OrderAmount":5235
-	},
-	{
-		"Operator": "嘟嘟房",
-		"LastOrder": 1235,
-		"CurrentOrder": 1451,
-		"ParkingLot": "建國民權站",
-		"OrderAmount":1327
-	},
-	{
-		"Operator": "便利停車場",
-		"LastOrder": 365,
-		"CurrentOrder": 331,
-		"ParkingLot": "便利停車場潭美站",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "便利停車場",
-		"LastOrder": 365,
-		"CurrentOrder": 321,
-		"ParkingLot": "湯城三期停車場",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "便利停車場",
-		"LastOrder": 365,
-		"CurrentOrder": 371,
-		"ParkingLot": "便利停車場龍江站",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "便利停車場",
-		"LastOrder": 365,
-		"CurrentOrder": 317,
-		"ParkingLot": "便利停車場瑞光站",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "TIMES",
-		"LastOrder": 365,
-		"CurrentOrder": 381,
-		"ParkingLot": "Times台中五權七街停車場",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "TIMES",
-		"LastOrder": 365,
-		"CurrentOrder": 392,
-		"ParkingLot": "Times台中大英街停車場",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "TIMES",
-		"LastOrder": 365,
-		"CurrentOrder": 354,
-		"ParkingLot": "Times三峽大學路停車場",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "TIMES",
-		"LastOrder": 365,
-		"CurrentOrder": 345,
-		"ParkingLot": "Times北寧路停車場",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "TIMES",
-		"LastOrder": 365,
-		"CurrentOrder": 323,
-		"ParkingLot": "Times蘆洲長樂路第3停車場",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "TIMES",
-		"LastOrder": 365,
-		"CurrentOrder": 335,
-		"ParkingLot": "Times台南U.I.J HOTEL & Hostel",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "TIMES",
-		"LastOrder": 365,
-		"CurrentOrder": 315,
-		"ParkingLot": "Times桃園復興路停車場",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "TIMES",
-		"LastOrder": 365,
-		"CurrentOrder": 367,
-		"ParkingLot": "Times中山南京停車場",
-		"OrderAmount":327
-	},
-	{
-		"Operator": "台灣聯通",
-		"LastOrder": 655,
-		"CurrentOrder": 125,
-		"ParkingLot": "勤美誠品站",
-		"OrderAmount":247
-	},
-	{
-		"Operator": "台灣聯通",
-		"LastOrder": 655,
-		"CurrentOrder": 125,
-		"ParkingLot": "台灣聯通永科停六場",
-		"Orders":455,
-		"OrderAmount":247
-	},
-	{
-		"Operator": "台灣聯通",
-		"LastOrder": 655,
-		"CurrentOrder": 125,
-		"ParkingLot": "台南大東場",
-		"OrderAmount":247
-	},
-	{
-		"Operator": "台灣聯通",
-		"LastOrder": 655,
-		"CurrentOrder": 125,
-		"ParkingLot": "台灣聯通后里文明場",
-		"OrderAmount":247
-	},
-	{
-		"Operator": "台灣聯通",
-		"LastOrder": 655,
-		"CurrentOrder": 125,
-		"ParkingLot": "台灣聯通昌隆場",
-		"OrderAmount":247
-	},
-	{
-		"Operator": "台灣聯通",
-		"LastOrder": 655,
-		"CurrentOrder": 125,
-		"ParkingLot": "台灣聯通永科東路場",
-		"OrderAmount":247
-	},
-	{
-		"Operator": "台灣聯通",
-		"LastOrder": 655,
-		"CurrentOrder": 125,
-		"ParkingLot": "中壢九和場",
-		"OrderAmount":247
-	},
-	{
-		"Operator": "俥亭停車",
-		"LastOrder": 355,
-		"CurrentOrder": 1145,
-		"ParkingLot": "俥亭海山站",
-		"OrderAmount":1247
-	},
-	{
-		"Operator": "俥亭停車",
-		"LastOrder": 355,
-		"CurrentOrder": 1145,
-		"ParkingLot": "日月亭五妃廟停車場",
-		"OrderAmount":1247
-	},
-	{
-		"Operator": "俥亭停車",
-		"LastOrder": 355,
-		"CurrentOrder": 1145,
-		"ParkingLot": "南雅西路場",
-		"OrderAmount":1247
-	}
+	"revenueData": [
+		{
+			"Operator": "嘟嘟房",
+			"PKLots":[
+				{
+					"name":"內湖洲子站",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				},
+				{
+					"name": "市政惠中站",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				},
+				{
+					"name":"忠孝復興一站",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				},
+				{
+					"name": "嘉義民雄站",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				}
+
+			]
+		},
+		{
+			"Operator": "便利停車場",
+			"PKLots":[
+				{
+					"name":"潭美站",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				},
+				{
+					"name": "湯城三期停車場",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				},
+				{
+					"name":"便利停車場龍江站",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				}
+
+			]
+		},
+		{
+			"Operator": "TIMES",
+			"PKLots":[
+				{
+					"name":"Times台中五權七街停車場",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				},
+				{
+					"name": "Times台中大英街停車場",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				},
+				{
+					"name":"Times三峽大學路停車場",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				},
+				{
+					"name": "嘉義民雄站",
+					"transactions":[
+						{
+							"date":"2018-11-01",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-02",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-03",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-04",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-05",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-06",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						}
+					]
+				}
+
+			]
+		}
 	]
 }

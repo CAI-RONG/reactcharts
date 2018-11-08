@@ -10,76 +10,118 @@ import './Revenue.css';
 const columns = [
   { 
     Header: '業者',
-    columns: [
-      { 
-        Header: '業者',
-        accessor: 'Operator',
-        sortable: false,
-        width: 180
-      },
-      {
-         Header: '停車場',
-         accessor: 'ParkingLot',
-         sortable: false,
-         width: 180,
-         Aggregated: <span></span>
-      }
-    ]
+    accessor: 'Operator',
+    sortable: false,
+    width:200
+
   },
   { 
     Header: '訂單數量',
-    columns: [
+    headerStyle: {backgroundColor: "#118fc3"},
+     columns: [
       { 
         Header: '上期',
         accessor: 'Orders[0]',
+        headerStyle: {backgroundColor: "#118fc3"},
         aggregate: (vals) => _.sum(vals),
-        width: 80
+        width:80
       },
       { 
         Header: '本期',
         accessor: 'Orders[1]',
+        headerStyle: {backgroundColor: "#118fc3"},
         aggregate: (vals) => _.sum(vals),
-        width: 100
+        width:80
+     
       },
       { 
-        Header: '本期-上期',
+        Header: '差異',
         id:'diff',
-        width: 120,
+        headerStyle: {backgroundColor: "#118fc3"},
         accessor: d => _.round(d.CurrentOrder - d.LastOrder),
         aggregate: (vals, rows) => {
               const total_CurrentOrder = _.sumBy(rows, 'CurrentOrder')
               const total_LastOrder = _.sumBy(rows, 'LastOrder')
               return _.round(total_CurrentOrder - total_LastOrder)
             },
-        Cell: row => <span>{row.value}</span>
+        Cell: row => <span>{row.value}</span>,
+        width:80
       },
       { 
-        Header: '（本期-上期）/上期',
-        width: 180,
+        Header: '％',
         id:'Ratio',
+        headerStyle: {backgroundColor: "#118fc3"},
         accessor: d => _.round(((d.CurrentOrder - d.LastOrder)/d.LastOrder)*10000)/100,
         aggregate: (vals, rows) => {
               const total_CurrentOrder = _.sumBy(rows, 'CurrentOrder')
               const total_LastOrder = _.sumBy(rows, 'LastOrder')              
               return _.round(((total_CurrentOrder - total_LastOrder)/total_LastOrder)*10000)/100
             },
-        Cell: row => <span>{row.value}%</span>
+        Cell: row => <span>{row.value}%</span>,
+        width:80
       }
     ]
   },
-  { 
+  {
     Header: '訂單金額',
+    headerStyle: {backgroundColor: "#118fc3"},
     columns: [
       { 
-        Header: '訂單金額',
-        accessor: 'OrderAmount',
-        aggregate: vals => _.sum(vals)
+        Header: '上期',
+        accessor: 'OrderAmount[0]',
+        headerStyle: {backgroundColor: "#118fc3"},
+        aggregate: (vals) => _.sum(vals),
+        width:80
+     
+      },
+      { 
+        Header: '本期',
+        accessor: 'OrderAmount[1]',
+        headerStyle: {backgroundColor: "#118fc3"},
+        aggregate: (vals) => _.sum(vals),
+        width:80
+      },
+      { 
+        Header: '差異',
+        id:'diff',
+        headerStyle: {backgroundColor: "#118fc3"},
+        accessor: d => _.round(d.CurrentOrder - d.LastOrder),
+        aggregate: (vals, rows) => {
+              const total_CurrentOrder = _.sumBy(rows, 'CurrentOrder')
+              const total_LastOrder = _.sumBy(rows, 'LastOrder')
+              return _.round(total_CurrentOrder - total_LastOrder)
+            },
+        Cell: row => <span>{row.value}</span>,
+        width:80
+      },
+      { 
+        Header: '％',
+        id:'Ratio',
+        headerStyle: {  backgroundColor: "#118fc3"},
+        accessor: d => _.round(((d.CurrentOrder - d.LastOrder)/d.LastOrder)*10000)/100,
+        aggregate: (vals, rows) => {
+              const total_CurrentOrder = _.sumBy(rows, 'CurrentOrder')
+              const total_LastOrder = _.sumBy(rows, 'LastOrder')              
+              return _.round(((total_CurrentOrder - total_LastOrder)/total_LastOrder)*10000)/100
+            },
+        Cell: row => <span>{row.value}%</span>,
+        width:80
       }
-      ]
+    ]
   },
   {
-    id: "updatedAt",
-    Header: "updatedAt"
+    Header: "Actions",
+    id: "Actions",
+    Cell: row => 
+      ( <span class="align-center">
+        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#pklot-chart">
+          <i class="fas fa-chart-area"/>
+        </a> 
+        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#pklot-list">
+          <i class="fas fa-table"/>
+        </a>
+      </span>
+      ),
   }
 ];
 
@@ -92,7 +134,6 @@ class Grid extends React.Component{
       data:PropTypes.array.isRequired,
       title:PropTypes.string
     }
-
     this.reactTable = null;
   }
 
@@ -107,10 +148,11 @@ class Grid extends React.Component{
               </div>
               <div class="row x_content">
                 <ReactTable
+                  class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right" 
+                  style={{cellspacing:0,  width:"100%"}}
                   data={this.props.data} 
                   columns={columns}
                   defaultPageSize={10}
-                  pivotBy={["Operator"]}
                   pageSize={this.props.pageSize}
                   className="-striped -highlight"
                 >            
