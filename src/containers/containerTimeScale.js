@@ -1,9 +1,15 @@
 import {connect} from 'react-redux';
 import TimeScale from '../components/Charts/timeScale';
 import {timeScaleFilter, beginDateFilter, endDateFilter} from '../redux/actions/userActions';
+import * as d3 from 'd3';
 
 const mapStateToProps=state=>{
-	return {}
+	const firstDay=d3.timeParse("%Y-%m-%d")(state.userData.iosData[0].date);
+	const lastDay=d3.timeParse("%Y-%m-%d")(state.userData.iosData[state.userData.iosData.length-1].date);
+	return {
+		dateOfFirstData:firstDay,
+		dateOfLastData:lastDay
+	}
 }
 
 const mapDispatchToProps=dispatch=>{
