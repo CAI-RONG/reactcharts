@@ -4,15 +4,14 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { ReactTableDefaults } from 'react-table';
 import _ from 'lodash';
-import './Revenue.css';
+import '../components/Revenue/Revenue.css';
 
-import makeData from './RevenueData.json';
-import Gird from "./Gird";
+import makeData from '../components/Revenue/RevenueData.json';
+import Gird from "../components/Revenue/Gird";
  
 
 class Revenue extends React.Component{
 	render(){
-
     	return (
         <div> 
           <div>

@@ -12,9 +12,9 @@ import SideDrawer from '../components/SideDrawer/SideDrawer';
 import Backdrop from '../components/Backdrop/Backdrop';
 import PieChart from '../components/Charts/PieChart/PieChart';
 import User from '../components/User/User';
-import Revenue from '../components/Revenue/Revenue';
+import Revenue from './RevenueAnalyticsDashboard';
 import UserAnalyticsDashboard from './userAnalyticsDashboard';
-
+import RevenueAnalyticsDashboard from './RevenueAnalyticsDashboard'
 
 class App extends Component {
   constructor(){
@@ -54,9 +54,8 @@ class App extends Component {
               <div class="right_col" role="main" style={{marginTop:'100px'}}>
                 <Route path="/" exact component={HomePage} />
                 <Route path="/User" exact component={User} />  
-                <Route path="/Revenue" exact component={Revenue} /> 
-                <Route path="/Piechart" exact component={UserAnalyticsDashboard} />
-                      
+                <Route path="/Revenue" exact component={RevenueAnalyticsDashboard} /> 
+                <Route path="/Piechart" exact component={UserAnalyticsDashboard} />    
               </div>
               <footer>
                 <div class="pull-right">

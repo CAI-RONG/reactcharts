@@ -24,8 +24,8 @@ const SideDrawer = props => {
 			  	<div class="menu_section">
 				    <ul class="nav side-menu">
 				    	<br/>
-				    	<Link to="/User"><i class="fas fa-user"></i>User</Link>
-		           		<Link to="/Revenue"><i class="fas fa-chart-line"></i>Revenue</Link>
+				    	<Link to="/User" ><i class="fas fa-user"/><span style={{margin:"5px"}}/>User</Link>
+		           		<Link to="/Revenue" ><i class="fas fa-chart-line"/><span style={{margin:"5px"}}/>Revenue</Link>
 			 			<Link to="Piechart">Piechart</Link>
 		    		</ul>
 			 	</div>

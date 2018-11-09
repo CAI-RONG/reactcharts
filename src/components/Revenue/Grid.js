@@ -4,35 +4,43 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import PropTypes from 'prop-types';
 import { ReactTableDefaults } from 'react-table';
-import _ from 'lodash';
 import './Revenue.css';
+import _ from 'lodash';
+
+
 
 const columns = [
   { 
     Header: '業者',
     accessor: 'Operator',
     sortable: false,
-    width:200
-
+    width:200,
+  
   },
   { 
     Header: '訂單數量',
     headerStyle: {backgroundColor: "#118fc3"},
-     columns: [
+    columns: [
       { 
         Header: '上期',
-        accessor: 'Orders[0]',
+        id: 'LastAmount',
+        
         headerStyle: {backgroundColor: "#118fc3"},
-        aggregate: (vals) => _.sum(vals),
-        width:80
+        width:80,
+        accessor: row => {
+          let i=0   /*i is the PKLots*/
+          let total_transactionAmount = _.sumBy(row.PKLots[i].transactions,'transactionAmount')
+          //return (`${row.PKLots[i].transactions[i].transactionAmount}`)
+          return total_transactionAmount
+        }
       },
       { 
         Header: '本期',
-        accessor: 'Orders[1]',
+        id: 'CurrentAmount',
+        accessor: d => d.PKLots[0].transactions[0].transactionAmount,
         headerStyle: {backgroundColor: "#118fc3"},
-        aggregate: (vals) => _.sum(vals),
         width:80
-     
+
       },
       { 
         Header: '差異',
@@ -51,11 +59,11 @@ const columns = [
         Header: '％',
         id:'Ratio',
         headerStyle: {backgroundColor: "#118fc3"},
-        accessor: d => _.round(((d.CurrentOrder - d.LastOrder)/d.LastOrder)*10000)/100,
+        accessor: d => _.round(((d.CurrentAmount - d.LastAmount)/d.LastAmount)*10000)/100,
         aggregate: (vals, rows) => {
-              const total_CurrentOrder = _.sumBy(rows, 'CurrentOrder')
-              const total_LastOrder = _.sumBy(rows, 'LastOrder')              
-              return _.round(((total_CurrentOrder - total_LastOrder)/total_LastOrder)*10000)/100
+              const total_CurrentAmount = _.sumBy(rows, 'CurrentAmount')
+              const total_LastAmount = _.sumBy(rows, 'LastAmount')              
+              return _.round(((total_CurrentAmount - total_LastAmount)/total_LastAmount)*10000)/100
             },
         Cell: row => <span>{row.value}%</span>,
         width:80
@@ -68,7 +76,8 @@ const columns = [
     columns: [
       { 
         Header: '上期',
-        accessor: 'OrderAmount[0]',
+        id: 'LastValue',
+        accessor: 'PKLots[0].transactions[0].transactionValue',
         headerStyle: {backgroundColor: "#118fc3"},
         aggregate: (vals) => _.sum(vals),
         width:80
@@ -76,7 +85,8 @@ const columns = [
       },
       { 
         Header: '本期',
-        accessor: 'OrderAmount[1]',
+        id: 'CurrentValue',
+        accessor: 'PKLots[0].transactions[1].transactionValue',
         headerStyle: {backgroundColor: "#118fc3"},
         aggregate: (vals) => _.sum(vals),
         width:80
@@ -85,11 +95,11 @@ const columns = [
         Header: '差異',
         id:'diff',
         headerStyle: {backgroundColor: "#118fc3"},
-        accessor: d => _.round(d.CurrentOrder - d.LastOrder),
+        accessor: d => _.round(d.CurrentValue - d.LastValue),
         aggregate: (vals, rows) => {
-              const total_CurrentOrder = _.sumBy(rows, 'CurrentOrder')
-              const total_LastOrder = _.sumBy(rows, 'LastOrder')
-              return _.round(total_CurrentOrder - total_LastOrder)
+              const total_CurrentValue = _.sumBy(rows, 'CurrentValue')
+              const total_LastValue = _.sumBy(rows, 'LastValue')
+              return _.round(total_CurrentValue - total_LastValue)
             },
         Cell: row => <span>{row.value}</span>,
         width:80
@@ -112,33 +122,34 @@ const columns = [
   {
     Header: "Actions",
     id: "Actions",
+
     Cell: row => 
-      ( <span class="align-center">
-        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#pklot-chart">
-          <i class="fas fa-chart-area"/>
-        </a> 
-        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#pklot-list">
-          <i class="fas fa-table"/>
-        </a>
+      ( 
+        <span class="align-center">        
+          <button class="btn btn-sm btn-primary"><i class="fas fa-chart-area"/></button> 
+          <button class="btn btn-sm btn-primary"><i class="fas fa-table"/></button>
       </span>
-      ),
+
+      )
   }
 ];
-
 
 class Grid extends React.Component{
   constructor(props) { 
     super(props);
-
     this.propTypes={
       data:PropTypes.array.isRequired,
       title:PropTypes.string
     }
     this.reactTable = null;
   }
+  
+  handleNormal(event) {
+    alert('Normal Event');
+  }
 
   render(){
-      return (
+    return (
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -155,7 +166,19 @@ class Grid extends React.Component{
                   defaultPageSize={10}
                   pageSize={this.props.pageSize}
                   className="-striped -highlight"
-                >            
+                > 
+                {/*(state, makeTable, instance) => {
+                              return (
+                                <div>
+                                  <JSONTree
+                                    data={Object.assign({}, state, {children: 'function () {...}'})}
+                                    theme={JSONtheme}
+                                    invertTheme
+                                  />
+                                  {makeTable()}
+                                </div>
+                              )
+                            }*/}           
                 </ReactTable>
               </div> 
               
@@ -164,7 +187,6 @@ class Grid extends React.Component{
         </div> 
       )
   };
-
 };
 
 export default Grid;
