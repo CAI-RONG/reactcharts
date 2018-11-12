@@ -9,16 +9,16 @@ export default class LineChart extends React.Component{
 			'width':525,
 			'height':350
 		};
-		
-		this.propTypes={
-			data:PropTypes.array.isRequired,
-			name:PropTypes.string
-		}
 	}
 	
 	componentDidMount(){
 		this.drawChart();
 	}
+	
+	componentDidUpdate(){
+		this.drawChart();
+	}
+	
 	
 	showValue(sumOfData,dataAmount,svg,scaleX,scaleY,Color='#ff8400'){
 		const Height=this.state.height;
@@ -29,18 +29,18 @@ export default class LineChart extends React.Component{
 		
 		focus.append('line').attr('class','x-hover-line-total')
 							.attr('stroke',Color)
-							.attr('transform','translate(25,25)')
+							.attr('transform','translate(40,30)')
 							.attr('y1','0')
 							.attr('y2',Height);
 		focus.append('line').attr('class','y-hover-line-total')
 							.attr('x1',Width)
 							.attr('x2',Width);
 		focus.append('text').attr('class','text-total')
-							.attr('x','16')
-							.attr('dy','0.3em');
+							.attr('x','25')
+							.attr('dy','1em');
 		
 		svg.append('rect').attr('class','rect-total')
-							.attr('transform','translate(25,25)')
+							.attr('transform','translate(40,30)')
 							.attr('fill','none')
 							.attr('pointer-events','all')
 							.attr('width',Width)
@@ -56,15 +56,15 @@ export default class LineChart extends React.Component{
 		
 			focus.append('line').attr('class','x-hover-line-'+data[n][0])
 								.attr('stroke',Color)
-								.attr('transform','translate(25,25)')
+								.attr('transform','translate(40,30)')
 								.attr('y1','0')
 								.attr('y2',Height);
 			focus.append('line').attr('class','y-hover-line-'+data[n][0])
 								.attr('x1',Width)
 								.attr('x2',Width);
 			focus.append('text').attr('class','text-'+data[n][0])
-								.attr('x','36')
-								.attr('dy','2em');
+								.attr('x','45')
+								.attr('dy','3.5em');
 		}
 		
 		focus=svg.select('g.focus-total');
@@ -75,23 +75,27 @@ export default class LineChart extends React.Component{
 		const bisect = d3.bisector(function(d) { return sumOfData.indexOf(d);}).left;
 		
 		function move(){
-			const valX=scaleX.invert(d3.mouse(this)[0])-1,
+			const valX=scaleX.invert(d3.mouse(this)[0]),
 					i=bisect(sumOfData,valX,1),
 					d0=sumOfData[i-1],
-					d1=sumOfData[i],
-					d=(valX-sumOfData.indexOf(d0))>(sumOfData.indexOf(d1)-valX)?d1:d0;
+					d1=sumOfData[i];
+			var d=0;
+			if(sumOfData.length>1)
+				d=(valX-sumOfData.indexOf(d0))>(sumOfData.indexOf(d1)-valX)?d1:d0;
+			else
+				d=d0;
 			
 			var selector=[];
-			selector.push(svg.selectAll('g.focus-total').attr('transform','translate('+scaleX(sumOfData.indexOf(d)+1)+','+scaleY(d)+')'));
+			selector.push(svg.selectAll('g.focus-total').attr('transform','translate('+scaleX(sumOfData.indexOf(d))+','+scaleY(d)+')'));
 			selector[0].select('text.text-total').text(function(){return d;});
 			selector[0].select('line.x-hover-line-total').attr('y2',Height-scaleY(d));
 			selector[0].select('line.y-hover-line-total').attr('x2',Width+Width);
 			
 			for(var n=0; n<dataAmount; ++n)
 			{
-				selector[n+1]=svg.selectAll('g.focus-'+data[n][0]).attr('transform','translate('+scaleX(sumOfData.indexOf(d)+1)+','+scaleY(data[n][1][sumOfData.indexOf(d)])+')');
-				selector[n+1].select('text.text-'+data[n][0]).text(function(){return data[n][1][sumOfData.indexOf(d)]});
-				selector[n+1].select('line.x-hover-line-'+data[n][0]).attr('y2',Height-scaleY(data[n][1][sumOfData.indexOf(d)]));
+				selector[n+1]=svg.selectAll('g.focus-'+data[n][0]).attr('transform','translate('+scaleX(sumOfData.indexOf(d))+','+scaleY(data[n][1].value[sumOfData.indexOf(d)])+')');
+				selector[n+1].select('text.text-'+data[n][0]).text(function(){return data[n][1].value[sumOfData.indexOf(d)]});
+				selector[n+1].select('line.x-hover-line-'+data[n][0]).attr('y2',Height-scaleY(data[n][1].value[sumOfData.indexOf(d)]));
 				selector[n+1].select('line.y-hover-line-'+data[n][0]).attr('x2',Width+Width);
 			}
 		}
@@ -104,13 +108,13 @@ export default class LineChart extends React.Component{
 		const svg=d3.select('svg#'+this.props.name).attr('width',600)
 													.attr('height',400);
 												
-		var dataWidthDomain=Object.entries(data)[0][1].length;
-		var sumOfData=Object.entries(data)[0][1].slice();
+		var dataWidthDomain=Object.entries(data)[0][1].value.length;
+		var sumOfData=Object.entries(data)[0][1].value.slice();
 		
 		if(dataAmount>1){
 			var currentData={};
 			for(var i=1;i<dataAmount;++i){
-				currentData=Object.entries(data)[i][1];
+				currentData=Object.entries(data)[i][1].value;
 				if(currentData.length>dataWidthDomain)
 					dataWidthDomain=currentData.length;
 				for(var j=0;j<currentData.length;++j)
@@ -119,7 +123,7 @@ export default class LineChart extends React.Component{
 		}
 		
 		const scaleX=d3.scaleLinear()
-					.domain([0,dataWidthDomain])
+					.domain([0,dataWidthDomain-1])
 					.range([0,this.state.width]);
 	
 		const scaleY=d3.scaleLinear()
@@ -127,21 +131,21 @@ export default class LineChart extends React.Component{
 					.range([this.state.height,0]);		
 		
 		const line=d3.line()
-					.x(function(d,i){return scaleX(i+1);})
+					.x(function(d,i){return scaleX(i);})
 					.y(function(d,i){return scaleY(d);});
 		
 		
 		for(var i=0;i<dataAmount;++i){
-			svg.append('g').append('path').attr('d',line(Object.entries(data)[i][1]))
+			svg.append('g').append('path').attr('d',line(Object.entries(data)[i][1].value))
 							.attr('stroke',color[i%4])
 							.attr('fill','none')
-							.attr('transform','translate(25,25)');
+							.attr('transform','translate(40,30)');
 										
-			for(var j=0; j<Object.entries(data)[i][1].length;++j){				
-				svg.append('circle').attr('cx',scaleX(j+1))
-									.attr('cy',scaleY(Object.entries(data)[i][1][j]))
+			for(var j=0; j<Object.entries(data)[i][1].value.length;++j){				
+				svg.append('circle').attr('cx',scaleX(j))
+									.attr('cy',scaleY(Object.entries(data)[i][1].value[j]))
 									.attr('r','3')
-									.attr('transform','translate(25,25)')
+									.attr('transform','translate(40,30)')
 									.attr('fill',color[i%4]);
 			}
 		}
@@ -150,37 +154,41 @@ export default class LineChart extends React.Component{
 						.attr('stroke','#ff8400')
 						.attr('stroke-width','2.5')
 						.attr('fill','none')
-						.attr('transform','translate(25,25)');
+						.attr('transform','translate(40,30)');
 						
 		this.showValue(sumOfData,dataAmount,svg,scaleX,scaleY,'#ff8400');
 						
 		for(var i=0; i<sumOfData.length;++i)
-			svg.append('circle').attr('cx',scaleX(i+1))
+			svg.append('circle').attr('cx',scaleX(i))
 								.attr('cy',scaleY(sumOfData[i]))
 								.attr('r','4')
-								.attr('transform','translate(25,25)')
+								.attr('transform','translate(40,30)')
 								.attr('fill','#ff8400');
-
-		const axisX=d3.axisBottom(scaleX);
+		
+		
+		const axisX=d3.axisBottom(scaleX).tickFormat(function(d){return Object.entries(data)[0][1].date[d]})
+					.ticks(Object.entries(data)[0][1].date.length-1==0?1:Object.entries(data)[0][1].date.length-1);
 		const axisY=d3.axisLeft(scaleY);
 		svg.select('#axisX').call(axisX).attr('stroke-width','2')
-										.attr('transform','translate(25,375)');
+										.attr('transform','translate(40,380)');
 		svg.select('#axisY').call(axisY).attr('stroke-width','2')
-										.attr('transform','translate(25,25)');
+										.attr('transform','translate(40,30)');
 		const gridX=d3.axisBottom(scaleX).tickFormat("").tickSize(-this.state.height,0);
 		const gridY=d3.axisLeft(scaleY).tickFormat("").tickSize(-this.state.width,0);
 		svg.select('#gridX').call(gridX)
 							.attr('fill','none')
 							.attr('stroke-width','0.2')
-							.attr('transform','translate(25,375)');
+							.attr('transform','translate(40,380)');
 		svg.select('#gridY').call(gridY)
 							.attr('fill','none')
 							.attr('stroke-width','0.2')
-							.attr('transform','translate(25,25)');
+							.attr('transform','translate(40,30)');
 	}
 	
 	
 	render(){
+		d3.selectAll("svg#"+this.props.name+" path").remove();
+		d3.selectAll("circle").remove();
 		return (
 			<svg id={this.props.name}>
 				<g id='axisX'></g>
@@ -190,4 +198,9 @@ export default class LineChart extends React.Component{
 			</svg>
 		);
 	}
+}
+
+LineChart.propTypes={
+	data:PropTypes.object.isRequired,
+	name:PropTypes.string
 }
