@@ -10,6 +10,7 @@ import GridContainer from "./GridContainer";
 
 
 
+
 class RevenueAnalyticsDashboard extends React.Component{
   constructor(){
     super();
@@ -18,6 +19,7 @@ class RevenueAnalyticsDashboard extends React.Component{
         {
           data: makeData.revenueData,
           title: '路外停車'
+          
         })
     }
   }

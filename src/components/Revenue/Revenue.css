@@ -15,3 +15,9 @@
 .ReactTable .rt-thead .rt-tr {
     text-align: left;
 }
+
+.rt-th{
+	background-color: #0b5b7c;
+	color: #ECF0F1;
+
+}
