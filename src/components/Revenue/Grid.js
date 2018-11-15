@@ -7,6 +7,7 @@ import { ReactTableDefaults } from 'react-table';
 import './Revenue.css';
 import _ from 'lodash';
 import OperatorTransactionAnalytics from './OperatorTransactionAnalytics';
+import PKLotsTransactionAnalytics from './PKLotsTransactionAnalytics';
 
 class Grid extends React.Component{
   constructor(props) { 
@@ -138,14 +139,37 @@ class Grid extends React.Component{
       {
         Header: "Actions",
         id: "Actions",
-        expander: true,
-        Expander: ({ isExpanded, ...rest }) =>
+
+        columns: [
+        {
+          expander: true,
+          Expander: ({ isExpanded, ...rest }) =>
           {
             return (
-              <OperatorTransactionAnalytics/>
+              <OperatorTransactionAnalytics 
+                Operator={rest.original.Operator}
+                data ={rest.original}
+                />
             );
           },
-        width:200
+          
+          width:100
+        },
+        {
+          expander: true,
+          Expander: ({ isExpanded, ...rest }) =>
+          {
+            return (
+              <PKLotsTransactionAnalytics 
+                Operator={rest.original.Operator}
+                data ={rest.original}
+                />
+            );
+          },
+          width:100
+        }
+        ]
+        
       }
     ];
     
@@ -167,7 +191,14 @@ class Grid extends React.Component{
                   defaultPageSize={10}
                   pageSize={this.props.pageSize}
                   className="-striped -highlight"
-                >  
+
+                  onExpandedChange={(expanded, index, event) => {
+                    this.setState({expanded});            
+                  }}
+                 
+                 
+                >
+
                 </ReactTable>
               
               </div> 

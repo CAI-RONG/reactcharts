@@ -7,6 +7,11 @@
 					"name":"內湖洲子站",
 					"transactions":[
 						{
+							"date":"2018-10-31",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
 							"date":"2018-11-01",
 							"transactionAmount":7560,
 							"transactionValue":218424
@@ -38,6 +43,121 @@
 						},
 						{
 							"date":"2018-11-07",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-08",
+							"transactionAmount":7560,
+							"transactionValue":218424
+						},
+						{
+							"date":"2018-11-09",
+							"transactionAmount":7570,
+							"transactionValue":218724
+						},
+						{
+							"date":"2018-11-10",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-11",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-12",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-13",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-14",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-15",
+							"transactionAmount":7580,
+							"transactionValue":218924
+						},
+						{
+							"date":"2018-11-16",
+							"transactionAmount":7590,
+							"transactionValue":219024
+						},
+						{
+							"date":"2018-11-17",
+							"transactionAmount":7600,
+							"transactionValue":219324
+						},
+						{
+							"date":"2018-11-18",
+							"transactionAmount":7610,
+							"transactionValue":219524
+						},
+						{
+							"date":"2018-11-19",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-20",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-21",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-22",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-23",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-24",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-25",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-26",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-27",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-28",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-29",
+							"transactionAmount":7620,
+							"transactionValue":219824
+						},
+						{
+							"date":"2018-11-30",
 							"transactionAmount":7620,
 							"transactionValue":219824
 						}

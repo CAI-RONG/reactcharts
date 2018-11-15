@@ -18,7 +18,7 @@ const customStyles = {
   }
 };
 
-class OperatorTransactionAnalytics extends React.Component {
+class PKLotsTransactionAnalytics extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -44,76 +44,62 @@ class OperatorTransactionAnalytics extends React.Component {
     return (
       <div>
         <a class="btn btn-sm btn-primary" onClick={this.handleOpenModal}>
-        	<i class="fas fa-chart-area" />
-        </a> 
+          <i class="fas fa-table"/>
+        </a>
         <Modal 
            isOpen={this.state.showModal}
            contentLabel="Minimal Modal Example"
            style={customStyles}
         >
-        <button onClick={this.handleCloseModal}>X</button>
-        <h5> {this.props.Operator} 每月訂單分析 </h5>
+        <button onClick={this.handleCloseModal} >X</button>
+        <p> {this.props.Operator} - 各停車場站每月訂單分析</p>
         <ReactTable 
     		class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right rt-th" 
      		style={{cellspacing:0,  width:"100%"}}
             data={this.props.data.PKLots}     		
             columns={[
-        	{ 
-        	    Header: '日期',
-        	   	
-        	},
-        	{ 
+        	  { 
+        	    Header: '停車場站名稱',
+        	   	accessor: 'name'
+        	  },
+        	  { 
         	    Header: '訂單數量',
         	    columns: [
         	    { 
         	        Header: '上期'
-        		},
-        		{ 
+        		  },
+        		  { 
         		    Header: '本期'
-        		},
-        		{	 
+        		  },
+        		  {	 
         		    Header: '差異',
         		    id:'amount_diff'
-        		},
-        		{ 
+        		  },
+        		  { 
         		    Header: '％',
         		    id:'amount_ratio'
-        		}]	
-        	},
-        	{
-        		Header: '訂單金額',
-        		columns: [
-        		{ 
+        		  }]	
+        	  },
+        	  {
+        		  Header: '訂單金額',
+        		  columns: [
+        		  { 
         		    Header:'上期',
-				},
-        		{ 
+				      },
+        		  { 
         		    Header:'本期'
-        		},
-        		{ 
+        		  },
+        		  { 
         		    Header:'差異',
         		    id:'value_diff'
-        			/*getProps: (state, rowInfo, column) => {
-        				return {
-        					style: {
-        						background: rowInfo.row.diff < 0 ? "red" : null
-        					}
-        				};
-        			}*/
-        		},
-        		{ 
+        		
+        		  },
+        		  { 
         		    Header: '％',
         		    id:'value_ratio'
-					/*getProps: (state, rowInfo, column) => {
-					    return {
-					        style: {
-					          background: rowInfo.row.ratio < 0 ? "red" : null
-					        }
-					    };
-					},
-					Cell: row => <span>{row.value}%</span>*/
-        		
-				    }]
-				}]}
+				
+				      }]
+				    }]}
 				defaultPageSize={10}
 				pageSize={this.props.pageSize}
 				className="-striped -highlight"  
@@ -124,4 +110,4 @@ class OperatorTransactionAnalytics extends React.Component {
   }
 }
 
-export default OperatorTransactionAnalytics
+export default PKLotsTransactionAnalytics
