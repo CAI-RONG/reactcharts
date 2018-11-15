@@ -42,7 +42,6 @@ class App extends Component {
     }
     return (
         <body class="nav-md">
-          <div class="container body">
             <div class="main_container">
               <Toolbar drawerClickHandler = {this.drawerToggleClickHandler}/>
               <SideDrawer show={this.state.sideDrawerOpen}/>
@@ -60,7 +59,6 @@ class App extends Component {
                 <div class="clearfix"></div>
               </footer>
             </div>
-          </div>
         </body>
 
     );

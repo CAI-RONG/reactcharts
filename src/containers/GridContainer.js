@@ -1,16 +1,16 @@
 import React from "react";
 import {connect} from 'react-redux';
+import ReactTable from "react-table";
+import { ReactTableDefaults } from 'react-table';
 import Grid from "../components/Revenue/Grid";
-
-import {changeColor} from '../redux/actions/userActions';
 
 const mapStateToProps=state=>{
 	return {
 		data:state.data,
-		title:state.title
+		title:state.title,
+		
 	}
 }
-
 
 const GridContainer=connect(
 	mapStateToProps,
