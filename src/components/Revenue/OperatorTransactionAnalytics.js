@@ -21,6 +21,7 @@ const customStyles = {
 class OperatorTransactionAnalytics extends React.Component {
   constructor () {
     super();
+
     this.state = {
       showModal: false
     };
@@ -92,12 +93,26 @@ class OperatorTransactionAnalytics extends React.Component {
 		          	{ 
 		            	Header:'差異',
 		            	id:'value_diff'
-						
+						/*getProps: (state, rowInfo, column) => {
+						    return {
+						        style: {
+						          background: rowInfo.row.diff < 0 ? "red" : null
+						        }
+						    };
+						}*/
 		          	},
 		          	{ 
 		            	Header: '％',
 		            	id:'value_ratio'
-		            	
+		            	/*getProps: (state, rowInfo, column) => {
+						    return {
+						        style: {
+						          background: rowInfo.row.ratio < 0 ? "red" : null
+						        }
+						    };
+						},
+						Cell: row => <span>{row.value}%</span>*/
+		
 		          	}]
 		      	}]}
 	        	defaultPageSize={10}
