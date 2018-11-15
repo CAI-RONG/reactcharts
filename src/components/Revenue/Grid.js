@@ -140,32 +140,12 @@ class Grid extends React.Component{
         id: "Actions",
         expander: true,
         Expander: ({ isExpanded, ...rest }) =>
-              {
-                return (
-                <a class="btn btn-sm btn-primary" >
-                    <i class="fas fa-chart-area" />
-                </a> 
-                );
-              },
+          {
+            return (
+              <OperatorTransactionAnalytics/>
+            );
+          },
         width:200
-        /*Cell: props => {
-          var onClick=()=>{
-               console.log("123");
-            };
-          return( 
-           <span class="align-center">        
-              <button class="btn btn-sm btn-primary" 
-                onClick={this.onClick} >
-                <i class="fas fa-chart-area" />
-              </button> 
-              <button class="btn btn-sm btn-primary">
-                <i class="fas fa-table"/>
-
-              </button>
-            </span>
-
-          );
-        }*/
       }
     ];
     
@@ -187,48 +167,7 @@ class Grid extends React.Component{
                   defaultPageSize={10}
                   pageSize={this.props.pageSize}
                   className="-striped -highlight"
-                  onExpandedChange={(expanded, index, event) => {
-                              this.setState({expanded});            
-                            }}
-                  expanded={this.state.expanded}
-                  SubComponent={ row => {
-                              return (
-                                <span>
-                                  <p>停車場站名稱 {row.original.PKLots[0].name}</p>
-                                  <ul>
-                                    {row.original.PKLots[0].transactions.map((item, i) => {
-                                       return <div>
-                                               <OperatorTransactionAnalytics item={item}/>
-                                              </div>
-                                  })}
-                                  </ul>
-                                </span>
-                              )
-                            }}
-                  /*getTdProps={(state, rowInfo, column, instance) => {
-                    return {
-                      onClick: (e, handleOriginal) => {
-                        console.log("A Td Element was clicked!");
-                        console.log("it produced this event:", e);
-                        console.log("It was in this column:", column);
-                        console.log("It was in this row:", rowInfo);
-                        console.log("It was in this table instance:", instance);
-                      }
-                    };
-                  }}*/
-                > 
-                {/*(state, makeTable, instance) => {
-                              return (
-                                <div>
-                                  <JSONTree
-                                    data={Object.assign({}, state, {children: 'function () {...}'})}
-                                    theme={JSONtheme}
-                                    invertTheme
-                                  />
-                                  {makeTable()}
-                                </div>
-                              )
-                            }*/}           
+                >  
                 </ReactTable>
               
               </div> 

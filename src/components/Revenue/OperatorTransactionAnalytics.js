@@ -1,14 +1,114 @@
+
 import React from 'react';
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import PropTypes from 'prop-types';
+import { ReactTableDefaults } from 'react-table';
 
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
-function OperatorTransactionAnalytics(props){
-	return(
-		<div>
-			<li>{props.item.date}</li>
-			<li>{props.item.transactionAmount}</li>
-			<li>{props.item.transactionValue}</li>
-		</div>
-	);
+class OperatorTransactionAnalytics extends React.Component {
+  constructor () {
+    super();
+    this.state = {
+      showModal: false
+    };
+    
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+  }
+  
+  handleOpenModal () {
+    this.setState({ showModal: true });
+  }
+  
+  handleCloseModal () {
+    this.setState({ showModal: false });
+  }
+
+  render () {
+    return (
+      <div>
+        <a class="btn btn-sm btn-primary" onClick={this.handleOpenModal}>
+        	<i class="fas fa-chart-area" />
+        </a> 
+     
+        <Modal 
+           isOpen={this.state.showModal}
+           contentLabel="Minimal Modal Example"
+           style={customStyles}
+        >
+        <button onClick={this.handleCloseModal} style={{paddingright: 0}}>X</button>
+      	    <ReactTable
+        		class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right rt-th" 
+          		style={{cellspacing:0,  width:"100%"}}
+          		
+          		columns={[
+	      		{ 
+	        		Header: '日期',
+	        		
+	       		},
+	      		{ 
+	        		Header: '訂單數量',
+	        		columns: [
+	          		{ 
+	            		Header: '上期'
+		            	
+		        	},
+		            { 
+		            	Header: '本期'
+		          	},
+		          	{	 
+		            	Header: '差異',
+		            	id:'amount_diff'
+		          	},
+		         	{ 
+		            	Header: '％',
+		            	id:'amount_ratio'
+		          	}]	
+		      	},
+		     	{
+		        	Header: '訂單金額',
+		        	columns: [
+		          	{ 
+		            	Header:'上期',
+
+					},
+		          	{ 
+		            	Header:'本期'
+		            
+		          	},
+		          	{ 
+		            	Header:'差異',
+		            	id:'value_diff'
+						
+		          	},
+		          	{ 
+		            	Header: '％',
+		            	id:'value_ratio'
+		            	
+		          	}]
+		      	}]}
+	        	defaultPageSize={10}
+	        	pageSize={this.props.pageSize}
+	        	className="-striped -highlight"  
+        	/>
+        
+        </Modal>
+      </div>
+    );
+  }
 }
 
-export default OperatorTransactionAnalytics;
+export default OperatorTransactionAnalytics
