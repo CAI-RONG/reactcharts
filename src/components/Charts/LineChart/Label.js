@@ -18,7 +18,7 @@ export default class LabelTag extends React.Component{
 	render(){
 		return (
 			<div>
-				<div style={{fontSize:20}}>
+				<div style={{fontSize:16}}>
 					<Label style={{marginRight:-20,
 								paddingRight:20,
 								backgroundColor:this.props.bgc}}>{this.props.title}</Label>

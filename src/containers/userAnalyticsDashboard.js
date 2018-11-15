@@ -3,6 +3,7 @@ import ContainerPieChart from './containerPieChart';
 import ContainerLabelTag from './containerLabelTag';
 import ContainerTimeScale from './containerTimeScale';
 import ContainerLineChart from './containerLineChart';
+import Growth from '../components/Charts/growth';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
@@ -28,10 +29,11 @@ export default class UserAnalyticsDashboard extends React.Component{
 		return (
 			<Provider store={this.state.store}>
 				<div>
-					<ContainerLabelTag/>
-					<ContainerPieChart/>
-					<ContainerTimeScale/>
-					<ContainerLineChart/>
+					<div>
+						<ContainerTimeScale/>
+					</div>
+					<br/>
+					<Growth/>
 				</div>
 			</Provider>
 		)

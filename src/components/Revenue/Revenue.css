@@ -1,0 +1,23 @@
+.btn-group{
+	z-index:-1;
+}
+.btn-secondary {
+    background-color: #6c757d !important;
+ }
+
+ .btn {
+    padding: 0.54rem 2rem;
+    font-size: 0.81rem;
+    margin: 0.375rem;
+}
+
+
+.ReactTable .rt-thead .rt-tr {
+    text-align: left;
+}
+
+.rt-th{
+	background-color: #0b5b7c;
+	color: #ECF0F1;
+
+}

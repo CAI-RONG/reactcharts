@@ -36,7 +36,8 @@ export default class TimeScale extends React.Component{
 	
 	render(){
 		return (
-			<div style={{display:'inline-flex',alignItems:'center'}}>
+			<div style={{display:'inline-flex',alignItems:'center',fontFamily:'微軟正黑體',fontSize:16}}>
+				<span>顯示單位：</span>
 				<DropdownButton bsStyle='primary' title={this.state.dropdownTitle} noCaret>
 					<MenuItem onClick={()=>this.handleOnClick('day')}>
 					日</MenuItem>
@@ -47,6 +48,7 @@ export default class TimeScale extends React.Component{
 				</DropdownButton>
 				<div style={{marginLeft:20}}>
 					<div className="beginDate" style={{display:'inline-block'}}>
+						<span>期間：</span>
 						<DayPickerInput 
 							onDayChange={
 								(day)=>{

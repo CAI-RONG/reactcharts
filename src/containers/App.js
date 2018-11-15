@@ -43,29 +43,17 @@ class App extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler}/>;
     }
     return (
-        <div className="App" style={{height:'100%'}}>
+        <div className="App" style={{height:'100%','width':'100%'}}>
           <Toolbar drawerClickHandler = {this.drawerToggleClickHandler}/>
           <SideDrawer show={this.state.sideDrawerOpen}/>
           {backdrop}
-          
-          <div className="container" style={{marginTop:'100px'}}>
-              <div className="row" >
-                <div className="col">
+          <div style={{marginTop:'100px',marginLeft:50,marginRight:50}}>
                   <Route path="/" exact component={HomePage} />
                   <Route path="/Users" exact component={Users} />  
                   <Route path="/Table2" exact component={Table2} /> 
                   <Route path="/Piechart" exact component={UserAnalyticsDashboard} />
 
-
-                </div>
-                <div className="col">  
-                </div>
-              
-              </div>
-              <div>
-                 
-              </div> 
-          </div>
+			</div>
         </div>
     );
   }
