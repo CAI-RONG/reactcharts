@@ -1,16 +1,28 @@
 .side-drawer{
 	height: 100%;
-	background: white;
-	box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 70%;
-	max-width: 300px;
+	width: 30%;
+	max-width: 200px;
+	color: rgb(112, 110, 108);
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang TC", 微軟正黑體, sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.471;
+    background: rgb(69, 69, 69);
 	z-index: 200;
 	transform: translateX(-100%);
 	transition: transform  0.3s ease-out;
+	padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
 }
+
+.site_title{
+	
+}
+
 
 .side-drawer.open{
 	transform: translateX(0);
@@ -21,20 +33,30 @@
 	list-style: none;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 }
 
 .side-drawer li {
 	margin: 0.5rem 0;
+
 }
 
 .side-drawer a {
-	color: #166ddf;
 	text-decoration: none;
-	font-size: 1.2rem;
+	margin-bottom: 6px;
+	color: #E7E7E7;
+    font-weight: 500;
+    position: relative;
+    display: block;
+    padding: 10px 20px;
 }
 
 .side-drawer a:hover,
 .side-drawer a:active {
-	color: #fa923f;
+	border-right: 5px solid #13A0DA;
+	background: #0b5b7c;
+	position: relative;
+    display: block;
+    cursor: pointer;
+    box-sizing: border-box;
 }

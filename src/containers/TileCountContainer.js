@@ -1,7 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux';
-import Grid from "../components/Revenue/Grid";
-
+import TileCount from "../components/Revenue/TileCount";
 
 const mapStateToProps=state=>{
 	return {
@@ -10,8 +9,9 @@ const mapStateToProps=state=>{
 	}
 }
 
-const GridContainer=connect(
-	mapStateToProps,
-)(Grid);
 
-export default GridContainer;
+const TileCountContainer=connect(
+	mapStateToProps,
+)(TileCount);
+
+export default TileCountContainer;

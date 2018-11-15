@@ -15,9 +15,11 @@ export default class UserAnalyticsDashboard extends React.Component{
 	constructor(){
 		super();
 		this.state={
-			store:createStore(reducer,{color:'#0090c0',
+			store:createStore(reducer,{ color:'#0090c0',
 										data:creditCard.data,
 										userData:userData.data,
+										userDataFirstDay:userData.data.iosData[0],
+										userDataLastDay:userData.data.iosData[userData.data.iosData.length-1],
 										name:'b',
 										title:'test',
 										value:123,

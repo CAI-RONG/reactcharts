@@ -11,10 +11,8 @@ import Toolbar from '../components/Toolbar/Toolbar';
 import SideDrawer from '../components/SideDrawer/SideDrawer';
 import Backdrop from '../components/Backdrop/Backdrop';
 import PieChart from '../components/Charts/PieChart/PieChart';
-import Users from '../components/Charts/LineChart/Users';
-import Table2 from '../components/Table/Table2';
 import UserAnalyticsDashboard from './userAnalyticsDashboard';
-
+import RevenueAnalyticsDashboard from './RevenueAnalyticsDashboard'
 
 class App extends Component {
   constructor(){
@@ -43,18 +41,27 @@ class App extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler}/>;
     }
     return (
-        <div className="App" style={{height:'100%','width':'100%'}}>
-          <Toolbar drawerClickHandler = {this.drawerToggleClickHandler}/>
-          <SideDrawer show={this.state.sideDrawerOpen}/>
-          {backdrop}
-          <div style={{marginTop:'100px',marginLeft:50,marginRight:50}}>
-                  <Route path="/" exact component={HomePage} />
-                  <Route path="/Users" exact component={Users} />  
-                  <Route path="/Table2" exact component={Table2} /> 
-                  <Route path="/Piechart" exact component={UserAnalyticsDashboard} />
 
-			</div>
-        </div>
+        <body class="nav-md">
+            <div class="main_container">
+              <Toolbar drawerClickHandler = {this.drawerToggleClickHandler}/>
+              <SideDrawer show={this.state.sideDrawerOpen}/>
+              {backdrop}
+              
+              <div class="right_col" role="main" style={{marginTop:'100px'}}>
+                <Route path="/" exact component={HomePage} />
+                <Route path="/UserAnalyticsDashboard" exact component={UserAnalyticsDashboard} />   
+                <Route path="/RevenueAnalyticsDashboard" exact component={RevenueAnalyticsDashboard} /> 
+              </div>
+              <footer>
+                <div class="pull-right">
+                  <a>Copyright &copy; 2018 PKLOT</a>
+                </div>
+                <div class="clearfix"></div>
+              </footer>
+            </div>
+        </body>
+
     );
   }
 }
