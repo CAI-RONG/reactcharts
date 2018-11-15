@@ -188,7 +188,7 @@ class Grid extends React.Component{
               </div>
               <div class="row x_content">
                 <ReactTable
-                  {/*class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right" */}
+                
                   class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right rt-th" 
 
                   style={{cellspacing:0,  width:"100%"}}
