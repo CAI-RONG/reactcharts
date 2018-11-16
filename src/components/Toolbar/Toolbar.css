@@ -3,8 +3,10 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: #0e4690;
+	background: #EDEDED;
 	height: 76px;
+	border-bottom: 1px solid #D9DEE4;
+	z-index: 90;
 }
 
 .toolbar__navigation {
@@ -42,7 +44,7 @@
 }
 
 .toolbar_navigation-items a {
-	color: white;
+	color: #515356 !important;
 	text-decoration: none;
 }
 
