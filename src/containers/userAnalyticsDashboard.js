@@ -9,7 +9,7 @@ import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
 import creditCard from '../components/Charts/PieChart/creditCard.json';
 import userData from '../components/Charts/LineChart/data.json';
-
+import ActivedUser from '../components/Charts/activedUser';
 
 export default class UserAnalyticsDashboard extends React.Component{
 	constructor(){
@@ -36,6 +36,7 @@ export default class UserAnalyticsDashboard extends React.Component{
 					</div>
 					<br/>
 					<Growth/>
+					<ActivedUser/>
 				</div>
 			</Provider>
 		)

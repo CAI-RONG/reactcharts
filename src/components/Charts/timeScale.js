@@ -1,5 +1,5 @@
 import React from 'react';
-import {DropdownButton, MenuItem} from 'react-bootstrap';
+import {DropdownButton, DropdownToggle, DropdownMenu, MenuItem} from 'react-bootstrap/lib';
 import DayPicker from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import PropTypes from 'prop-types';
@@ -46,6 +46,17 @@ export default class TimeScale extends React.Component{
 					<MenuItem onClick={()=>this.handleOnClick('month')}>
 					月</MenuItem>
 				</DropdownButton>
+				{/*<Dropdown id="timeScale">
+					<Dropdown.Toggle>{this.state.dropdownTitle}</Dropdown.Toggle>
+					<Dropdown.Menu>
+						<MenuItem onClick={()=>this.handleOnClick('day')}>
+						日</MenuItem>
+						<MenuItem onClick={()=>this.handleOnClick('week')}>
+						週</MenuItem>
+						<MenuItem onClick={()=>this.handleOnClick('month')}>
+						月</MenuItem>
+					</Dropdown.Menu>
+				</Dropdown>*/}
 				<div style={{marginLeft:20}}>
 					<div className="beginDate" style={{display:'inline-block'}}>
 						<span>期間：</span>

@@ -35,30 +35,59 @@ const mapStateToProp=(state,props)=>{
 		selectedData.android.splice(selectedData.android.length-j,j);
 	}
 	
-	switch(state.timeScaleFilter){
-		case "day":
-			dataParse(d3.timeFormat("%m/%d"),props.name);
-			break;
-		case "week":
-			dataParse(d3.timeFormat("%Y-%U"),props.name);
-			var iosDate=outputData.iosData.date;
-			for(var i=0; i<iosDate.length; ++i){
-				var firstDayOftheWeek=d3.timeParse("%Y-%U")(iosDate[i]);
-				iosDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
-				firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
-				iosDate[i]=iosDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
-			}
-			var androidDate=outputData.androidData.date;
-			for(var i=0; i<androidDate.length; ++i){
-				var firstDayOftheWeek=d3.timeParse("%Y-%U")(androidDate[i]);
-				androidDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
-				firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
-				androidDate[i]=androidDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
-			}
-			break;
-		case "month":
-			dataParse(d3.timeFormat("%Y/%m"),props.name);
-			break;
+	if(props.active){
+		switch(props.timeFilter){
+			case "day":
+				dataParse(d3.timeFormat("%m/%d"),props.name);
+				break;
+			case "week":
+				dataParse(d3.timeFormat("%Y-%U"),props.name);
+				var iosDate=outputData.iosData.date;
+				for(var i=0; i<iosDate.length; ++i){
+					var firstDayOftheWeek=d3.timeParse("%Y-%U")(iosDate[i]);
+					iosDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
+					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
+					iosDate[i]=iosDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
+				}
+				var androidDate=outputData.androidData.date;
+				for(var i=0; i<androidDate.length; ++i){
+					var firstDayOftheWeek=d3.timeParse("%Y-%U")(androidDate[i]);
+					androidDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
+					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
+					androidDate[i]=androidDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
+				}
+				break;
+			case "month":
+				dataParse(d3.timeFormat("%Y/%m"),props.name);
+				break;
+		}
+	}
+	else{
+		switch(state.timeScaleFilter){
+			case "day":
+				dataParse(d3.timeFormat("%m/%d"),props.name);
+				break;
+			case "week":
+				dataParse(d3.timeFormat("%Y-%U"),props.name);
+				var iosDate=outputData.iosData.date;
+				for(var i=0; i<iosDate.length; ++i){
+					var firstDayOftheWeek=d3.timeParse("%Y-%U")(iosDate[i]);
+					iosDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
+					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
+					iosDate[i]=iosDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
+				}
+				var androidDate=outputData.androidData.date;
+				for(var i=0; i<androidDate.length; ++i){
+					var firstDayOftheWeek=d3.timeParse("%Y-%U")(androidDate[i]);
+					androidDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
+					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
+					androidDate[i]=androidDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
+				}
+				break;
+			case "month":
+				dataParse(d3.timeFormat("%Y/%m"),props.name);
+				break;
+		}
 	}
 	
 	function dataParse(parseTime,name){
@@ -89,10 +118,16 @@ const mapStateToProp=(state,props)=>{
 		)
 	}
 	
-	return {
-		data:outputData,
-		name:props.name
-	}
+	if(props.active)
+		return {
+			data:outputData,
+			name:props.name+'-'+props.timeFilter
+		}
+	else
+		return {
+			data:outputData,
+			name:props.name
+		}
 }
 
 const mapDispatchToProp=dispatch=>{
