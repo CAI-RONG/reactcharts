@@ -2,8 +2,6 @@ import React from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import LabelTag from './Label';
-import {Grid,Row,Col} from 'react-bootstrap';
 
 export default class LineChart extends React.Component{
 	constructor(props){
@@ -27,8 +25,8 @@ export default class LineChart extends React.Component{
 	
 	
 	showValue(sumOfData,dataAmount,svg,scaleX,scaleY){
-		const Height=$('svg#'+this.props.name).height()*0.75;
-		const Width=$('svg#'+this.props.name).width()*0.75;
+		const Height=$('svg#'+this.props.name).height()*0.7;
+		const Width=$('svg#'+this.props.name).width()*0.7;
 		
 		const data=this.props.data;
 		var focus=svg.append('g').attr('class','focus focus-total')
@@ -121,11 +119,11 @@ export default class LineChart extends React.Component{
 		
 		const scaleX=d3.scaleLinear()
 					.domain([0,dataWidthDomain-1])
-					.range([0,$('svg#'+this.props.name).width()*0.75]);
+					.range([0,$('svg#'+this.props.name).width()*0.7]);
 	
 		const scaleY=d3.scaleLinear()
 					.domain([0,d3.max(sumOfData)+10])
-					.range([$('svg#'+this.props.name).height()*0.75,0]);		
+					.range([$('svg#'+this.props.name).height()*0.7,0]);		
 		
 		const line=d3.line()
 					.x(function(d,i){return scaleX(i);})
@@ -171,15 +169,15 @@ export default class LineChart extends React.Component{
 		
 		const axisY=d3.axisLeft(scaleY);
 		svg.select('#axisX').call(axisX).attr('stroke-width','2')
-										.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.75+30)+')');
+										.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
 		svg.select('#axisY').call(axisY).attr('stroke-width','2')
 										.attr('transform','translate(50,30)');
-		const gridX=d3.axisBottom(scaleX).tickFormat("").tickSize(-$('svg#'+this.props.name).height()*0.75,0);
-		const gridY=d3.axisLeft(scaleY).tickFormat("").tickSize(-$('svg#'+this.props.name).width()*0.75,0);
+		const gridX=d3.axisBottom(scaleX).tickFormat("").tickSize(-$('svg#'+this.props.name).height()*0.7,0);
+		const gridY=d3.axisLeft(scaleY).tickFormat("").tickSize(-$('svg#'+this.props.name).width()*0.7,0);
 		svg.select('#gridX').call(gridX)
 							.attr('fill','none')
 							.attr('stroke-width','0.2')
-							.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.75+30)+')');
+							.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
 		svg.select('#gridY').call(gridY)
 							.attr('fill','none')
 							.attr('stroke-width','0.2')
