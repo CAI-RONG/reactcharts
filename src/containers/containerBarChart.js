@@ -15,6 +15,8 @@ const mapStateToProp=state=>{
 	sorted=state.banks.sort(compare);
 	outputData.bank=sorted.map(function(d){return d.bank});
 	outputData.value=sorted.map(function(d){return d.values});
+	outputData.bank.splice(10);
+	outputData.value.splice(10);
 	return {
 		data:outputData,
 		name:'topTenBank'	
