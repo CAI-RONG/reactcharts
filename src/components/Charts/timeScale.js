@@ -46,17 +46,6 @@ export default class TimeScale extends React.Component{
 					<MenuItem onClick={()=>this.handleOnClick('month')}>
 					月</MenuItem>
 				</DropdownButton>
-				{/*<Dropdown id="timeScale">
-					<Dropdown.Toggle>{this.state.dropdownTitle}</Dropdown.Toggle>
-					<Dropdown.Menu>
-						<MenuItem onClick={()=>this.handleOnClick('day')}>
-						日</MenuItem>
-						<MenuItem onClick={()=>this.handleOnClick('week')}>
-						週</MenuItem>
-						<MenuItem onClick={()=>this.handleOnClick('month')}>
-						月</MenuItem>
-					</Dropdown.Menu>
-				</Dropdown>*/}
 				<div style={{marginLeft:20}}>
 					<div className="beginDate" style={{display:'inline-block'}}>
 						<span>期間：</span>

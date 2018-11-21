@@ -37,17 +37,12 @@ export default class LineChart extends React.Component{
 							.attr('transform','translate(50,30)')
 							.attr('y1','0')
 							.attr('y2',Height);
-		
-		focus.append('text').attr('class','text-total')
-							.attr('x','4em')
-							.attr('dy','1em');
 							
 		focus.append('rect').attr('width',100)
 							.attr('height',75)
 							.attr('rx',10)
 							.attr('ry',10)
-							.attr('fill','rgba(100,100,100,0.8)')
-							.style('display','none');
+							.attr('fill','rgba(100,100,100,0.8)');
 							
 		focus.append('text').attr('class','date').style('font-size',12);
 		focus.append('text').attr('class','total').style('font-size',12);

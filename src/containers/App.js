@@ -10,7 +10,6 @@ import HomePage from './HomePage';
 import Toolbar from '../components/Toolbar/Toolbar';
 import SideDrawer from '../components/SideDrawer/SideDrawer';
 import Backdrop from '../components/Backdrop/Backdrop';
-import PieChart from '../components/Charts/PieChart/PieChart';
 import UserAnalyticsDashboard from './userAnalyticsDashboard';
 import RevenueAnalyticsDashboard from './RevenueAnalyticsDashboard'
 
