@@ -1,5 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
+import $ from 'jquery';
 import PropTypes from 'prop-types';
 export default class BarChart extends React.Component{
 	
