@@ -12,24 +12,22 @@ import ActivedUser from '../components/Charts/activedUser';
 import UserStatusTable from '../components/UserStatusTable/UserStatusTable.js';
 
 
-
 export default class UserAnalyticsDashboard extends React.Component{
 	constructor(){
 		super();
 		this.state={
 			store:createStore(reducer,{ userData:userData.data,
 										timeScaleFilter:'week',
-										beginDate:d3.timeParse("%Y-%m-%d")(userData.data.iosData[0].date),
+										beginDate:d3.timeParse("%Y-%m")(new Date().getFullYear().toString()+'-'+(new Date().getMonth()+1).toString()),
 										endDate:d3.timeParse("%Y-%m-%d")(userData.data.iosData[userData.data.iosData.length-1].date),
 										banks:creditCard.data,
 										userDataFirstDay:userData.data.iosData[0].date,
 										userDataLastDay:userData.data.iosData[userData.data.iosData.length-1].date
-
 										})
 		}
 	}
 	
-	render(){
+	render(){console.log(this.state.store.getState());
 		return (
 			<Provider store={this.state.store}>
 				<div>

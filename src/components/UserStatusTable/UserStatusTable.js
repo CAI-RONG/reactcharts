@@ -6,18 +6,42 @@ import { ReactTableDefaults } from 'react-table';
 import _ from 'lodash';
 import UserStatusData from './UserStatusData.json';
 import './UserStatusTable.css';
-
+import {Glyphicon,Button} from 'react-bootstrap';
+import $ from 'jquery';
+import Modal from 'react-modal';
 
 class UserStatusTable extends React.Component{
 	
   constructor() { 
     super();
     this.state={
-    data: UserStatusData.UserState
+		data: UserStatusData.UserState,
+		show:false
     };
     this.reactTable = null;
+	this.handleShow=this.handleShow.bind(this);
+	this.handleClose=this.handleClose.bind(this);
   }
 
+  handleShow(){
+	  this.setState({show:true});
+  }
+  
+  handleClose(){
+	  this.setState({show:false});
+  }
+  
+  handleMouseEnter(){
+	  $("div.button").css('background-color','#DDD').css('cursor','pointer');
+  }
+  
+  handleMouseMove(){
+	  $("div.button").css('background-color','#DDD').css('cursor','pointer');
+  }
+  
+  handleMouseOut(){
+	  $("div.button").css('background-color','#BBB').css('cursor','default');
+  }
     
   render(){
     const columns = [
@@ -61,16 +85,24 @@ class UserStatusTable extends React.Component{
           Header: '啟用自動繳費',
           id: 'AutomaticPayment',
           accessor: d => (d.Taipei + d.New_Taipei + d.Kaohsiung),
-          Cell: row => <span >{row.value} 
-                          <button className="AutomaticPaymentButton">...</button>
+          Cell: row => <span>
+							{row.value}
+							<div className="button" 
+								onMouseEnter={this.handleMouseEnter}
+								onMouseMove={this.handleMouseMove}
+								onMouseOut={this.handleMouseOut} 
+								onClick={this.handleShow} 
+								style={{float:'right',backgroundColor:'#BBB',width:25,height:25,borderRadius:10}}
+							>
+								<Glyphicon glyph="th-list" style={{padding:4}}/>
+							</div>
                         </span>
         }
       ];
       
       return (
-        <div> 
-          <h2>User Status</h2>
-          <hr/>
+        <fieldset> 
+          <legend><h1>User Status</h1></legend>
            <ReactTable className="align-left"
             data={this.state.data} 
             columns={columns}
@@ -79,7 +111,12 @@ class UserStatusTable extends React.Component{
             className="-striped -highlight"
           >
           </ReactTable>
-        </div>
+		  <Modal style={{content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:680,height:510}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
+				<h2 style={{marginBottom:30}}>Top 10 Banks<Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>
+				test
+				<Button style={{float:'right'}} onClick={this.handleClose}>Close</Button>
+			</Modal>
+        </fieldset>
        
       )
 	
