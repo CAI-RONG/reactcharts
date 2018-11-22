@@ -37,22 +37,17 @@ export default class LineChart extends React.Component{
 							.attr('transform','translate(50,30)')
 							.attr('y1','0')
 							.attr('y2',Height);
-		
-		focus.append('text').attr('class','text-total')
-							.attr('x','4em')
-							.attr('dy','1em');
 							
 		focus.append('rect').attr('width',100)
-							.attr('height',80)
+							.attr('height',75)
 							.attr('rx',10)
 							.attr('ry',10)
-							.attr('fill','rgba(100,100,100,0.8)')
-							.style('display','none');
+							.attr('fill','rgba(100,100,100,0.8)');
 							
-		focus.append('text').attr('class','date');
-		focus.append('text').attr('class','total');
-		focus.append('text').attr('class','ios');
-		focus.append('text').attr('class','android');
+		focus.append('text').attr('class','date').style('font-size',12);
+		focus.append('text').attr('class','total').style('font-size',12);
+		focus.append('text').attr('class','ios').style('font-size',12);
+		focus.append('text').attr('class','android').style('font-size',12);
 		
 		svg.append('rect').attr('class','rect-total')
 							.attr('transform','translate(50,30)')
@@ -86,7 +81,7 @@ export default class LineChart extends React.Component{
 											.attr('transform','translate(80,65)')
 											.style('fill','#fff');
 											
-			if(d3.mouse(this)[0]>Width*0.6){
+			if(Math.round(valX)>=sumOfData.length*0.5){
 				selector.select('rect').attr('transform','translate(-70,0)');
 				selector.select('text.date').attr('transform','translate(-60,20)');
 				selector.select('text.total').attr('transform','translate(-60,35)');
@@ -97,7 +92,8 @@ export default class LineChart extends React.Component{
 	}
 	
 	drawChart(){
-		const color=['#0090c0','#eb6f70','#40a880','#955694'];
+		const color=['#13A0DA', '#726BC0', '#22B0A6', '#197EB5', '#8948AE',
+                '#3C8D93','#9DAA15', '#DFAB19', '#BF7F34', '#B0367C'];
 		const data=this.props.data;
 		const dataAmount=Object.keys(data).length;
 		const svg=d3.select('svg#'+this.props.name).attr('width','100%')
@@ -132,7 +128,7 @@ export default class LineChart extends React.Component{
 		
 		for(var i=0;i<dataAmount;++i){
 			svg.append('g').append('path').attr('d',line(Object.entries(data)[i][1].value))
-							.attr('stroke',color[i%4])
+							.attr('stroke',color[i%9])
 							.attr('fill','none')
 							.attr('transform','translate(50,30)');
 										
@@ -141,9 +137,20 @@ export default class LineChart extends React.Component{
 									.attr('cy',scaleY(Object.entries(data)[i][1].value[j]))
 									.attr('r','3')
 									.attr('transform','translate(50,30)')
-									.attr('fill',color[i%4]);
+									.attr('fill',color[i%9]);
 			}
+			svg.append('circle').attr('r',5)
+								.attr('fill',color[i%9])
+								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*(i+1)+30)+','+($('svg#'+this.props.name).height()*0.92)+')');
+			svg.append('text').text(function(){return (Object.entries(data)[i][0]=='iosData')?'iOS':'Android'})
+						.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*(i+1)+50)+','+($('svg#'+this.props.name).height()*0.93)+')');
 		}
+		
+		svg.append('circle').attr('r',5)
+							.attr('fill','#ff8400')
+							.attr('transform','translate(30,'+($('svg#'+this.props.name).height()*0.92)+')');
+		svg.append('text').text(function(){return "Total"})
+						.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.93)+')');
 			
 		svg.append('path').attr('d',line(sumOfData))
 						.attr('stroke','#ff8400')
