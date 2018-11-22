@@ -2,6 +2,7 @@ import React from "react";
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
+import * as d3 from 'd3';
 
 import '../components/Revenue/Revenue.css';
 import makeData from '../components/Revenue/RevenueData.json';
@@ -17,16 +18,39 @@ import TileCount from '../components/Revenue/TileCount'
 class RevenueAnalyticsDashboard extends React.Component{
   constructor(){
     super();
-    var revenueDataSize = makeData.revenueData.length-1;
-    var PKLotsSize = makeData.revenueData[revenueDataSize].PKLots.length-1;
-    var transactionsSize = makeData.revenueData[revenueDataSize].PKLots[PKLotsSize].transactions.length-1;
-    
+    var firstDataOfPKLots=makeData.revenueData.map(
+								function(d){
+									return d.PKLots.map(function(p){
+															return p.transactions[0].date
+														}
+									)
+								}
+							);
+	var lastDataOfPKLots=makeData.revenueData.map(
+								function(d){
+									return d.PKLots.map(function(p){
+															return p.transactions[p.transactions.length-1].date
+														}
+									)
+								}
+							);
+	
     this.state={
       store: createStore(reducer,
         {
           data: makeData.revenueData,
-          userDataFirstDay: makeData.revenueData[0].PKLots[0].transactions[0],
-          userDataLastDay: makeData.revenueData[revenueDataSize].PKLots[PKLotsSize].transactions[transactionsSize],
+          userDataFirstDay: d3.min(firstDataOfPKLots.map(
+								function(d){
+									d.forEach(function(t){t=d3.timeParse("%Y-%m-%d")(t)});
+									return d3.min(d);
+								}
+							)),
+          userDataLastDay: d3.max(lastDataOfPKLots.map(
+								function(d){
+									d.forEach(function(t){t=d3.timeParse("%Y-%m-%d")(t)});
+									return d3.max(d);
+								}
+							)),
           timeScaleFilter:'month',
         })
     }
