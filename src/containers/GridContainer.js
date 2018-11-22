@@ -13,15 +13,30 @@ const mapStateToProps=(state,props)=>{
 	詮營									|
 */
 	var outputData={'monthlyData':[]};
-	var op;
+	var op, pklot;
+	var monthlyAmount=0,monthlyValue=0;
+
+	var Month = new Date().getMonth()+1;
+
+
 
 
 
 	state.data.forEach(
 		function(value, index){
-
-			op = state.data[index].Operator;
-			outputData.monthlyData.push({ Operator: op, Last: 6, Current:23});
+			op = state.data[index];
+			op.PKLots.forEach(
+				function(value, index){
+					pklot=op.PKLots[index];
+					pklot.transactions.forEach(
+						function(value, index){
+							monthlyAmount += pklot.transactions[index].transactionAmount
+							monthlyValue += pklot.transactions[index].transactionValue
+						}
+					)
+				}
+			)
+			outputData.monthlyData.push({ Operator: op.Operator, LastAmount: 120000, CurrentAmount:monthlyValue, LastValue:  180000, CurrentValue:monthlyValue });
 	
 		}
 	)

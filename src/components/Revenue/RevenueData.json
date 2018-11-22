@@ -358,7 +358,7 @@
 						},
 						{
 							"date":"2018-11-07",
-							"transactionAmount":7620,
+							"transactionAmount":7720,
 							"transactionValue":219824
 						}
 					]
@@ -564,7 +564,7 @@
 						},
 						{
 							"date":"2018-11-07",
-							"transactionAmount":7620,
+							"transactionAmount":7820,
 							"transactionValue":219824
 						}
 					]
@@ -885,7 +885,7 @@
 						},
 						{
 							"date":"2018-12-31",
-							"transactionAmount":7620,
+							"transactionAmount":7610,
 							"transactionValue":219824
 						}
 					]

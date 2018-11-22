@@ -35,40 +35,29 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            accessor: 'Last',
+            accessor: 'LastAmount',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80,
           },
           { 
             Header: '本期',
-            accessor: 'Current',
-            //accessor: d => d.PKLots[0].transactions[0].transactionAmount,
+            accessor: 'CurrentAmount',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80
           },
           { 
             Header: '差異',
-            id:'diff',
+            id:'diffAmount',
             headerStyle: {backgroundColor: "#118fc3"},
-            //accessor: d => _.round(d.CurrentOrder - d.LastOrder),
-            aggregate: (vals, rows) => {
-                  const total_CurrentOrder = _.sumBy(rows, 'CurrentOrder')
-                  const total_LastOrder = _.sumBy(rows, 'LastOrder')
-                  return _.round(total_CurrentOrder - total_LastOrder)
-                },
-            Cell: row => <span>{row.value}</span>,
+            accessor: d => _.round(d.CurrentAmount- d.LastAmount),
+  
             width:80
           },
           { 
             Header: '％',
-            id:'Ratio',
+            id:'RatioAmount',
             headerStyle: {backgroundColor: "#118fc3"},
             accessor: d => _.round(((d.CurrentAmount - d.LastAmount)/d.LastAmount)*10000)/100,
-            aggregate: (vals, rows) => {
-                  const total_CurrentAmount = _.sumBy(rows, 'CurrentAmount')
-                  const total_LastAmount = _.sumBy(rows, 'LastAmount')              
-                  return _.round(((total_CurrentAmount - total_LastAmount)/total_LastAmount)*10000)/100
-                },
             Cell: row => <span>{row.value}%</span>,
             width:80
           }
@@ -80,44 +69,30 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            id: 'LastValue',
-            accessor: 'PKLots[0].transactions[0].transactionValue',
+            accessor: 'LastValue',
             headerStyle: {backgroundColor: "#118fc3"},
-            aggregate: (vals) => _.sum(vals),
             width:80
          
           },
           { 
             Header: '本期',
-            id: 'CurrentValue',
-            accessor: 'PKLots[0].transactions[1].transactionValue',
+            accessor: 'CurrentValue',
             headerStyle: {backgroundColor: "#118fc3"},
-            aggregate: (vals) => _.sum(vals),
             width:80
           },
           { 
             Header: '差異',
-            id:'diff',
+            id:'diffValue',
             headerStyle: {backgroundColor: "#118fc3"},
             accessor: d => _.round(d.CurrentValue - d.LastValue),
-            aggregate: (vals, rows) => {
-                  const total_CurrentValue = _.sumBy(rows, 'CurrentValue')
-                  const total_LastValue = _.sumBy(rows, 'LastValue')
-                  return _.round(total_CurrentValue - total_LastValue)
-                },
-            Cell: row => <span>{row.value}</span>,
+            
             width:80
           },
           { 
             Header: '％',
-            id:'Ratio',
+            id:'RatioValue',
             headerStyle: {  backgroundColor: "#118fc3"},
-            accessor: d => _.round(((d.CurrentOrder - d.LastOrder)/d.LastOrder)*10000)/100,
-            aggregate: (vals, rows) => {
-                  const total_CurrentOrder = _.sumBy(rows, 'CurrentOrder')
-                  const total_LastOrder = _.sumBy(rows, 'LastOrder')              
-                  return _.round(((total_CurrentOrder - total_LastOrder)/total_LastOrder)*10000)/100
-                },
+            accessor: d => _.round(((d.CurrentValue - d.LastValue)/d.LastValue)*10000)/100,
             Cell: row => <span>{row.value}%</span>,
             width:80
           }
