@@ -5,43 +5,63 @@ import Grid from "../components/Revenue/Grid";
 import * as d3 from 'd3';
 
 const mapStateToProps=(state,props)=>{
-	//data.json
-/*
-			訂單數															訂單金額
-			上期	(10月)					|	本期 (11月)						上期		本期
-	千里亭 	建國場+北投一場+...+林森機械場	|	建國場+北投一場+...+林森機械場
-	詮營									|
-*/
 	var outputData={'monthlyData':[]};
-	var op, pklot;
-	var monthlyAmount=0,monthlyValue=0;
 
+	var begin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));
+	var	end=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.endDate));
+	
+	var op, pklot;
+	var lastAmount=0, currentAmount=0;
+	var lastValue=0, currentValue=0;
 	var Month = new Date().getMonth()+1;
 
+	if(state.beginDate>state.endDate || state.endDate==undefined)
+		end=d3.timeParse("%Y-%m-%d")(state.userDataLastDay);
+	var selectedData;
 
-
-
-
-	state.data.forEach(
+	
+	state.data.map(
 		function(value, index){
 			op = state.data[index];
-			op.PKLots.forEach(
+			op.PKLots.map(
 				function(value, index){
 					pklot=op.PKLots[index];
-					pklot.transactions.forEach(
-						function(value, index){
-							monthlyAmount += pklot.transactions[index].transactionAmount
-							monthlyValue += pklot.transactions[index].transactionValue
-						}
+					selectedData={'select':pklot.transactions.slice()};
+					console.log(selectedData);
+					/*--selected Data--*/
+					var i=0,j=0;
+					selectedData.select.forEach(
+						function(data){if(d3.timeParse("%Y-%m-%d")(data.date)<begin)i++;}
 					)
+					selectedData.select.splice(0,i);
+					
+					i=0;j=0;
+					selectedData.select.forEach(
+						function(data){if(d3.timeParse("%Y-%m-%d")(data.date)>end)i++;}
+					)
+					selectedData.select.splice(selectedData.select.length-i,i);
+					/*--/selected--*/
 				}
 			)
-			outputData.monthlyData.push({ Operator: op.Operator, LastAmount: 120000, CurrentAmount:monthlyValue, LastValue:  180000, CurrentValue:monthlyValue });
-	
+			outputData.monthlyData.push({ Operator: op.Operator, LastAmount: lastAmount, CurrentAmount: currentAmount, LastValue: lastValue, CurrentValue: currentValue });
 		}
 	)
-
-	
+/*
+	function dataParse(parseTime,name){
+		selectedData.select.forEach(
+			function(data){
+				var parsedDate=parseTime(d3.timeParse("%Y-%m-%d")(data.date));
+				var ios=outputData.iosData;
+				if(!ios.date.includes(parsedDate)){
+					ios.date.push(parsedDate);
+					ios.value.push(data[name]);
+				}
+				else
+					ios.value[ios.date.indexOf(parsedDate)]+=data[name];
+			}
+		)
+	}
+*/	
 
 
 

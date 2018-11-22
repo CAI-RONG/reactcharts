@@ -26,7 +26,7 @@ class RevenueAnalyticsDashboard extends React.Component{
 									)
 								}
 							);
-	var lastDataOfPKLots=makeData.revenueData.map(
+	  var lastDataOfPKLots=makeData.revenueData.map(
 								function(d){
 									return d.PKLots.map(function(p){
 															return p.transactions[p.transactions.length-1].date
@@ -35,6 +35,9 @@ class RevenueAnalyticsDashboard extends React.Component{
 								}
 							);
 	
+    var formatTime = d3.timeFormat("%Y-%m-%d");
+    
+
     this.state={
       store: createStore(reducer,
         {
@@ -51,6 +54,15 @@ class RevenueAnalyticsDashboard extends React.Component{
 									return d3.max(d);
 								}
 							)),
+          
+          beginDate:d3.timeParse("%Y-%m-%d")(
+            d3.min(firstDataOfPKLots.map(
+                function(d){
+                  d.forEach(function(t){t=d3.timeParse("%Y-%m-%d")(t)});
+                  return d3.min(d);
+                }
+              ))),
+          endDate:d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(new Date)),
           timeScaleFilter:'month',
         })
     }

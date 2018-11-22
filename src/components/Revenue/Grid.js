@@ -138,7 +138,7 @@ class Grid extends React.Component{
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="row x_title"><h3>{this.props.name}</h3></div>
-              <div class="row x_content">
+              <div class="row x_content" >
                 <ReactTable
                   class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right rt-th" 
                   style={{cellspacing:0,  width:"100%"}} 
@@ -146,6 +146,7 @@ class Grid extends React.Component{
                   columns={columns}
                   defaultPageSize={10}
                   pageSize={this.props.pageSize}
+                  //resizable={false}
                   className="-striped -highlight"
                   onExpandedChange={(expanded, index, event) => {
                     this.setState({expanded});            
