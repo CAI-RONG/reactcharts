@@ -9,6 +9,7 @@ import makeData from '../components/Revenue/RevenueData.json';
 import GridContainer from "./GridContainer";
 import ContainerTimeScale from './containerTimeScale';
 import TileCountContainer from './TileCountContainer';
+import OperatorTransactionContainer  from './OperatorTransactionContainer';
 
 import Grid from '../components/Revenue/Grid'
 import TimeScale from '../components/Charts/timeScale'

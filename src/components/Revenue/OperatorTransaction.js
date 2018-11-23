@@ -20,7 +20,7 @@ const customStyles = {
 var moment = require('moment');
 moment().format();
 
-class OperatorTransactionAnalytics extends React.Component {
+class OperatorTransaction extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -43,8 +43,6 @@ class OperatorTransactionAnalytics extends React.Component {
   }
 
   render () {
-   
-
     return (
       <div>
         <a class="btn btn-sm btn-primary" onClick={this.handleOpenModal}>
@@ -60,70 +58,60 @@ class OperatorTransactionAnalytics extends React.Component {
           <ReactTable 
       		  class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right rt-th" 
        		  style={{cellspacing:0,  width:"100%"}}
-            data={this.props.data.PKLots}     		
+            data={this.props.data}     		
             columns={[
           	{ 
-          	    Header: '日期',
-                id: "updatedAt",
-                accessor: d => {
-                  return moment(d.updated_at)
-                        .local()
-                        .format("YYYY / MM")
-                  }
+              Header: '日期',
+              id: "updatedAt",
+              accessor: d => {
+                return moment(d.updated_at)
+                      .local()
+                      .format("YYYY / MM")
+              }
           	},
           	{ 
-          	    Header: '訂單數量',
-          	    columns: [
-          	    { 
-          	        Header: '上期'
-          		},
-          		{ 
-          		    Header: '本期'
-          		},
-          		{	 
-          		    Header: '差異',
-          		    id:'amount_diff'
-          		},
-          		{ 
-          		    Header: '％',
-          		    id:'amount_ratio'
-          		}]	
+              Header: '訂單數量',
+              columns: [
+              { 
+                Header: '上期',
+                accessor: 'LastAmount'
+               },
+               { 
+                Header: '本期',
+                accessor: 'CurrentAmount'
+               },
+              {	 
+                Header: '差異',
+                id:'amount_diff'
+               },
+               {  
+                 Header: '％',
+                 id:'amount_ratio'
+              }]	
           	},
           	{
           		Header: '訂單金額',
           		columns: [
           		{ 
           		    Header:'上期',
+                  accessor: 'LastValue'
   				    },
           		{ 
-          		    Header:'本期'
+          		    Header:'本期',
+                  accessor: 'CurrentValue'
           		},
           		{ 
           		    Header:'差異',
           		    id:'value_diff'
-          			/*getProps: (state, rowInfo, column) => {
-          				return {
-          					style: {
-          						background: rowInfo.row.diff < 0 ? "red" : null
-          					}
-          				};
-          			}*/
           		},
           		{ 
           		    Header: '％',
           		    id:'value_ratio'
-  					      /*getProps: (state, rowInfo, column) => {
-  					       return {
-  					        style: {
-  					          background: rowInfo.row.ratio < 0 ? "red" : null
-  					        }
-  					    };
-  					  },
-  					   Cell: row => <span>{row.value}%</span>*/
+  					      
   				    }]
   				  }]}
-  				  defaultPageSize={10}
-  				  pageSize={this.props.pageSize}
+  			     defaultPageSize={6}
+            pageSize={this.props.data.length}
   				  className="-striped -highlight"  
           />
         </Modal>
@@ -132,4 +120,4 @@ class OperatorTransactionAnalytics extends React.Component {
   }
 }
 
-export default OperatorTransactionAnalytics
+export default OperatorTransaction;

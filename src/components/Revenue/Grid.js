@@ -5,8 +5,10 @@ import PropTypes from 'prop-types';
 import { ReactTableDefaults } from 'react-table';
 import './Revenue.css';
 import _ from 'lodash';
-import OperatorTransactionAnalytics from './OperatorTransactionAnalytics';
-import PKLotsTransactionAnalytics from './PKLotsTransactionAnalytics';
+
+
+import OperatorTransactionContainer from  "../../containers/OperatorTransactionContainer";
+import PKLotsTransactionContainer from  "../../containers/PKLotsTransactionContainer";
 
 
 class Grid extends React.Component{
@@ -107,9 +109,9 @@ class Grid extends React.Component{
           Expander: ({ isExpanded, ...rest }) =>
           {
             return (
-              <OperatorTransactionAnalytics 
+              <OperatorTransactionContainer 
                 Operator={rest.original.Operator}
-                data ={rest.original}
+                data ={this.props.data}
                 />
             );
           },
@@ -121,9 +123,9 @@ class Grid extends React.Component{
           Expander: ({ isExpanded, ...rest }) =>
           {
             return (
-              <PKLotsTransactionAnalytics 
+              <PKLotsTransactionContainer
                 Operator={rest.original.Operator}
-                data ={rest.original}
+                data ={this.props.data}
                 />
             );
           },
@@ -142,10 +144,10 @@ class Grid extends React.Component{
                 <ReactTable
                   class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right rt-th" 
                   style={{cellspacing:0,  width:"100%"}} 
-                  data = {this.props.data}
+                  data = {this.props.MonthlyData}
                   columns={columns}
-                  defaultPageSize={10}
-                  pageSize={this.props.pageSize}
+                  defaultPageSize={8}
+                  pageSize={this.props.data.length}
                   //resizable={false}
                   className="-striped -highlight"
                   onExpandedChange={(expanded, index, event) => {
@@ -162,9 +164,10 @@ class Grid extends React.Component{
 
 
 Grid.propTypes = {
-    data:PropTypes.array.isRequired,
+    MonthlyData:PropTypes.array.isRequired,
     name:PropTypes.string,
-    header:PropTypes.string
+    header:PropTypes.string,
+    Data:PropTypes.array.isRequired
 }
 export default Grid;
 

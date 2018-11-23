@@ -27,7 +27,7 @@ const mapStateToProps=(state,props)=>{
 				function(value, index){
 					pklot=op.PKLots[index];
 					selectedData={'select':pklot.transactions.slice()};
-					console.log(selectedData);
+					
 					/*--selected Data--*/
 					var i=0,j=0;
 					selectedData.select.forEach(
@@ -67,7 +67,8 @@ const mapStateToProps=(state,props)=>{
 
 	return {
 		name:props.name,
-		data:outputData.monthlyData,
+		MonthlyData:outputData.monthlyData,
+		data:state.data,
 		header:props.header
 	}
 }
