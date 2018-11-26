@@ -9,6 +9,10 @@ const mapStateToProp=(state,props)=>{
 	var outputData={'PKLotsMonthlyData':[]};
 	var selectedData;
 	var op, pklot;
+	var Today=new Date();
+	var Y = Today.getFullYear();
+	var M = Today.getMonth()+1;
+	var days = new Date(Y,M,0).getDate();
 
 	state.data.map(
 		function(value, index){
@@ -17,10 +21,6 @@ const mapStateToProp=(state,props)=>{
 				op.PKLots.map(
 					function(value, index){
 						pklot=op.PKLots[index];
-						var Today=new Date();
-						var days = new Date( Today.getFullYear(),(Today.getMonth()+1),0).getDate();
-						var Y = Today.getFullYear();
-						var M = Today.getMonth()+1;
 						var begin = Y+"-"+M+"-01";
 						var	end = Y+"-"+M+"-"+days;
 

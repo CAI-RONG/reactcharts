@@ -6,6 +6,7 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import PropTypes from 'prop-types';
 import { ReactTableDefaults } from 'react-table';
+import _ from 'lodash';
 
 const customStyles = {
   content : {
@@ -62,12 +63,8 @@ class OperatorTransaction extends React.Component {
             columns={[
           	{ 
               Header: '日期',
-              id: "updatedAt",
-              accessor: d => {
-                return moment(d.updated_at)
-                      .local()
-                      .format("YYYY / MM")
-              }
+              accessor: "date"
+             
           	},
           	{ 
               Header: '訂單數量',
@@ -75,43 +72,58 @@ class OperatorTransaction extends React.Component {
               { 
                 Header: '上期',
                 accessor: 'LastAmount'
-               },
-               { 
+              },
+              { 
                 Header: '本期',
                 accessor: 'CurrentAmount'
-               },
+              },
               {	 
                 Header: '差異',
-                id:'amount_diff'
-               },
-               {  
-                 Header: '％',
-                 id:'amount_ratio'
+                id:'diffAmount',
+                accessor: d => _.round(d.CurrentAmount- d.LastAmount),
+                Cell: row =>  (
+                        <span style={{color: row.value >= 0 ? 'null': 'red'}}>
+                          {row.value}
+                        </span>
+                    )
+              },
+              {  
+                Header: '％',
+                id:'RatioAmount',
+                accessor: d => _.round(((d.CurrentAmount - d.LastAmount)/d.LastAmount)*10000)/100,
+                Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
               }]	
           	},
           	{
           		Header: '訂單金額',
           		columns: [
           		{ 
-          		    Header:'上期',
-                  accessor: 'LastValue'
+          		  Header:'上期',
+                accessor: 'LastValue'
   				    },
           		{ 
-          		    Header:'本期',
-                  accessor: 'CurrentValue'
+          		  Header:'本期',
+                accessor: 'CurrentValue'
           		},
           		{ 
-          		    Header:'差異',
-          		    id:'value_diff'
+          		  Header:'差異',
+          		  id:'diffValue',
+                Cell: row =>  (
+                      <span style={{color: row.value >= 0 ? 'null': 'red'}}>
+                          {row.value}
+                      </span>
+                 )
           		},
           		{ 
-          		    Header: '％',
-          		    id:'value_ratio'
+          		  Header: '％',
+          		  id:'RatioValue',
+                accessor: d => _.round(((d.CurrentValue - d.LastValue)/d.LastValue)*10000)/100,
+                Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
   					      
   				    }]
   				  }]}
-  			     defaultPageSize={6}
-            pageSize={this.props.data.length}
+  			     defaultPageSize={5}
+        
   				  className="-striped -highlight"  
           />
         </Modal>

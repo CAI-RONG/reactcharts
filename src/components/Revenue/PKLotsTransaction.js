@@ -79,12 +79,18 @@ class PKLotsTransactionAnalytics extends React.Component {
             		    Header: '差異',
             		    id:'diffAmount',
                     accessor: d => _.round(d.CurrentAmount- d.LastAmount),
+                    Cell: row =>  (
+                        <span style={{color: row.value >= 0 ? 'null': 'red'}}>
+                          {row.value}
+                        </span>
+                    )
             		  },
             		  { 
             		    Header: '％',
             		    id:'RatioAmount',
+                    id:'RatioAmount',
                     accessor: d => _.round(((d.CurrentAmount - d.LastAmount)/d.LastAmount)*10000)/100,
-                    Cell: row => <span>{row.value}%</span>
+                    Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
                  
             		  }]	
             	  },
@@ -102,14 +108,18 @@ class PKLotsTransactionAnalytics extends React.Component {
             		  { 
             		    Header:'差異',
             		    id:'diffValue',
-                    accessor: d => _.round(d.CurrentValue - d.LastValue)
-            		
+                    accessor: d => _.round(d.CurrentValue - d.LastValue),
+            		    Cell: row =>  (
+                      <span style={{color: row.value >= 0 ? 'null': 'red'}}>
+                          {row.value}
+                      </span>
+                 )
             		  },
             		  { 
             		    Header: '％',
             		    id:'RatioValue',
                     accessor: d => _.round(((d.CurrentValue - d.LastValue)/d.LastValue)*10000)/100,
-                    Cell: row => <span>{row.value}%</span>
+                    Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
     				
     				      }]
     				    }]}
