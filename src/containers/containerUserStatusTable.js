@@ -1,4 +1,3 @@
-import React from 'react';
 import {connect} from 'react-redux';
 import UserStatusTable from '../components/UserStatusTable/UserStatusTable';
 import * as d3 from 'd3';
@@ -17,7 +16,7 @@ const mapStateToProp=state=>{
 	var dateObject={};
 	dateObject['date']=lineChartData.data.iosData.date;
 	dataPerUnit=Object.assign({},dataPerUnit,dateObject);
-	console.log(dataPerUnit);//
+	
 	function outputObject(data,index){
 		var beginDate="",endDate="";
 		switch(state.timeScaleFilter){
@@ -60,7 +59,6 @@ const mapStateToProp=state=>{
 	
 	for(var i=0; i<dataPerUnit.date.length; ++i)
 		outputData.push(new outputObject(dataPerUnit,i));
-	console.log(outputData);//
 	
 	return {
 		data:outputData

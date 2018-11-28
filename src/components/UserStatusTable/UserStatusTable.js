@@ -136,11 +136,11 @@ class UserStatusTable extends React.Component{
 			}
 		},
 		{
-			Header:this.state.total,
+			Header:this.state.total.toString(),
 			accessor:'value'
 		}
 	];
-    console.log(this.state);
+    
 	return (
 		<fieldset> 
 			<legend><h1>User Status</h1></legend>
@@ -166,7 +166,7 @@ class UserStatusTable extends React.Component{
 };
 
 UserStatusTable.propTypes={
-	data:PropTypes.object.isRequired
+	data:PropTypes.array.isRequired
 }
 
 export default UserStatusTable;
