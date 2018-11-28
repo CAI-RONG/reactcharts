@@ -4,7 +4,6 @@ import ContainerGrowthElement from '../../containers/containerGrowthElement';
 import ContainerBarChart from '../../containers/containerBarChart';
 import Modal from 'react-modal';
 
-import creditCard from './BarChart/creditCard.json';
 
 export default class Growth extends React.Component{
 	constructor(props){

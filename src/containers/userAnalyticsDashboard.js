@@ -7,27 +7,26 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
 import creditCard from '../components/Charts/BarChart/creditCard.json';
-import userData from '../components/Charts/LineChart/data.json';
+import UserData from '../components/Charts/LineChart/data.json';
 import ActivedUser from '../components/Charts/activedUser';
-import UserStatusTable from '../components/UserStatusTable/UserStatusTable.js';
-
+import ContainerUserStatusTable from './containerUserStatusTable.js';
 
 export default class UserAnalyticsDashboard extends React.Component{
 	constructor(){
 		super();
 		this.state={
-			store:createStore(reducer,{ userData:userData.data,
+			store:createStore(reducer,{ userData:UserData.data,
 										timeScaleFilter:'week',
 										beginDate:d3.timeParse("%Y-%m")(new Date().getFullYear().toString()+'-'+(new Date().getMonth()+1).toString()),
-										endDate:d3.timeParse("%Y-%m-%d")(userData.data.iosData[userData.data.iosData.length-1].date),
+										endDate:d3.timeParse("%Y-%m-%d")(UserData.data.iosData[UserData.data.iosData.length-1].date),
 										banks:creditCard.data,
-										userDataFirstDay:userData.data.iosData[0].date,
-										userDataLastDay:userData.data.iosData[userData.data.iosData.length-1].date
+										userDataFirstDay:UserData.data.iosData[0].date,
+										userDataLastDay:UserData.data.iosData[UserData.data.iosData.length-1].date
 										})
 		}
 	}
 	
-	render(){console.log(this.state.store.getState());
+	render(){
 		return (
 			<Provider store={this.state.store}>
 				<div>
@@ -37,7 +36,7 @@ export default class UserAnalyticsDashboard extends React.Component{
 					<br/>
 					<Growth/>
 					<ActivedUser/>
-					<UserStatusTable/>
+					<ContainerUserStatusTable/>
 				</div>
 			</Provider>
 		)
