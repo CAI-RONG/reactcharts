@@ -1,4 +1,4 @@
-import React from "react";
+
 import {connect} from 'react-redux';
 import Grid from "../components/Revenue/Grid";
 
@@ -13,9 +13,8 @@ const mapStateToProps=(state,props)=>{
 	var op, pklot;
 	var lastAmount=0, currentAmount=0;
 	var lastValue=0, currentValue=0;
-	var Month = new Date().getMonth()+1;
 
-	if(state.beginDate>state.endDate || state.endDate==undefined)
+	if(state.beginDate>state.endDate || state.endDate===undefined)
 		end=d3.timeParse("%Y-%m-%d")(state.userDataLastDay);
 	var selectedData;
 
@@ -29,21 +28,22 @@ const mapStateToProps=(state,props)=>{
 					selectedData={'select':pklot.transactions.slice()};
 					
 					/*--selected Data--*/
-					var i=0,j=0;
+					var i=0;
 					selectedData.select.forEach(
 						function(data){if(d3.timeParse("%Y-%m-%d")(data.date)<begin)i++;}
 					)
 					selectedData.select.splice(0,i);
 					
-					i=0;j=0;
+					i=0;
 					selectedData.select.forEach(
 						function(data){if(d3.timeParse("%Y-%m-%d")(data.date)>end)i++;}
 					)
 					selectedData.select.splice(selectedData.select.length-i,i);
 					/*--/selected--*/
+					return 0;
 				}
 			)
-			outputData.monthlyData.push({ Operator: op.Operator, LastAmount: lastAmount, CurrentAmount: currentAmount, LastValue: lastValue, CurrentValue: currentValue });
+			return outputData.monthlyData.push({ Operator: op.Operator, LastAmount: lastAmount, CurrentAmount: currentAmount, LastValue: lastValue, CurrentValue: currentValue });
 		}
 	)
 /*

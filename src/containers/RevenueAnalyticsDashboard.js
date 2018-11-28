@@ -8,11 +8,6 @@ import '../components/Revenue/Revenue.css';
 import makeData from '../components/Revenue/RevenueData.json';
 import GridContainer from "./GridContainer";
 import ContainerTimeScale from './containerTimeScale';
-import TileCountContainer from './TileCountContainer';
-import OperatorTransactionContainer  from './OperatorTransactionContainer';
-
-import Grid from '../components/Revenue/Grid'
-import TimeScale from '../components/Charts/timeScale'
 import TileCount from '../components/Revenue/TileCount'
 
 
@@ -36,7 +31,7 @@ class RevenueAnalyticsDashboard extends React.Component{
 								}
 							);
 	
-    var formatTime = d3.timeFormat("%Y-%m-%d");
+   
     
 
     this.state={
@@ -63,7 +58,7 @@ class RevenueAnalyticsDashboard extends React.Component{
                   return d3.min(d);
                 }
               ))),
-          endDate:d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(new Date)),
+          endDate:d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(new Date())),
           timeScaleFilter:'month',
         })
     }
@@ -77,7 +72,7 @@ class RevenueAnalyticsDashboard extends React.Component{
             <ContainerTimeScale/>
           </div>
           <br/>
-          <div class="right_col" role="main">
+          <div className="right_col" role="main">
             <TileCount/>
             <GridContainer name='路外停車' header='業者'/>
             <GridContainer name='路邊停車' header='機關'/>

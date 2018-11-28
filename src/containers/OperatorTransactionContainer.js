@@ -1,4 +1,3 @@
-import React from 'react';
 import {connect} from 'react-redux';
 import OperatorTransaction from  "../components/Revenue/OperatorTransaction";
 import * as d3 from 'd3';
@@ -8,20 +7,18 @@ const mapStateToProp=(state,props)=>{
 	
 	var outputData={'OperatorMonthlyData':[]};
 	var op, pklot;
-	
-
 	var Today=new Date();
 	var Y = Today.getFullYear();
 	var M = Today.getMonth()+1;
-	var currentAmount=0,currentValue=0;
+	var currentAmount=null,currentValue=null;
 	var lastAmount,lastValue;
 
 
 	state.data.map(function(value, index){
 			op = state.data[index];
-			if(op.Operator == props.Operator){ 
+			if(op.Operator === props.Operator){ 
 				/*--this month--*/
-				currentAmount=0; currentValue=0;
+				currentAmount=null; currentValue=null;
 				op.PKLots.map(function(value, index){
 					pklot=op.PKLots[index];
 					var days = new Date(Y,M,0).getDate();
@@ -29,20 +26,19 @@ const mapStateToProp=(state,props)=>{
 					var	end = Y+"-"+M+"-"+days;
 
 					var selectedData={'select':pklot.transactions.slice()};	
-					var i=0,j=0;
+					var i=0;
 					selectedData.select.forEach(function(data){
 						if(d3.timeParse("%Y-%m-%d")(data.date)<d3.timeParse("%Y-%m-%d")(begin))i++;
 					})
 					selectedData.select.splice(0,i);
-					i=0;j=0;
+					i=0;
 					selectedData.select.forEach(function(data){
 						if(d3.timeParse("%Y-%m-%d")(data.date)>d3.timeParse("%Y-%m-%d")(end))i++;
 					})
 					selectedData.select.splice(selectedData.select.length-i,i);
-					console.log(selectedData);
-
 				 	currentAmount += _.sumBy(selectedData.select, 'transactionAmount');
-					currentValue += _.sumBy(selectedData.select, 'transactionValue');						
+					currentValue += _.sumBy(selectedData.select, 'transactionValue');	
+					return 0;					
 				})
 
 				_.times(11,(function(){
@@ -56,24 +52,20 @@ const mapStateToProp=(state,props)=>{
 						var	end = Y+"-"+M+"-"+days;
 
 						var selectedData={'select':pklot.transactions.slice()};	
-						var i=0,j=0;
+						var i=0;
 						selectedData.select.forEach(function(data){
 							if(d3.timeParse("%Y-%m-%d")(data.date)<d3.timeParse("%Y-%m-%d")(begin))i++;
 						})
 						selectedData.select.splice(0,i);
-						i=0;j=0;
+						i=0;
 						selectedData.select.forEach(function(data){
 							if(d3.timeParse("%Y-%m-%d")(data.date)>d3.timeParse("%Y-%m-%d")(end))i++;
 						})
 						selectedData.select.splice(selectedData.select.length-i,i);
-						console.log(selectedData);
-
 				 		lastAmount += _.sumBy(selectedData.select, 'transactionAmount');
-				 		lastValue += _.sumBy(selectedData.select, 'transactionValue');						
-										
-						//console.log(outputData);
-						/*--各停車場--*/
-										
+				 		lastValue += _.sumBy(selectedData.select, 'transactionValue');															
+						/*--/各停車場--*/		
+						return 0;			
 					})
 					/*--/op.PKLots.map--*/
 					outputData.OperatorMonthlyData.push({ date:Y+"/"+(M+1),
@@ -84,11 +76,13 @@ const mapStateToProp=(state,props)=>{
 														});
 					
 					currentAmount=lastAmount;
-					currentValue=lastValue;					
-					/////////////////
+					currentValue=lastValue;
+					return 0;					
 				}))
+
 				
-			}		
+			}
+			return 0;		
 		}
 	)
 	

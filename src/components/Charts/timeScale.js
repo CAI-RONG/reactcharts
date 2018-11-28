@@ -38,7 +38,7 @@ export default class TimeScale extends React.Component{
 		return (
 			<div style={{display:'inline-flex',alignItems:'center',fontFamily:'微軟正黑體',fontSize:16}}>
 				<span>顯示單位：</span>
-				<DropdownButton bsStyle='primary' title={this.state.dropdownTitle} noCaret>
+				<DropdownButton bsStyle='primary' title={this.state.dropdownTitle} noCaret id='dropdown'>
 					<MenuItem onClick={()=>this.handleOnClick('day')}>
 					日</MenuItem>
 					<MenuItem onClick={()=>this.handleOnClick('week')}>

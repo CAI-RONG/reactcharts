@@ -2,7 +2,6 @@ import React from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import PropTypes from 'prop-types';
-import { ReactTableDefaults } from 'react-table';
 import './Revenue.css';
 import _ from 'lodash';
 
@@ -136,13 +135,13 @@ class Grid extends React.Component{
     ];
     
     return (
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-              <div class="row x_title"><h3>{this.props.name}</h3></div>
-              <div class="row x_content" >
+        <div className="row">
+          <div className="col-md-12 col-sm-12 col-xs-12">
+            <div className="x_panel">
+              <div className="row x_title"><h3>{this.props.name}</h3></div>
+              <div className="row x_content" >
                 <ReactTable
-                  class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right rt-th" 
+                 
                   style={{cellspacing:0,  width:"100%"}} 
                   data = {this.props.MonthlyData}
                   columns={columns}
@@ -166,7 +165,7 @@ Grid.propTypes = {
     MonthlyData:PropTypes.array.isRequired,
     name:PropTypes.string,
     header:PropTypes.string,
-    Data:PropTypes.array.isRequired
+    Data:PropTypes.array
 }
 export default Grid;
 
