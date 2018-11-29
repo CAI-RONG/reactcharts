@@ -1,4 +1,4 @@
-{/*Action Creator*/}
+//Action Creator
 
 export const changeColor=bgc=>{
 	return {
