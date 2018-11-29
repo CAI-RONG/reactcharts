@@ -1,24 +1,19 @@
 import React from "react";
 import { render } from "react-dom";
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 
 class TileCount extends React.Component {
 	constructor(props) { 
-	  super(props);
-	  
+	  super(props); 
 	}
 	render(){
-       	var currentMonth_total_TA
-       	/*for(var i = 0; i < 30;i++) 
-        	currentMonth_total_TA += _.sumBy(this.props.data.PKLots[i].transactions[i].transactionAmount)
-		*/
+       
 		return(
 			<div className="row tile_count">
             <div className="col-sm-4 col-xs-12 tile_stats_count">
               <span className="count_top"><i className="fas fa-dollar-sign"></i>本月總交易金額</span>
-              <div className="count">{this.props.currentMonth_total_TA}</div>
+              <div className="count">{this.props.TotalAmount}</div>
               <span className="count_bottom"><i className="green">4% </i> From last Week</span>
             </div>
             <div className="col-sm-4 col-xs-12 tile_stats_count">

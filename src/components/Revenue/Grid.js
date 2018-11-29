@@ -137,7 +137,6 @@ class Grid extends React.Component{
               <div className="row x_title"><h3>{this.props.name}</h3></div>
               <div className="row x_content" >
                 <ReactTable
-                 
                   style={{cellspacing:0,  width:"100%"}} 
                   data = {this.props.MonthlyData}
                   columns={columns}

@@ -8,7 +8,7 @@ import '../components/Revenue/Revenue.css';
 import makeData from '../components/Revenue/RevenueData.json';
 import GridContainer from "./GridContainer";
 import ContainerTimeScale from './containerTimeScale';
-import TileCount from '../components/Revenue/TileCount'
+import TileCountContainer from './TileCountContainer'
 
 
 class RevenueAnalyticsDashboard extends React.Component{
@@ -31,9 +31,6 @@ class RevenueAnalyticsDashboard extends React.Component{
 								}
 							);
 	
-   
-    
-
     this.state={
       store: createStore(reducer,
         {
@@ -67,7 +64,7 @@ class RevenueAnalyticsDashboard extends React.Component{
           </div>
           <br/>
           <div className="right_col" role="main">
-            <TileCount/>
+            <TileCountContainer />
             <GridContainer name='路外停車' header='業者'/>
             <GridContainer name='路邊停車' header='機關'/>
           </div>
