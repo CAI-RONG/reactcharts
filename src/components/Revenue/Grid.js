@@ -105,7 +105,7 @@ class Grid extends React.Component{
           {
             return (
               <OperatorTransactionContainer 
-                Operator={rest.original.Operator}
+                Operator={rest.original.operator}
                 data ={this.props.data}
                 />
             );
@@ -119,7 +119,7 @@ class Grid extends React.Component{
           {
             return (
               <PKLotsTransactionContainer
-                Operator={rest.original.Operator}
+                Operator={rest.original.operator}
                 data ={this.props.data}
                 />
             );
