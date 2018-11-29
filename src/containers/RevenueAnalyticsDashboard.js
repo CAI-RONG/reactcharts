@@ -51,13 +51,7 @@ class RevenueAnalyticsDashboard extends React.Component{
 								}
 							)),
           
-          beginDate:d3.timeParse("%Y-%m-%d")(
-            d3.min(firstDataOfPKLots.map(
-                function(d){
-                  d.forEach(function(t){t=d3.timeParse("%Y-%m-%d")(t)});
-                  return d3.min(d);
-                }
-              ))),
+          beginDate:d3.timeParse("%Y-%m")(d3.timeFormat("%Y-%m")(new Date())),
           endDate:d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(new Date())),
           timeScaleFilter:'month',
         })
@@ -69,7 +63,7 @@ class RevenueAnalyticsDashboard extends React.Component{
       <Provider store={this.state.store}>
         <div>
           <div>
-            <ContainerTimeScale/>
+            <ContainerTimeScale name="revenue"/>
           </div>
           <br/>
           <div className="right_col" role="main">

@@ -26,7 +26,7 @@ class Grid extends React.Component{
     const columns = [
       { 
         Header: () => <span>{this.props.header}</span>,
-        accessor: 'Operator',
+        accessor: 'operator',
         sortable: false,
         width:200,
       },
@@ -36,29 +36,27 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            accessor: 'LastAmount',
+            accessor: 'lastAmount',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80,
           },
           { 
             Header: '本期',
-            accessor: 'CurrentAmount',
+            accessor: 'currentAmount',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80
           },
           { 
             Header: '差異',
-            id:'diffAmount',
+            accessor:'diffAmount',
             headerStyle: {backgroundColor: "#118fc3"},
-            accessor: d => _.round(d.CurrentAmount- d.LastAmount),
-  
             width:80
           },
           { 
             Header: '％',
-            id:'RatioAmount',
+            id:'ratioAmount',
             headerStyle: {backgroundColor: "#118fc3"},
-            accessor: d => _.round(((d.CurrentAmount - d.LastAmount)/d.LastAmount)*10000)/100,
+            accessor: d => d.ratioAmount,
             Cell: row => <span>{row.value}%</span>,
             width:80
           }
@@ -70,30 +68,28 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            accessor: 'LastValue',
+            accessor: 'lastValue',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80
          
           },
           { 
             Header: '本期',
-            accessor: 'CurrentValue',
+            accessor: 'currentValue',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80
           },
           { 
             Header: '差異',
-            id:'diffValue',
+            accessor:'diffValue',
             headerStyle: {backgroundColor: "#118fc3"},
-            accessor: d => _.round(d.CurrentValue - d.LastValue),
-            
             width:80
           },
           { 
             Header: '％',
-            id:'RatioValue',
+            id:'ratioValue',
             headerStyle: {  backgroundColor: "#118fc3"},
-            accessor: d => _.round(((d.CurrentValue - d.LastValue)/d.LastValue)*10000)/100,
+            accessor: d => d.ratioValue,
             Cell: row => <span>{row.value}%</span>,
             width:80
           }
@@ -165,7 +161,7 @@ Grid.propTypes = {
     MonthlyData:PropTypes.array.isRequired,
     name:PropTypes.string,
     header:PropTypes.string,
-    Data:PropTypes.array
+    data:PropTypes.array
 }
 export default Grid;
 

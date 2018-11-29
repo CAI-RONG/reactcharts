@@ -11,7 +11,7 @@ export default class TimeScale extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			dropdownTitle:'週',
+			dropdownTitle:(this.props.timeScale==='month'?'月':(this.props.timeScale==='week'?'週':'日')),
 			before:props.dateOfFirstData,
 			after:props.dateOfLastData,
 			selectedDay:props.dateOfFirstData
@@ -36,7 +36,7 @@ export default class TimeScale extends React.Component{
 	
 	render(){
 		return (
-			<div style={{display:'inline-flex',alignItems:'center',fontFamily:'微軟正黑體',fontSize:16}}>
+			<div id={this.props.name} style={{display:'inline-flex',alignItems:'center',fontFamily:'微軟正黑體',fontSize:16}}>
 				<span>顯示單位：</span>
 				<DropdownButton bsStyle='primary' title={this.state.dropdownTitle} noCaret id='dropdown'>
 					<MenuItem onClick={()=>this.handleOnClick('day')}>
@@ -52,7 +52,19 @@ export default class TimeScale extends React.Component{
 						<DayPickerInput 
 							onDayChange={
 								(day)=>{
-									this.setState({selectedDay:day});
+									var dayShift=14;
+									if(this.props.name==="revenue"){
+										if(this.state.dropdownTitle==='週')
+											dayShift=14;
+										if(this.state.dropdownTitle==='日')
+											dayShift=1;
+										if(this.state.dropdownTitle==='月')
+											dayShift=new Date(day.getFullYear(),day.getMonth()-1,0).getDate();
+									}
+									else
+										dayShift=1;
+
+									this.setState({selectedDay:new Date(day.getFullYear(),day.getMonth(),day.getDate()+dayShift)});
 									this.props.beginDateChange(day);
 								}
 							}
@@ -90,5 +102,7 @@ TimeScale.propTypes={
 	beginDateChange:PropTypes.func.isRequired,
 	endDateChange:PropTypes.func.isRequired,
 	dateOfFirstData:PropTypes.object,
-	dateOfLastData:PropTypes.object
+	dateOfLastData:PropTypes.object,
+	name:PropTypes.string.isRequired,
+	timeScale:PropTypes.string.isRequired
 }
