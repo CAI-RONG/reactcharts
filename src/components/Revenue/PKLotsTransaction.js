@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import ContainerLineChart from '../../containers/containerLineChart';
 
 import _ from 'lodash';
 
@@ -51,7 +52,6 @@ class PKLotsTransactionAnalytics extends React.Component {
           <button onClick={this.handleCloseModal} >X</button>
           <p> {this.props.Operator} - 各停車場站每月訂單分析 </p>
           <ReactTable 
-       
          		style={{cellspacing:0,  width:"100%"}}
                 data={this.props.data}     		
                 columns={[
@@ -65,16 +65,16 @@ class PKLotsTransactionAnalytics extends React.Component {
             	    columns: [
             	    { 
             	       Header: '上期',
-                     accessor: 'transactions[0].LastAmount'
+                     accessor: 'Amount[8]'
             		  },
             		  { 
             		    Header: '本期',
-                    accessor: 'transactions[0].CurrentAmount'
+                    accessor: 'Amount[9]'
             		  },
             		  {	 
             		    Header: '差異',
             		    id:'diffAmount',
-                    accessor: d => _.round(d.CurrentAmount- d.LastAmount),
+                    accessor: d => _.round(d.Amount[9]- d.Amount[8]),
                     Cell: row =>  (
                         <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
@@ -84,9 +84,8 @@ class PKLotsTransactionAnalytics extends React.Component {
             		  { 
             		    Header: '％',
                     id:'RatioAmount',
-                    accessor: d => _.round(((d.CurrentAmount - d.LastAmount)/d.LastAmount)*10000)/100,
+                    accessor: d => _.round(((d.Amount[9] - d.Amount[8])/d.Amount[8])*10000)/100,
                     Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
-                 
             		  }]	
             	  },
             	  {
@@ -94,16 +93,16 @@ class PKLotsTransactionAnalytics extends React.Component {
             		  columns: [
             		  { 
             		    Header:'上期',
-                     accessor: 'LastValue'
+                     accessor: 'Value[8]'
     				      },
             		  { 
             		    Header:'本期',
-                    accessor: 'CurrentValue'
+                    accessor: 'Value[9]'
             		  },
             		  { 
             		    Header:'差異',
             		    id:'diffValue',
-                    accessor: d => _.round(d.CurrentValue - d.LastValue),
+                    accessor: d => _.round(d.Value[9] - d.Value[8]),
             		    Cell: row =>  (
                       <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
@@ -113,7 +112,7 @@ class PKLotsTransactionAnalytics extends React.Component {
             		  { 
             		    Header: '％',
             		    id:'RatioValue',
-                    accessor: d => _.round(((d.CurrentValue - d.LastValue)/d.LastValue)*10000)/100,
+                    accessor: d => _.round(((d.Value[9] - d.Value[8])/d.Value[8])*10000)/100,
                     Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
     				
     				      }]
@@ -121,6 +120,15 @@ class PKLotsTransactionAnalytics extends React.Component {
     				defaultPageSize={6}
             pageSize={this.props.data.length}
     				className="-striped -highlight"  
+            SubComponent={row => {
+              return (
+                <span>
+                   {row.original.Amount.map((item, i) => {
+                      return <p key={i}>{item}</p>;
+                })}
+                </span>
+              )
+            }}
           />
         </Modal>
       </div>
