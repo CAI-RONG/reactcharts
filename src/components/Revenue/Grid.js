@@ -2,11 +2,12 @@ import React from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import PropTypes from 'prop-types';
-import { ReactTableDefaults } from 'react-table';
 import './Revenue.css';
 import _ from 'lodash';
-import OperatorTransactionAnalytics from './OperatorTransactionAnalytics';
-import PKLotsTransactionAnalytics from './PKLotsTransactionAnalytics';
+
+
+import OperatorTransactionContainer from  "../../containers/OperatorTransactionContainer";
+import PKLotsTransactionContainer from  "../../containers/PKLotsTransactionContainer";
 
 
 class Grid extends React.Component{
@@ -25,7 +26,7 @@ class Grid extends React.Component{
     const columns = [
       { 
         Header: () => <span>{this.props.header}</span>,
-        accessor: 'Operator',
+        accessor: 'operator',
         sortable: false,
         width:200,
       },
@@ -35,29 +36,27 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            accessor: 'LastAmount',
+            accessor: 'lastAmount',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80,
           },
           { 
             Header: '本期',
-            accessor: 'CurrentAmount',
+            accessor: 'currentAmount',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80
           },
           { 
             Header: '差異',
-            id:'diffAmount',
+            accessor:'diffAmount',
             headerStyle: {backgroundColor: "#118fc3"},
-            accessor: d => _.round(d.CurrentAmount- d.LastAmount),
-  
             width:80
           },
           { 
             Header: '％',
-            id:'RatioAmount',
+            id:'ratioAmount',
             headerStyle: {backgroundColor: "#118fc3"},
-            accessor: d => _.round(((d.CurrentAmount - d.LastAmount)/d.LastAmount)*10000)/100,
+            accessor: d => d.ratioAmount,
             Cell: row => <span>{row.value}%</span>,
             width:80
           }
@@ -69,30 +68,28 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            accessor: 'LastValue',
+            accessor: 'lastValue',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80
          
           },
           { 
             Header: '本期',
-            accessor: 'CurrentValue',
+            accessor: 'currentValue',
             headerStyle: {backgroundColor: "#118fc3"},
             width:80
           },
           { 
             Header: '差異',
-            id:'diffValue',
+            accessor:'diffValue',
             headerStyle: {backgroundColor: "#118fc3"},
-            accessor: d => _.round(d.CurrentValue - d.LastValue),
-            
             width:80
           },
           { 
             Header: '％',
-            id:'RatioValue',
+            id:'ratioValue',
             headerStyle: {  backgroundColor: "#118fc3"},
-            accessor: d => _.round(((d.CurrentValue - d.LastValue)/d.LastValue)*10000)/100,
+            accessor: d => d.ratioValue,
             Cell: row => <span>{row.value}%</span>,
             width:80
           }
@@ -107,9 +104,9 @@ class Grid extends React.Component{
           Expander: ({ isExpanded, ...rest }) =>
           {
             return (
-              <OperatorTransactionAnalytics 
+              <OperatorTransactionContainer 
                 Operator={rest.original.Operator}
-                data ={rest.original}
+                data ={this.props.data}
                 />
             );
           },
@@ -121,9 +118,9 @@ class Grid extends React.Component{
           Expander: ({ isExpanded, ...rest }) =>
           {
             return (
-              <PKLotsTransactionAnalytics 
+              <PKLotsTransactionContainer
                 Operator={rest.original.Operator}
-                data ={rest.original}
+                data ={this.props.data}
                 />
             );
           },
@@ -134,18 +131,18 @@ class Grid extends React.Component{
     ];
     
     return (
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-              <div class="row x_title"><h3>{this.props.name}</h3></div>
-              <div class="row x_content">
+        <div className="row">
+          <div className="col-md-12 col-sm-12 col-xs-12">
+            <div className="x_panel">
+              <div className="row x_title"><h3>{this.props.name}</h3></div>
+              <div className="row x_content" >
                 <ReactTable
-                  class="table table-striped dt-responsive nowrap order-column jambo_table bulk_action td-align-right rt-th" 
+                 
                   style={{cellspacing:0,  width:"100%"}} 
-                  data = {this.props.data}
+                  data = {this.props.MonthlyData}
                   columns={columns}
-                  defaultPageSize={10}
-                  pageSize={this.props.pageSize}
+                  defaultPageSize={this.props.data.length}
+                  //resizable={false}
                   className="-striped -highlight"
                   onExpandedChange={(expanded, index, event) => {
                     this.setState({expanded});            
@@ -161,9 +158,10 @@ class Grid extends React.Component{
 
 
 Grid.propTypes = {
-    data:PropTypes.array.isRequired,
+    MonthlyData:PropTypes.array.isRequired,
     name:PropTypes.string,
-    header:PropTypes.string
+    header:PropTypes.string,
+    data:PropTypes.array
 }
 export default Grid;
 

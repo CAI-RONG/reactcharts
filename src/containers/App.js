@@ -14,9 +14,6 @@ import UserAnalyticsDashboard from './userAnalyticsDashboard';
 import RevenueAnalyticsDashboard from './RevenueAnalyticsDashboard'
 
 class App extends Component {
-  constructor(){
-    super();
-  }
   
   state ={
     sideDrawerOpen: false 
@@ -41,25 +38,25 @@ class App extends Component {
     }
     return (
 
-        <body class="nav-md">
-            <div class="main_container">
+        <div className="nav-md">
+            <div className="main_container">
               <Toolbar drawerClickHandler = {this.drawerToggleClickHandler}/>
               <SideDrawer show={this.state.sideDrawerOpen}/>
               {backdrop}
               
-              <div class="right_col" role="main" style={{marginTop:'100px'}}>
+              <div className="right_col" role="main" style={{marginTop:'100px'}}>
                 <Route path="/" exact component={HomePage} />
                 <Route path="/UserAnalyticsDashboard" exact component={UserAnalyticsDashboard} />   
                 <Route path="/RevenueAnalyticsDashboard" exact component={RevenueAnalyticsDashboard} /> 
               </div>
               <footer>
-                <div class="pull-right">
+                <div className="pull-right">
                   <a>Copyright &copy; 2018 PKLOT</a>
                 </div>
-                <div class="clearfix"></div>
+                <div className="clearfix"></div>
               </footer>
             </div>
-        </body>
+        </div>
 
     );
   }

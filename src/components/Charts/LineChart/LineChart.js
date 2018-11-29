@@ -4,36 +4,26 @@ import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 export default class LineChart extends React.Component{
-	constructor(props){
-		super(props);
-		this.state={
-			ios:props.data.iosData.value[0],
-			android:props.data.androidData.value[0]
-		}
-		this.setState=this.setState.bind(this);
-	}
 	
 	componentDidMount(){
 		this.drawChart();
 	}
 	
-	
-	
 	componentDidUpdate(){
 		this.drawChart();
 	}
 	
-	
-	showValue(sumOfData,dataAmount,svg,scaleX,scaleY){
+	showValue(highestData,dataAmount,svg,scaleX,scaleY){
 		const Height=$('svg#'+this.props.name).height()*0.7;
 		const Width=$('svg#'+this.props.name).width()*0.7;
-		
 		const data=this.props.data;
-		var focus=svg.append('g').attr('class','focus focus-total')
+		const keys=Object.keys(data);
+		
+		var focus=svg.append('g').attr('class','focus focus-total')//delete focus-total
 									.style('display','none');
 		
 		focus.append('line').attr('class','hover-line-total')
-							.attr('stroke','#ff8400')
+							.attr('stroke','#007bff')
 							.attr('transform','translate(50,30)')
 							.attr('y1','0')
 							.attr('y2',Height);
@@ -45,9 +35,10 @@ export default class LineChart extends React.Component{
 							.attr('fill','rgba(100,100,100,0.8)');
 							
 		focus.append('text').attr('class','date').style('font-size',12);
-		focus.append('text').attr('class','total').style('font-size',12);
-		focus.append('text').attr('class','ios').style('font-size',12);
-		focus.append('text').attr('class','android').style('font-size',12);
+		//focus.append('text').attr('class','total').style('font-size',12);
+		for(var key in data)
+			focus.append('text').attr('class',key).style('font-size',12);
+		//focus.append('text').attr('class','android').style('font-size',12);
 		
 		svg.append('rect').attr('class','rect-total')
 							.attr('transform','translate(50,30)')
@@ -62,31 +53,34 @@ export default class LineChart extends React.Component{
 		function move(){
 			const valX=scaleX.invert(d3.mouse(this)[0]);
 			
-			const selector=svg.selectAll('g.focus-total').attr('transform','translate('+scaleX(Math.round(valX))+','+scaleY(sumOfData[Math.round(valX)])+')');
-			selector.select('line.hover-line-total').attr('y2',Height-scaleY(sumOfData[Math.round(valX)]));
+			const selector=svg.selectAll('g.focus-total').attr('transform','translate('+scaleX(Math.round(valX))+','+scaleY(highestData[Math.round(valX)])+')');
+			selector.select('line.hover-line-total').attr('y2',Height-scaleY(highestData[Math.round(valX)]));
 			
 			selector.select('rect').style('display',null)
 									.attr('transform','translate(70,0)');
 									
-			selector.select('text.date').text(function(){return data.iosData.date[Math.round(valX)]})
+			selector.select('text.date').text(function(){return data[keys[0]].date[Math.round(valX)]})
 										.attr('transform','translate(80,20)')
 										.style('fill','#fff');
-			selector.select('text.total').text(function(){return "Total: "+sumOfData[Math.round(valX)]})
+			/*selector.select('text.total').text(function(){return "Total: "+highestData[Math.round(valX)]})
 										.attr('transform','translate(80,35)')
-										.style('fill','#fff');
-			selector.select('text.ios').text(function(){return "iOS: "+data.iosData.value[Math.round(valX)]})
-										.attr('transform','translate(80,50)')
-										.style('fill','#fff');
-			selector.select('text.android').text(function(){return "Android: "+data.androidData.value[Math.round(valX)]})
-											.attr('transform','translate(80,65)')
+										.style('fill','#fff');*/
+			for(var i=0; i<dataAmount; ++i){
+				selector.select('text.'+keys[i]).text(function(){return keys[i]+": "+data[keys[i]].value[Math.round(valX)]})
+											.attr('transform','translate(80,'+(50+15*i)+')')
 											.style('fill','#fff');
+				/*selector.select('text.android').text(function(){return "Android: "+data.androidData.value[Math.round(valX)]})
+												.attr('transform','translate(80,65)')
+												.style('fill','#fff');*/
+			}
 											
-			if(Math.round(valX)>=sumOfData.length*0.5){
+			if(Math.round(valX)>=highestData.length*0.5){
 				selector.select('rect').attr('transform','translate(-70,0)');
 				selector.select('text.date').attr('transform','translate(-60,20)');
 				selector.select('text.total').attr('transform','translate(-60,35)');
-				selector.select('text.ios').attr('transform','translate(-60,50)');
-				selector.select('text.android').attr('transform','translate(-60,65)');
+				for(var i=0; i<dataAmount; ++i){
+					selector.select('text.'+keys[i]).attr('transform','translate(-60,'+(50+15*i)+')');
+				}
 			}
 		}
 	}
@@ -99,8 +93,8 @@ export default class LineChart extends React.Component{
 		const svg=d3.select('svg#'+this.props.name).attr('width','100%')
 													.attr('height',300);
 											
-		var dataWidthDomain=Object.entries(data)[0][1].value.length;
-		var sumOfData=Object.entries(data)[0][1].value.slice();
+		var dataWidthDomain=Object.entries(data)[0][1].value.length;//length of first data
+		/*var sumOfData=Object.entries(data)[0][1].value.slice();
 		
 		if(dataAmount>1){
 			var currentData={};
@@ -111,14 +105,22 @@ export default class LineChart extends React.Component{
 				for(var j=0;j<currentData.length;++j)
 					sumOfData[j]+=currentData[j];
 			}
+		}*/
+		
+		var highestData=[];
+		for(var i=0; i<dataWidthDomain; ++i){
+			var currentIndexData=[];
+			for(var d in data){currentIndexData.push(data[d].value[i])}
+			highestData.push(d3.max(currentIndexData));
 		}
+		
 		
 		const scaleX=d3.scaleLinear()
 					.domain([0,dataWidthDomain-1])
 					.range([0,$('svg#'+this.props.name).width()*0.7]);
 	
 		const scaleY=d3.scaleLinear()
-					.domain([0,d3.max(sumOfData)+10])
+					.domain([0,d3.max(highestData)])
 					.range([$('svg#'+this.props.name).height()*0.7,0]);		
 		
 		const line=d3.line()
@@ -141,12 +143,12 @@ export default class LineChart extends React.Component{
 			}
 			svg.append('circle').attr('r',5)
 								.attr('fill',color[i%9])
-								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*(i+1)+30)+','+($('svg#'+this.props.name).height()*0.92)+')');
-			svg.append('text').text(function(){return (Object.entries(data)[i][0]=='iosData')?'iOS':'Android'})
-						.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*(i+1)+50)+','+($('svg#'+this.props.name).height()*0.93)+')');
+								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+30)+','+($('svg#'+this.props.name).height()*0.92)+')');
+			svg.append('text').text(function(){return Object.entries(data)[i][0]})
+						.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+50)+','+($('svg#'+this.props.name).height()*0.93)+')');
 		}
 		
-		svg.append('circle').attr('r',5)
+		/*svg.append('circle').attr('r',5)
 							.attr('fill','#ff8400')
 							.attr('transform','translate(30,'+($('svg#'+this.props.name).height()*0.92)+')');
 		svg.append('text').text(function(){return "Total"})
@@ -163,7 +165,7 @@ export default class LineChart extends React.Component{
 								.attr('cy',scaleY(sumOfData[i]))
 								.attr('r','4')
 								.attr('transform','translate(50,30)')
-								.attr('fill','#ff8400');
+								.attr('fill','#ff8400');*/
 		
 		
 		const axisX=d3.axisBottom(scaleX).tickFormat(function(d){return Object.entries(data)[0][1].date[d]})
@@ -190,7 +192,7 @@ export default class LineChart extends React.Component{
 							.attr('stroke-width','0.2')
 							.attr('transform','translate(50,30)');
 							
-		this.showValue(sumOfData,dataAmount,svg,scaleX,scaleY);
+		this.showValue(highestData,dataAmount,svg,scaleX,scaleY);
 	}
 	
 	
