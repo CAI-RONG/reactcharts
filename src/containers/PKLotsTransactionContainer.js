@@ -58,7 +58,7 @@ const mapStateToProp=(state,props)=>{
 		return 0;
 	})
 
-	console.log(outputData);
+	//console.log(outputData);
 	return {
 		data:outputData.PKLotsMonthlyData
 	}

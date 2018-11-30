@@ -15,7 +15,9 @@ const customStyles = {
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    width:'70%',
+    height:'80%'
   }
 };
 
@@ -46,11 +48,11 @@ class PKLotsTransactionAnalytics extends React.Component {
         </a>
         <Modal 
            isOpen={this.state.showModal}
-           contentLabel="Minimal Modal Example"
            style={customStyles}
         >
-          <button onClick={this.handleCloseModal} >X</button>
-          <p> {this.props.Operator} - 各停車場站每月訂單分析 </p>
+          <button style={{float:'right', border:'0px'}} onClick={this.handleCloseModal} >X</button>
+          <p style={{fontSize:"20px"}}> {this.props.Operator} - 各停車場站每月訂單分析 </p>
+
           <ReactTable 
          		style={{cellspacing:0,  width:"100%"}}
                 data={this.props.data}     		
