@@ -41,7 +41,7 @@ export default class Growth extends React.Component{
 									onClick={this.handleShow}>
 								<Glyphicon glyph='credit-card'/> Top 10 Banks
 							</Button>
-							<Modal style={{content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:680,height:510}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
+							<Modal style={{content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:680,height:510},overlay:{zIndex:1000}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
 								<h2 style={{marginBottom:30}}>Top 10 Banks<Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>
 								<ContainerBarChart/>
 								<Button style={{float:'right'}} onClick={this.handleClose}>Close</Button>

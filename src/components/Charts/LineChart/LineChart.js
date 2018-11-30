@@ -90,7 +90,7 @@ export default class LineChart extends React.Component{
                 '#3C8D93','#9DAA15', '#DFAB19', '#BF7F34', '#B0367C'];
 		const data=this.props.data;
 		const dataAmount=Object.keys(data).length;
-		const svg=d3.select('svg#'+this.props.name).attr('width','100%')
+		const svg=d3.select('svg#'+this.props.name).attr('width',this.props.width)
 													.attr('height',300);
 											
 		var dataWidthDomain=Object.entries(data)[0][1].value.length;//length of first data
@@ -200,19 +200,20 @@ export default class LineChart extends React.Component{
 		d3.selectAll("svg#"+this.props.name+" path").remove();
 		d3.selectAll("circle").remove();
 		return (
-			<div style={{marginBottom:20}}>
-				<svg id={this.props.name}>
+			
+				<svg id={this.props.name} style={{marginBottom:20}}>
 					<g id='axisX'></g>
 					<g id='axisY'></g>
 					<g id='gridX'></g>
 					<g id='gridY'></g>
 				</svg>
-			</div>
+			
 		);
 	}
 }
 
 LineChart.propTypes={
 	data:PropTypes.object.isRequired,
-	name:PropTypes.string
+	name:PropTypes.string.isRequired,
+	width:PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }

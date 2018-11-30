@@ -16,7 +16,8 @@ const mapStateToProp=(state,props)=>{
 	output=Object.assign({},output,transformedData.data);
 	return {
 		data:output,
-		name:transformedData.name
+		name:transformedData.name,
+		width:'100%'
 	};
 }
 

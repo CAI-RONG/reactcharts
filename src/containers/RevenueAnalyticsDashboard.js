@@ -48,9 +48,9 @@ class RevenueAnalyticsDashboard extends React.Component{
 								}
 							)),
           
-          beginDate:d3.timeParse("%Y-%m")(d3.timeFormat("%Y-%m")(new Date())),
-          endDate:d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(new Date())),
-          timeScaleFilter:'month',
+          beginDate:new Date(),
+          //endDate:d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(new Date())),
+          timeScaleFilter:'week',
         })
     }
   }

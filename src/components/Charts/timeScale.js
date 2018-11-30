@@ -11,7 +11,7 @@ export default class TimeScale extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			dropdownTitle:(this.props.timeScale==='month'?'月':(this.props.timeScale==='week'?'週':'日')),
+			dropdownTitle:'週',
 			before:props.dateOfFirstData,
 			after:props.dateOfLastData,
 			selectedDay:props.dateOfFirstData
@@ -35,6 +35,7 @@ export default class TimeScale extends React.Component{
 	}
 	
 	render(){
+		if(this.props.name!="revenue"){
 		return (
 			<div id={this.props.name} style={{display:'inline-flex',alignItems:'center',fontFamily:'微軟正黑體',fontSize:16}}>
 				<span>顯示單位：</span>
@@ -52,19 +53,7 @@ export default class TimeScale extends React.Component{
 						<DayPickerInput 
 							onDayChange={
 								(day)=>{
-									var dayShift=14;
-									if(this.props.name==="revenue"){
-										if(this.state.dropdownTitle==='週')
-											dayShift=14;
-										if(this.state.dropdownTitle==='日')
-											dayShift=1;
-										if(this.state.dropdownTitle==='月')
-											dayShift=new Date(day.getFullYear(),day.getMonth()-1,0).getDate();
-									}
-									else
-										dayShift=1;
-
-									this.setState({selectedDay:new Date(day.getFullYear(),day.getMonth(),day.getDate()+dayShift)});
+									this.setState({selectedDay:day});
 									this.props.beginDateChange(day);
 								}
 							}
@@ -94,6 +83,37 @@ export default class TimeScale extends React.Component{
 				</div>
 			</div>
 		)
+		}
+		else{
+			return (
+			<div id={this.props.name} style={{display:'inline-flex',alignItems:'center',fontFamily:'微軟正黑體',fontSize:16}}>
+				<span>顯示單位：</span>
+				<DropdownButton id="timeScale" bsStyle='primary' title={this.state.dropdownTitle} noCaret>
+					<MenuItem onClick={()=>this.handleOnClick('day')}>
+					日</MenuItem>
+					<MenuItem onClick={()=>this.handleOnClick('week')}>
+					週</MenuItem>
+					<MenuItem onClick={()=>this.handleOnClick('month')}>
+					月</MenuItem>
+				</DropdownButton>
+				<div style={{marginLeft:20}}>
+					<div className="beginDate" style={{display:'inline-block'}}>
+						<span>日期：</span>
+						<DayPickerInput 
+							onDayChange={
+								(day)=>{
+									//this.setState({selectedDay:day});
+									this.props.beginDateChange(day);
+								}
+							}
+							dayPickerProps={{
+								disabledDays:{before:this.state.before,after:this.state.after}
+							}}
+						/>
+					</div>
+				</div>
+			</div>)
+		}
 	}
 }
 
