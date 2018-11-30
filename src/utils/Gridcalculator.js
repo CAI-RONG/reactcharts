@@ -1,50 +1,57 @@
 import * as d3 from 'd3';
 
-export default function Gridcalculator(state, begin,end){
-	var op, pklot;
-	var lastAmount=0, currentAmount=0;
-	var lastValue=0, currentValue=0;
-
-	var selectedData;
-	var outputData=state.data.map(
+export default function Gridcalculator(state, type, beginDate, timeFilter){
+	var selectedDate=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(beginDate));
+	var current,last;
+	
+	function parser(date){
+		switch(timeFilter){
+			case 'week':
+				current=d3.timeFormat("%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-7));
+				last=d3.timeFormat("%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-14));
+				return d3.timeFormat("%U")(d3.timeParse("%Y-%m-%d")(date));
+			case 'month':
+				current=d3.timeFormat("%Y/%m")(new Date(selectedDate.getFullYear(),selectedDate.getMonth()-1));
+				last=d3.timeFormat("%Y/%m")(new Date(selectedDate.getFullYear(),selectedDate.getMonth()-2));
+				return d3.timeFormat("%Y/%m")(d3.timeParse("%Y-%m-%d")(date));
+			case 'day':
+				current=d3.timeFormat("%Y-%m-%d")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-1));
+				last=d3.timeFormat("%Y-%m-%d")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-2));
+				return d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(date));
+		}
+	}
+	
+	
+	if(type==='operator'){
+		var outputData=state.data.map(
 			function(d){
 				var calculatedData=d.PKLots.map(
 					function(t){
-						selectedData=t.transactions.slice();
-						var i=0,j=0;
-						selectedData.forEach(
-							function(data){
-								if(d3.timeParse("%Y-%m-%d")(data.date)<begin)i++;
-								if(d3.timeParse("%Y-%m-%d")(data.date)>end)j++;
-							}
-						)
-						selectedData.splice(0,i);
-						selectedData.splice(selectedData.length-j,j);
-						
+						var selectedData=t.transactions.slice();
+							
 						var sum={
 							currentAmount:0,
 							currentValue:0,
 							lastAmount:0,
 							lastValue:0
 						};
-						const currentMonth=d3.timeFormat("%Y/%m")(new Date());
-						const lastMonth=d3.timeFormat("%Y/%m")(new Date((new Date()).getFullYear(),(new Date()).getMonth()-1));
+
 						selectedData.forEach(
 							function(r){
-								var parsedMonth=d3.timeFormat("%Y/%m")(d3.timeParse("%Y-%m-%d")(r.date));
-								if(parsedMonth===currentMonth){
+								var parsedDate=parser(r.date);
+								if(parsedDate===current){
 									sum.currentAmount+=r.transactionAmount;
 									sum.currentValue+=r.transactionValue;
 								}
-								if(parsedMonth===lastMonth){
+								if(parsedDate===last){
 									sum.lastAmount+=r.transactionAmount;
 									sum.lastValue+=r.transactionValue;
 								}	
 							}
-						)
+						);
 						return sum;
 					}
-				)
+				);
 				var total={
 					currentAmount:0,
 					currentValue:0,
@@ -58,9 +65,9 @@ export default function Gridcalculator(state, begin,end){
 						total.lastAmount+=s.lastAmount;
 						total.lastValue+=s.lastValue;
 					}
-				)
+				);
 				return {
-					operator:d.Operator,
+					name:d.Operator,
 					currentAmount:total.currentAmount,
 					lastAmount:total.lastAmount,
 					diffAmount:total.currentAmount-total.lastAmount,
@@ -69,8 +76,61 @@ export default function Gridcalculator(state, begin,end){
 					lastValue:total.lastValue,
 					diffValue:total.currentValue-total.lastValue,
 					ratioValue:parseInt((total.currentValue/total.lastValue-1)*100)
-				}
+				};
 			}
-		)
+		);
+	}
+	else if(type==='PKLots'){
+		var outputData=[];
+		var output=state.data.map(
+			function(d){
+				var calculatedData=d.PKLots.map(
+					function(t){
+						var selectedData=t.transactions.slice();
+							
+						var sum={
+							name:"",
+							currentAmount:0,
+							currentValue:0,
+							lastAmount:0,
+							lastValue:0
+						};
+						
+						selectedData.forEach(
+							function(r){
+								var parsedDate=parser(r.date);
+								if(parsedDate===current){
+									sum.currentAmount+=r.transactionAmount;
+									sum.currentValue+=r.transactionValue;
+								}
+								if(parsedDate===last){
+									sum.lastAmount+=r.transactionAmount;
+									sum.lastValue+=r.transactionValue;
+								}	
+							}
+						);
+						sum.name=t.name;
+						sum['diffAmount']=sum.currentAmount-sum.lastAmount;
+						sum['diffValue']=sum.currentValue-sum.lastValue;
+						sum['ratioAmount']=parseInt((sum.currentAmount/sum.lastAmount-1)*100);
+						sum['ratioValue']=parseInt((sum.currentValue/sum.lastValue-1)*100)
+						return sum;
+					}
+				);
+				calculatedData.forEach(
+					function(s){
+						s['operator']=d.Operator;
+					}
+				);
+				console.log(calculatedData);
+				return calculatedData;
+
+			}
+		);
+		for(var k in output){
+			outputData.push(...output[k]);
+		}
+	}
+	
 	return outputData;
 }

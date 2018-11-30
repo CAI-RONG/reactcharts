@@ -25,18 +25,18 @@ class TileCount extends React.Component {
 			<div className="row" style={{marginBottom: '30px'}}>
             <div className="col-sm-4 col-xs-12" style={tile_stats_count}>
               <span><i className="fas fa-dollar-sign"></i>{this.props.Month}月總交易金額</span>
-              <div style={count}>{this.props.TotalAmount}</div>
-              <span className="count_bottom"><i style={{color: this.props.ratio>= 0 ? 'green': 'red'}}>{this.props.ratio}%</i> From last Week</span>
+              <div style={count}>{this.props.TotalValue}</div>
+              <span className="count_bottom"><i style={{color: this.props.Ratio>= 0 ? 'green': 'red'}}>{this.props.Ratio}%</i> From last Month</span>
             </div>
             <div className="col-sm-4 col-xs-12"  style={tile_stats_count}>
               <span><i className="fas fa-car"></i> 路外停車</span>
-              <div style={count}>{this.props.TotalParkingLotsAmount}</div>
-              <span className="count_bottom"><i style={{color: this.props.ratio>= 0 ? 'green': 'red'}}>3% </i> From last Week</span>
+              <div style={count}>{this.props.TotalParkingLotsValue}</div>
+              <span className="count_bottom"><i style={{color: this.props.ParkingLotsRatio>= 0 ? 'green': 'red'}}>{this.props.ParkingLotsRatio}%</i> From last Month</span>
             </div>
             <div className="col-sm-4 col-xs-12"  style={tile_stats_count}>
               <span><i className="fas fa-road"></i> 路邊停車</span>
-              <div style={count}>{this.props.TotalRoadsideAmount}</div>
-              <span className="count_bottom"><i style={{color: this.props.ratio>= 0 ? 'green': 'red'}}>34% </i> From last Week</span>
+              <div style={count}>{this.props.TotalRoadsideValue}</div>
+              <span className="count_bottom"><i style={{color: this.props.RoadsideRatio>= 0 ? 'green': 'red'}}>{this.props.RoadsideRatio}%</i> From last Month</span>
             </div>
           </div>
 		);
