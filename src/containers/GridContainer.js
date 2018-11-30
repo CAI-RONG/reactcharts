@@ -7,16 +7,16 @@ import * as d3 from 'd3';
 const mapStateToProps=(state,props)=>{
 
 
-	var begin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));
-	var	end=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.endDate));
+	//var begin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));
+	//var	end=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.endDate));
 	
 	
-	if(state.beginDate>state.endDate || state.endDate===undefined)
-		end=d3.timeParse("%Y-%m-%d")(state.userDataLastDay);
+	//if(state.beginDate>state.endDate || state.endDate===undefined)
+		//end=d3.timeParse("%Y-%m-%d")(state.userDataLastDay);
 	
 
 
-	var outputData= Gridcalculator(state,  begin, end);
+	var outputData= Gridcalculator(state, 'operator');
 
 	return {
 		name:props.name,

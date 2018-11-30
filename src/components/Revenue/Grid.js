@@ -26,7 +26,7 @@ class Grid extends React.Component{
     const columns = [
       { 
         Header: () => <span>{this.props.header}</span>,
-        accessor: 'operator',
+        accessor: 'name',
         sortable: false,
         width:200,
       },
@@ -119,7 +119,7 @@ class Grid extends React.Component{
           {
             return (
               <PKLotsTransactionContainer
-                Operator={rest.original.operator}
+                Operator={rest.original.name}
                 data ={this.props.data}
                 />
             );
