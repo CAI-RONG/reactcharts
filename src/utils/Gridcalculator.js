@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export default function Gridcalculator(state, type){
+export default function Gridcalculator(state, type, beginDate, timeFilter){
 	/*var op, pklot;
 	var lastAmount=0, currentAmount=0;
 	var lastValue=0, currentValue=0;
@@ -73,12 +73,12 @@ export default function Gridcalculator(state, type){
 			}
 		)
 	return outputData;*/
-	var selectedDate=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));
+	var selectedDate=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(beginDate));
 	
 	var current,last;
 	
 	function parser(date){
-		switch(state.timeScaleFilter){
+		switch(timeFilter){
 			case 'week':
 				current=d3.timeFormat("%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-7));
 				last=d3.timeFormat("%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-14));

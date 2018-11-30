@@ -16,7 +16,7 @@ const mapStateToProps=(state,props)=>{
 	
 
 
-	var outputData= Gridcalculator(state, 'operator');
+	var outputData= Gridcalculator(state, 'operator', state.beginDate, state.timeScaleFilter);
 
 	return {
 		name:props.name,
