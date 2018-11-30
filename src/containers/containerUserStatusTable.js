@@ -10,11 +10,11 @@ const mapStateToProp=state=>{
 	for(var n=1; n<9; ++n){
 		var lineChartData=transform(state,{'active':false,'name':keys[n]});
 		var currentObject={};
-		currentObject[keys[n]]=lineChartData.data.iosData.value.map(function(d,i){return d+lineChartData.data.androidData.value[i]});
+		currentObject[keys[n]]=lineChartData.data.iOS.value.map(function(d,i){return d+lineChartData.data.Android.value[i]});
 		dataPerUnit=Object.assign({},dataPerUnit,currentObject);
 	}
 	var dateObject={};
-	dateObject['date']=lineChartData.data.iosData.date;
+	dateObject['date']=lineChartData.data.iOS.date;
 	dataPerUnit=Object.assign({},dataPerUnit,dateObject);
 	
 	function outputObject(data,index){

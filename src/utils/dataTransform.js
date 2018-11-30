@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 export default function transform(state,props){
-	var outputData={'iosData':{'date':[],'value':[]},'androidData':{'date':[],'value':[]}};
+	var outputData={'iOS':{'date':[],'value':[]},'Android':{'date':[],'value':[]}};
 	var selectedData={'ios':state.userData.iosData.slice(),'android':state.userData.androidData.slice()};
 	
 	var begin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));
@@ -40,14 +40,14 @@ export default function transform(state,props){
 				break;
 			case "week":
 				dataParse(d3.timeFormat("%Y-%U"),props.name);
-				var iosDate=outputData.iosData.date;
+				var iosDate=outputData.iOS.date;
 				for(var i=0; i<iosDate.length; ++i){
 					var firstDayOftheWeek=d3.timeParse("%Y-%U")(iosDate[i]);
 					iosDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
 					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
 					iosDate[i]=iosDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
 				}
-				var androidDate=outputData.androidData.date;
+				var androidDate=outputData.Android.date;
 				for(var i=0; i<androidDate.length; ++i){
 					var firstDayOftheWeek=d3.timeParse("%Y-%U")(androidDate[i]);
 					androidDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
@@ -67,14 +67,14 @@ export default function transform(state,props){
 				break;
 			case "week":
 				dataParse(d3.timeFormat("%Y-%U"),props.name);
-				var iosDate=outputData.iosData.date;
+				var iosDate=outputData.iOS.date;
 				for(var i=0; i<iosDate.length; ++i){
 					var firstDayOftheWeek=d3.timeParse("%Y-%U")(iosDate[i]);
 					iosDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
 					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
 					iosDate[i]=iosDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
 				}
-				var androidDate=outputData.androidData.date;
+				var androidDate=outputData.Android.date;
 				for(var i=0; i<androidDate.length; ++i){
 					var firstDayOftheWeek=d3.timeParse("%Y-%U")(androidDate[i]);
 					androidDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
@@ -92,7 +92,7 @@ export default function transform(state,props){
 		selectedData.ios.forEach(
 			function(data){
 				var parsedDate=parseTime(d3.timeParse("%Y-%m-%d")(data.date));
-				var ios=outputData.iosData;
+				var ios=outputData.iOS;
 				if(!ios.date.includes(parsedDate)){
 					ios.date.push(parsedDate);
 					ios.value.push(data[name]);
@@ -105,7 +105,7 @@ export default function transform(state,props){
 		selectedData.android.forEach(
 			function(data){
 				var parsedDate=parseTime(d3.timeParse("%Y-%m-%d")(data.date));
-				var android=outputData.androidData;
+				var android=outputData.Android;
 				if(!android.date.includes(parsedDate)){
 					android.date.push(parsedDate);
 					android.value.push(data[name]);

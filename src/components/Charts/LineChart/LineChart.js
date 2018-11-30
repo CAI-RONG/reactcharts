@@ -67,7 +67,7 @@ export default class LineChart extends React.Component{
 										.style('fill','#fff');*/
 			for(var i=0; i<dataAmount; ++i){
 				selector.select('text.'+keys[i]).text(function(){return keys[i]+": "+data[keys[i]].value[Math.round(valX)]})
-											.attr('transform','translate(80,'+(50+15*i)+')')
+											.attr('transform','translate(80,'+(35+15*i)+')')
 											.style('fill','#fff');
 				/*selector.select('text.android').text(function(){return "Android: "+data.androidData.value[Math.round(valX)]})
 												.attr('transform','translate(80,65)')
@@ -79,7 +79,7 @@ export default class LineChart extends React.Component{
 				selector.select('text.date').attr('transform','translate(-60,20)');
 				selector.select('text.total').attr('transform','translate(-60,35)');
 				for(var i=0; i<dataAmount; ++i){
-					selector.select('text.'+keys[i]).attr('transform','translate(-60,'+(50+15*i)+')');
+					selector.select('text.'+keys[i]).attr('transform','translate(-60,'+(35+15*i)+')');
 				}
 			}
 		}
