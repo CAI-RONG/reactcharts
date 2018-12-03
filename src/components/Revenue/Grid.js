@@ -105,7 +105,7 @@ class Grid extends React.Component{
           {
             return (
               <OperatorTransactionContainer 
-                Operator={rest.original.operator}
+                Operator={rest.original.name}
                 data ={this.props.data}
                 />
             );

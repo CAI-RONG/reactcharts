@@ -22,6 +22,8 @@ const customStyles = {
 	height				  : 480
   },
   overlay:{zIndex:1000}
+
+
 };
 
 class PKLotsTransactionAnalytics extends React.Component {
@@ -51,12 +53,12 @@ class PKLotsTransactionAnalytics extends React.Component {
         </a>
         <Modal 
            isOpen={this.state.showModal}
-           contentLabel="Minimal Modal Example"
            style={customStyles}
 		   onRequestClose={this.handleCloseModal}
         >
-          <button onClick={this.handleCloseModal} >X</button>
-          <p> {this.props.Operator} - 各停車場站每月訂單分析 </p>
+          <button style={{float:'right', border:'0px'}} onClick={this.handleCloseModal} >X</button>
+          <p style={{fontSize:"20px"}}> {this.props.Operator} - 各停車場站每月訂單分析 </p>
+
           <ReactTable 
          		style={{cellspacing:0,  width:"100%"}}
                 data={this.props.data}     		

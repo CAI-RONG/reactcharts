@@ -6,16 +6,6 @@ import * as d3 from 'd3';
 
 const mapStateToProps=(state,props)=>{
 
-
-	//var begin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));
-	//var	end=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.endDate));
-	
-	
-	//if(state.beginDate>state.endDate || state.endDate===undefined)
-		//end=d3.timeParse("%Y-%m-%d")(state.userDataLastDay);
-	
-
-
 	var outputData= Gridcalculator(state, 'operator', state.beginDate, state.timeScaleFilter);
 
 	return {

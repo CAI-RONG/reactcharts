@@ -65,7 +65,9 @@ const mapStateToProp=(state,props)=>{
 				 		lastAmount += _.sumBy(selectedData.select, 'transactionAmount');
 				 		lastValue += _.sumBy(selectedData.select, 'transactionValue');															
 						/*--/各停車場--*/		
-						return 0;			
+
+						return 0;
+
 					})
 					/*--/op.PKLots.map--*/
 					outputData.OperatorMonthlyData.push({ date:Y+"/"+(M+1),

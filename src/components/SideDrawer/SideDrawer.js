@@ -11,12 +11,12 @@ const SideDrawer = props => {
 	}
 	return (
 		<nav className={drawerClasses}>
-			<a className="site_title" href="/">PKLOT Dashboard</a>
+			<a style={{fontSize:22,fontWeight: 350, color:'white',padding: '10px 10px'}} href="/">PKLOT Dashboard</a>
 			{/*-- menu profile quick info --*/}
 			<div className="profile clearfix">
-				<div className="profile_info">
+				<div style={{padding: '18px'}}>
 			    	<span>Welcome,</span>
-			    	<h2>John Doe</h2>
+			    	<h6>John Doe</h6>
 				</div>
 			</div>
 			{/*-- /menu profile quick info --*/}

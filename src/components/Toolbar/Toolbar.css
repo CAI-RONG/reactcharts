@@ -6,7 +6,7 @@
 	background: #EDEDED;
 	height: 76px;
 	border-bottom: 1px solid #D9DEE4;
-	z-index: 90;
+	z-index: 100;
 }
 
 .toolbar__navigation {

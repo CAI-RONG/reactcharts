@@ -14,7 +14,7 @@ import TileCountContainer from './TileCountContainer'
 class RevenueAnalyticsDashboard extends React.Component{
   constructor(){
     super();
-    var firstDataOfPKLots=makeData.revenueData.map(
+    var firstDataOfPKLots=makeData.revenuePKLotsData.map(
 								function(d){
 									return d.PKLots.map(function(p){
 															return p.transactions[0].date
@@ -22,7 +22,7 @@ class RevenueAnalyticsDashboard extends React.Component{
 									)
 								}
 							);
-	  var lastDataOfPKLots=makeData.revenueData.map(
+	  var lastDataOfPKLots=makeData.revenuePKLotsData.map(
 								function(d){
 									return d.PKLots.map(function(p){
 															return p.transactions[p.transactions.length-1].date
@@ -34,7 +34,7 @@ class RevenueAnalyticsDashboard extends React.Component{
     this.state={
       store: createStore(reducer,
         {
-          data: makeData.revenueData,
+          data: makeData.revenuePKLotsData,
           userDataFirstDay: d3.min(firstDataOfPKLots.map(
 								function(d){
 									d.forEach(function(t){t=d3.timeParse("%Y-%m-%d")(t)});

@@ -13,7 +13,9 @@ const customStyles = {
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    width:'70%',
+    height:'80%',
   }
 };
 var moment = require('moment');
@@ -46,10 +48,9 @@ class OperatorTransaction extends React.Component {
         </a> 
         <Modal 
            isOpen={this.state.showModal}
-           contentLabel="Minimal Modal Example"
            style={customStyles}
         >
-          <button onClick={this.handleCloseModal}>X</button>
+         <button style={{float:'right', border:'0px'}} onClick={this.handleCloseModal} >X</button>
           <h5> {this.props.Operator} 每月訂單分析 </h5>
           <ReactTable 
       		
