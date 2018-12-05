@@ -6,6 +6,7 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import ContainerLineChart from '../../containers/containerLineChart';
 import LineChart from '../Charts/LineChart/LineChart';
+import {Row,Col} from 'react-bootstrap';
 
 import _ from 'lodash';
 
@@ -18,8 +19,8 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
 	overflow			  : 'scroll',
-	width				  : 1045,
-	height				  : 480
+	width				  : '70%',
+	height				  : '80%'
   },
   overlay:{zIndex:1000}
 
@@ -137,10 +138,16 @@ class PKLotsTransactionAnalytics extends React.Component {
 				var amountData={'Amount':row.original.TransactionAmount};
 				var valueData={'Value':row.original.TransactionValue};
               return (
-                <span style={{display:'flex'}}>
-						<LineChart data={amountData} name={row.original.dataForTable.name+"amount"} width='50%' />
-						<LineChart data={valueData} name={row.original.dataForTable.name+"value"} width='50%' />
-                </span>
+                <Row>
+					<Col lg={6}>
+						<h3>訂單數分析</h3>
+						<LineChart data={amountData} name={row.original.dataForTable.name+"-amount"} width='100%' />
+					</Col>
+					<Col lg={6}>
+						<h3>訂單金額分析</h3>
+						<LineChart data={valueData} name={row.original.dataForTable.name+"-value"} width='100%' />
+					</Col>
+                </Row>
               )
             }}
           />
