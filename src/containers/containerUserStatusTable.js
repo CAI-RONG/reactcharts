@@ -16,7 +16,7 @@ const mapStateToProp=state=>{
 	var dateObject={};
 	dateObject['date']=lineChartData.data.iOS.date;
 	dataPerUnit=Object.assign({},dataPerUnit,dateObject);
-	
+	console.log(dataPerUnit);
 	function outputObject(data,index){
 		var beginDate="",endDate="";
 		switch(state.timeScaleFilter){
@@ -24,28 +24,61 @@ const mapStateToProp=state=>{
 				beginDate=endDate=data.date[index];
 				break;
 			case 'week':
-				var splitedDate=data.date[index].split('-');
-				beginDate=d3.timeParse("%Y/%m/%d")(d3.timeFormat("%Y")(state.beginDate)+'/'+splitedDate[0])<=state.beginDate?d3.timeFormat("%Y/%m/%d")(state.beginDate):splitedDate[0];
-				endDate=d3.timeParse("%Y/%m/%d")(d3.timeFormat("%Y")(state.endDate)+'/'+splitedDate[1])>=state.endDate?d3.timeFormat("%Y/%m/%d")(state.endDate):splitedDate[1];
+				beginDate=data.date[index];
+				var begin=d3.timeParse("%Y-%m-%d")(beginDate);
+				endDate=(new Date(begin.valueOf()+86400000*6)<=state.endDate?d3.timeFormat("%Y-%m-%d")(new Date(begin.valueOf()+86400000*6)):d3.timeFormat("%Y-%m-%d")(state.endDate));
+				//var splitedDate=data.date[index].split('-');
+				//beginDate=d3.timeParse("%Y/%m/%d")(d3.timeFormat("%Y")(state.beginDate)+'/'+splitedDate[0])<=state.beginDate?d3.timeFormat("%Y/%m/%d")(state.beginDate):splitedDate[0];
+				//endDate=d3.timeParse("%Y/%m/%d")(d3.timeFormat("%Y")(state.endDate)+'/'+splitedDate[1])>=state.endDate?d3.timeFormat("%Y/%m/%d")(state.endDate):splitedDate[1];
 				break;
 			case 'month':
-				var splitedDate=data.date[index].split('/');
-				beginDate=d3.timeParse("%Y/%m")(data.date[index])<=state.beginDate?d3.timeFormat("%Y/%m/%d")(state.beginDate):d3.timeFormat("%Y/%m/%d")(new Date(splitedDate[0],splitedDate[1]-1,1));
-				endDate=(new Date(splitedDate[0],splitedDate[1],0))>=state.endDate?d3.timeFormat("%Y/%m/%d")(state.endDate):d3.timeFormat("%Y/%m/%d")(new Date(splitedDate[0],splitedDate[1],0));
+				beginDate=data.date[index];
+				var begin=d3.timeParse("%Y-%m-%d")(beginDate);
+				endDate=(new Date(begin.getFullYear(),begin.getMonth()+1,0)<=state.endDate?d3.timeFormat("%Y-%m-%d")(new Date(begin.getFullYear(),begin.getMonth()+1,0)):d3.timeFormat("%Y-%m-%d")(state.endDate));
+				//var splitedDate=data.date[index].split('/');
+				//beginDate=d3.timeParse("%Y/%m")(data.date[index])<=state.beginDate?d3.timeFormat("%Y/%m/%d")(state.beginDate):d3.timeFormat("%Y/%m/%d")(new Date(splitedDate[0],splitedDate[1]-1,1));
+				//endDate=(new Date(splitedDate[0],splitedDate[1],0))>=state.endDate?d3.timeFormat("%Y/%m/%d")(state.endDate):d3.timeFormat("%Y/%m/%d")(new Date(splitedDate[0],splitedDate[1],0));
 				break;
 		}
 		//var MAU,WAU,DAU;
 		//var activedData=transform(state,{'active':false,'name':'activedUser','timeFilter':'week'});
+		
+		var MAU=0,WAU=0,DAU=0;
+		state.userData.iosData.forEach(
+			function(d){
+				var currentDate=d3.timeParse("%Y-%m-%d")(d.date);
+				var end=d3.timeParse("%Y-%m-%d")(endDate);
+				if(currentDate<=end && currentDate>=new Date(end.valueOf()-86400000*29))
+					MAU+=d.activedUser;
+				if(currentDate<=end && currentDate>=new Date(end.valueOf()-86400000*6))
+					WAU+=d.activedUser;
+				if(d.date===endDate)
+					DAU+=d.activedUser;
+			}
+		)
+		
+		state.userData.androidData.forEach(
+			function(d){
+				var currentDate=d3.timeParse("%Y-%m-%d")(d.date);
+				var end=d3.timeParse("%Y-%m-%d")(endDate);
+				if(currentDate<=end && currentDate>=new Date(end.valueOf()-86400000*29))
+					MAU+=d.activedUser;
+				if(currentDate<=end && currentDate>=new Date(end.valueOf()-86400000*6))
+					WAU+=d.activedUser;
+				if(d.date===endDate)
+					DAU+=d.activedUser;
+			}
+		)
 		
 		var obj={
 			"begin":beginDate,
 			"end":endDate,
 			"installation":data.downloads[index],
 			"DevicesInUse":data.downloads[index],
-			"MAU":data.activedUser[index],
-			"WAU":data.activedUser[index],
-			"DAU":data.activedUser[index],
-			"stickiness":0,
+			"MAU":MAU,
+			"WAU":WAU,
+			"DAU":DAU,
+			"stickiness":(DAU/MAU*100).toFixed(1)+'%',
 			"member":data.members[index],
 			"bindCreditCard":data.bind[index],
 			"bindLicensePlate":data.bind[index],

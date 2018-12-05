@@ -40,7 +40,7 @@ export default function transform(state,props){
 				break;
 			case "week":
 				dataParse(d3.timeFormat("%Y-%U"),props.name);
-				var iosDate=outputData.iOS.date;
+				/*var iosDate=outputData.iOS.date;
 				for(var i=0; i<iosDate.length; ++i){
 					var firstDayOftheWeek=d3.timeParse("%Y-%U")(iosDate[i]);
 					iosDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
@@ -53,7 +53,7 @@ export default function transform(state,props){
 					androidDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
 					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
 					androidDate[i]=androidDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
-				}
+				}*/
 				break;
 			case "month":
 				dataParse(d3.timeFormat("%Y/%m"),props.name);
@@ -67,7 +67,7 @@ export default function transform(state,props){
 				break;
 			case "week":
 				dataParse(d3.timeFormat("%Y-%U"),props.name);
-				var iosDate=outputData.iOS.date;
+				/*var iosDate=outputData.iOS.date;
 				for(var i=0; i<iosDate.length; ++i){
 					var firstDayOftheWeek=d3.timeParse("%Y-%U")(iosDate[i]);
 					iosDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
@@ -80,7 +80,7 @@ export default function transform(state,props){
 					androidDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
 					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
 					androidDate[i]=androidDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
-				}
+				}*/
 				break;
 			case "month":
 				dataParse(d3.timeFormat("%Y/%m"),props.name);
@@ -89,29 +89,32 @@ export default function transform(state,props){
 	}
 	
 	function dataParse(parseTime,name){
+		var currentFilter="";
 		selectedData.ios.forEach(
 			function(data){
 				var parsedDate=parseTime(d3.timeParse("%Y-%m-%d")(data.date));
 				var ios=outputData.iOS;
-				if(!ios.date.includes(parsedDate)){
-					ios.date.push(parsedDate);
+				if(parsedDate!=currentFilter){
+					currentFilter=parsedDate;
+					ios.date.push(data.date);
 					ios.value.push(data[name]);
 				}
 				else
-					ios.value[ios.date.indexOf(parsedDate)]+=data[name];
+					ios.value[ios.date.length-1]+=data[name];
 			}
 		)
-		
+		currentFilter="";
 		selectedData.android.forEach(
 			function(data){
 				var parsedDate=parseTime(d3.timeParse("%Y-%m-%d")(data.date));
 				var android=outputData.Android;
-				if(!android.date.includes(parsedDate)){
-					android.date.push(parsedDate);
+				if(parsedDate!=currentFilter){
+					currentFilter=parsedDate;
+					android.date.push(data.date);
 					android.value.push(data[name]);
 				}
 				else
-					android.value[android.date.indexOf(parsedDate)]+=data[name];
+					android.value[android.date.length-1]+=data[name];
 			}
 		)
 	}

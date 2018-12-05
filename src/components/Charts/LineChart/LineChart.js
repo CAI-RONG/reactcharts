@@ -19,11 +19,13 @@ export default class LineChart extends React.Component{
 		const data=this.props.data;
 		const keys=Object.keys(data);
 		
-		var focus=svg.append('g').attr('class','focus focus-total')//delete focus-total
+		var focus=svg.append('g').attr('class','focus')
 									.style('display','none');
 		
 		focus.append('line').attr('class','hover-line-total')
 							.attr('stroke','#007bff')
+							.attr('stroke-width',1)
+							.attr('stroke-dasharray','5,5')
 							.attr('transform','translate(50,30)')
 							.attr('y1','0')
 							.attr('y2',Height);
@@ -47,13 +49,13 @@ export default class LineChart extends React.Component{
 							.attr('width',Width)
 							.attr('height',Height)
 							.on('mouseover',function(){svg.selectAll('g.focus').style('display',null);})
-							.on('mouseout',function(){svg.selectAll('g.focus').style('display','none');})
+							.on('mouseout',function(){svg.selectAll('g.focus').style('display','none');svg.selectAll('circle.circle').attr('r',3);})
 							.on('mousemove',move);
 		
 		function move(){
 			const valX=scaleX.invert(d3.mouse(this)[0]);
 			
-			const selector=svg.selectAll('g.focus-total').attr('transform','translate('+scaleX(Math.round(valX))+','+scaleY(highestData[Math.round(valX)])+')');
+			const selector=svg.selectAll('g.focus').attr('transform','translate('+scaleX(Math.round(valX))+','+scaleY(highestData[Math.round(valX)])+')');
 			selector.select('line.hover-line-total').attr('y2',Height-scaleY(highestData[Math.round(valX)]));
 			
 			selector.select('rect').style('display',null)
@@ -82,6 +84,11 @@ export default class LineChart extends React.Component{
 					selector.select('text.'+keys[i]).attr('transform','translate(-60,'+(35+15*i)+')');
 				}
 			}
+			
+			svg.selectAll('circle.circle'+Math.round(valX)).attr('r',5);
+			for(var i=0; i<highestData.length; ++i)
+				if(i!=Math.round(valX))
+					svg.selectAll('circle.circle'+i).attr('r',3);
 		}
 	}
 	
@@ -129,23 +136,48 @@ export default class LineChart extends React.Component{
 		
 		
 		for(var i=0;i<dataAmount;++i){
-			svg.append('g').append('path').attr('d',line(Object.entries(data)[i][1].value))
-							.attr('stroke',color[i%9])
-							.attr('fill','none')
-							.attr('transform','translate(50,30)');
+			var graphic=svg.append('g').attr('class','graphic graphic-'+Object.entries(data)[i][0]);
+			graphic.append('path').attr('d',line(Object.entries(data)[i][1].value))
+					.attr('stroke',color[i%9])
+					.attr('stroke-width',2)
+					.attr('fill','none')
+					.attr('transform','translate(50,30)');
 										
 			for(var j=0; j<Object.entries(data)[i][1].value.length;++j){				
-				svg.append('circle').attr('cx',scaleX(j))
+				graphic.append('circle').attr('class',Object.entries(data)[i][0]+' circle circle'+j)
+									.attr('cx',scaleX(j))
 									.attr('cy',scaleY(Object.entries(data)[i][1].value[j]))
 									.attr('r','3')
 									.attr('transform','translate(50,30)')
-									.attr('fill',color[i%9]);
+									.attr('stroke',color[i%9])
+									.attr('stroke-width',2)
+									.attr('fill','white');
 			}
-			svg.append('circle').attr('r',5)
+			var label=graphic.append('g').attr('class','label label-'+Object.entries(data)[i][0])
+									.attr('id',Object.entries(data)[i][0])
+									.style('cursor','pointer')
+									.on('click',function(){
+													if(this.parentElement.querySelector('path').getAttribute('display')==='none'){
+														this.parentElement.querySelector('path').setAttribute('display',null);
+														this.parentElement.querySelectorAll('circle.circle').forEach((d)=>{d.setAttribute('display',null)});
+														this.querySelector('circle.cover-'+this.getAttribute('id')).setAttribute('display','none');
+													}
+													else{
+														this.parentElement.querySelector('path').setAttribute('display','none');
+														this.parentElement.querySelectorAll('circle.circle').forEach((d)=>{d.setAttribute('display','none')});
+														this.querySelector('circle.cover-'+this.getAttribute('id')).setAttribute('display',null);
+													}
+												}
+										);
+			label.append('circle').attr('class','labelBtn labelBtn-'+Object.entries(data)[i][0])
+								.attr('r',5)
 								.attr('fill',color[i%9])
 								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+30)+','+($('svg#'+this.props.name).height()*0.92)+')');
-			svg.append('text').text(function(){return Object.entries(data)[i][0]})
-						.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+50)+','+($('svg#'+this.props.name).height()*0.93)+')');
+			label.append('circle').attr('class','cover cover-'+Object.entries(data)[i][0]).attr('display','none')
+								.attr('r',5).attr('fill','#ddd')
+								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+30)+','+($('svg#'+this.props.name).height()*0.92)+')');
+			label.append('text').text(function(){return Object.entries(data)[i][0]})
+						.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+38)+','+($('svg#'+this.props.name).height()*0.93)+')');
 		}
 		
 		/*svg.append('circle').attr('r',5)
