@@ -59,26 +59,26 @@ class UserStatusTable extends React.Component{
         { 
           Header: 'Downloads',
           columns: [
-            { Header: '安裝事件', accessor: 'installation'},
-            { Header: '使用中裝置數', accessor: 'DevicesInUse'}
+            { Header: '安裝事件', accessor: 'installation', minWidth: 80},
+            { Header: '使用中裝置數', accessor: 'DevicesInUse', minWidth: 110}
           ]
         },
         { 
           Header: 'Active User',
           columns: [
-            { Header: 'MAU', accessor: 'MAU'},
-            { Header: 'WAU', accessor: 'WAU'},
-            { Header: 'DAU', accessor: 'DAU'},
-            { Header: 'Stickiness', accessor: 'stickiness'}
+            { Header: 'MAU', accessor: 'MAU', minWidth: 70},
+            { Header: 'WAU', accessor: 'WAU', minWidth: 70},
+            { Header: 'DAU', accessor: 'DAU', minWidth: 70},
+            { Header: 'Stickiness', accessor: 'stickiness', minWidth: 80}
           ]
         },
         {
           Header: '會員',
           columns: [
-            { Header: '註冊會員', accessor: 'member'},
-            { Header: '綁定信用卡會員', accessor: 'bindCreditCard'},
-            { Header: '綁定車牌會員', accessor: 'bindLicensePlate'},
-            { Header: '訂閱會員', accessor: 'subscribe'},
+            { Header: '註冊會員', accessor: 'member', minWidth: 80},
+            { Header: '綁定信用卡會員', accessor: 'bindCreditCard', minWidth: 120},
+            { Header: '綁定車牌會員', accessor: 'bindLicensePlate', minWidth: 110},
+            { Header: '訂閱會員', accessor: 'subscribe', minWidth: 80},
           ]
         },
         {
@@ -142,24 +142,28 @@ class UserStatusTable extends React.Component{
 	];
     
 	return (
-		<fieldset> 
-			<legend><h1>User Status</h1></legend>
-			<ReactTable className="align-left -striped -highlight"
+		<div className="row">
+          <div className="col-md-12 col-sm-12 col-xs-12">
+            <div className="x_panel">
+              <div className="row x_title"><h3>User Status</h3></div>
+				<ReactTable className="align-left -striped -highlight"
 						data={this.props.data} 
 						columns={columns}
 						defaultPageSize={10}
 						noDataText="No Data"
-			/>
-		  <Modal style={{content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:300,height:300}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
+				/>
+		  		<Modal style={{content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:300,height:300}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
 				<h2 style={{marginBottom:30}}>啟用自動繳費<Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>
 					<ReactTable data={this.state.autoPayData} 
-								columns={autoPayColumn} 
-								defaultPageSize={3}
-								showPagination={false}
+						columns={autoPayColumn} 
+						defaultPageSize={3}
+						showPagination={false}
 					/>
 				<Button style={{float:'right'}} onClick={this.handleClose}>Close</Button>
 			</Modal>
-        </fieldset>
+           </div>
+          </div>
+        </div> 
 		)
 	};
 

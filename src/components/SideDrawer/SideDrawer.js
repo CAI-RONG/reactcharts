@@ -5,13 +5,16 @@ import { Link } from 'react-router-dom';
 const SideDrawer = props => {
 
 	let drawerClasses = 'side-drawer';
+
 	if(props.show)
 	{
 		drawerClasses = 'side-drawer open';
 	}
+	
+
 	return (
 		<nav className={drawerClasses}>
-			<a style={{fontSize:22,fontWeight: 350, color:'white',padding: '10px 10px'}} href="/">PKLOT Dashboard</a>
+			<a style={{fontWeight: 350, color:'white',padding: '10px 10px'}} href="/">PKLOT Dashboard</a>
 			{/*-- menu profile quick info --*/}
 			<div className="profile clearfix">
 				<div style={{padding: '18px'}}>

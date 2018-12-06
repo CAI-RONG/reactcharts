@@ -201,7 +201,7 @@ export default class LineChart extends React.Component{
 		d3.selectAll("circle").remove();
 		return (
 			
-				<svg id={this.props.name} style={{marginBottom:20}}>
+				<svg id={this.props.name} style={{marginLeft:-10, marginBottom:20}}>
 					<g id='axisX'></g>
 					<g id='axisY'></g>
 					<g id='gridX'></g>
