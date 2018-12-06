@@ -2440,7 +2440,7 @@
 					]
 				},
 				{
-					"name":"高雄福山場",
+					"name":"高雄福山",
 					"transactions":[
 						{
 							"date":"2018-11-01",
@@ -2640,158 +2640,158 @@
 						},
 						{
 							"date":"2018-10-31",
-							"transactionAmount":70,
-							"transactionValue":80
+							"transactionAmount":300,
+							"transactionValue":4000
 						},
 						{
 							"date":"2018-11-01",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-02",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-03",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-04",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-05",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-06",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-07",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-08",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-09",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-10",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-11",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-12",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-13",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-14",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-15",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-16",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-17",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-18",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-19",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-20",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-21",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-22",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-23",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-24",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-25",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-26",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-27",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-28",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-29",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						},
 						{
 							"date":"2018-11-30",
-							"transactionAmount":300,
-							"transactionValue":4000
+							"transactionAmount":350,
+							"transactionValue":4100
 						}
 					]
 				}

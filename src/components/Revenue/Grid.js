@@ -28,29 +28,30 @@ class Grid extends React.Component{
         Header: () => <span>{this.props.header}</span>,
         accessor: 'name',
         sortable: false,
-        width:200,
+        
       },
       { 
         Header: '訂單數量',
         headerStyle: {backgroundColor: "#118fc3", borderright: "1px solid #118fc3 !important"},
+        
         columns: [
           { 
             Header: '上期',
             accessor: 'lastAmount',
             headerStyle: {backgroundColor: "#118fc3"},
-            width:80,
+            minWidth: 70
           },
           { 
             Header: '本期',
             accessor: 'currentAmount',
             headerStyle: {backgroundColor: "#118fc3"},
-            width:80
+            minWidth: 70
           },
           { 
             Header: '差異',
             accessor:'diffAmount',
             headerStyle: {backgroundColor: "#118fc3"},
-            width:80
+            minWidth: 70
           },
           { 
             Header: '％',
@@ -58,7 +59,8 @@ class Grid extends React.Component{
             headerStyle: {backgroundColor: "#118fc3"},
             accessor: d => d.ratioAmount,
             Cell: row => <span>{row.value}%</span>,
-            width:80
+            minWidth: 70
+      
           }
         ]
       },
@@ -70,20 +72,19 @@ class Grid extends React.Component{
             Header: '上期',
             accessor: 'lastValue',
             headerStyle: {backgroundColor: "#118fc3"},
-            width:80
-         
+            minWidth: 70
           },
           { 
             Header: '本期',
             accessor: 'currentValue',
             headerStyle: {backgroundColor: "#118fc3"},
-            width:80
+            minWidth: 70
           },
           { 
             Header: '差異',
             accessor:'diffValue',
             headerStyle: {backgroundColor: "#118fc3"},
-            width:80
+            minWidth: 70
           },
           { 
             Header: '％',
@@ -91,7 +92,7 @@ class Grid extends React.Component{
             headerStyle: {  backgroundColor: "#118fc3"},
             accessor: d => d.ratioValue,
             Cell: row => <span>{row.value}%</span>,
-            width:80
+            minWidth: 70
           }
         ]
       },
@@ -110,8 +111,7 @@ class Grid extends React.Component{
                 />
             );
           },
-          
-          width:100
+          width: 80
         },
         {
           expander: true,
@@ -124,7 +124,7 @@ class Grid extends React.Component{
                 />
             );
           },
-          width:100
+          width: 80
         }
         ]
       }

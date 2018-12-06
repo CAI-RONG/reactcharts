@@ -18,7 +18,7 @@ const mapStateToProp=(state,props)=>{
 		}
 		return obj;
 	}
-	
+	//console.log(calculatedData);
 	for(var i in calculatedData){
 		if(calculatedData[i].operator===props.Operator)
 			outputData.push(outputObject(calculatedData[i]));

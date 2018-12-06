@@ -18,13 +18,11 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-	overflow			  : 'scroll',
-	width				  : '70%',
-	height				  : '80%'
+	  overflow			  : 'scroll',
+	  width				  : '70%',
+	  height				  : '80%'
   },
   overlay:{zIndex:1000}
-
-
 };
 
 class PKLotsTransactionAnalytics extends React.Component {
@@ -66,7 +64,7 @@ class PKLotsTransactionAnalytics extends React.Component {
                 columns={[
             	  { 
             	    Header: '停車場站名稱',
-					id:'PKLotName',
+					        id:'PKLotName',
             	   	accessor: d=>d.dataForTable.name,
                   width:150
             	  },
@@ -75,12 +73,12 @@ class PKLotsTransactionAnalytics extends React.Component {
             	    columns: [
             	    { 
             	       Header: '上期',
-					   id:'LastAmount',
+					           id:'LastAmount',
                      accessor: d=>d.dataForTable.lastAmount
             		  },
             		  { 
             		    Header: '本期',
-						id:'CurrentAmount',
+						        id:'CurrentAmount',
                     accessor: d=>d.dataForTable.currentAmount
             		  },
             		  {	 
@@ -135,9 +133,10 @@ class PKLotsTransactionAnalytics extends React.Component {
             pageSize={this.props.data.length}
     				className="-striped -highlight"  
             SubComponent={row => {
-				var amountData={'Amount':row.original.TransactionAmount};
-				var valueData={'Value':row.original.TransactionValue};
+				      var amountData={'Amount':row.original.TransactionAmount};
+				      var valueData={'Value':row.original.TransactionValue};
               return (
+<<<<<<< HEAD
                 <Row>
 					<Col lg={6}>
 						<h3>訂單數分析</h3>
@@ -148,6 +147,12 @@ class PKLotsTransactionAnalytics extends React.Component {
 						<LineChart data={valueData} name={row.original.dataForTable.name+"-value"} width='100%' />
 					</Col>
                 </Row>
+=======
+                <span style={{display:'flex'}}>
+						      <LineChart data={amountData} name={row.original.dataForTable.name+"amount"} width='50%' />
+						      <LineChart data={valueData} name={row.original.dataForTable.name+"value"} width='50%' />
+                </span>
+>>>>>>> feature/修改sidebar
               )
             }}
           />

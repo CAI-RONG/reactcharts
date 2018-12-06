@@ -34,9 +34,11 @@ export default class UserAnalyticsDashboard extends React.Component{
 						<ContainerTimeScale name="user"/>
 					</div>
 					<br/>
-					<Growth/>
+          			<div className="right_col" role="main">
+						<Growth/>
 					<ActivedUser/>
 					<ContainerUserStatusTable/>
+					</div>
 				</div>
 			</Provider>
 		)

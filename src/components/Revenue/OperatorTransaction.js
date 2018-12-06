@@ -16,14 +16,13 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-	overflow:'scroll',
-    width:'70%',
-    height:'80%',
+    overflow        : 'scroll',
+    width         : '70%',
+    height          : '80%'
   },
   overlay:{zIndex:1000}
 };
-var moment = require('moment');
-moment().format();
+
 
 class OperatorTransaction extends React.Component {
   constructor (props) {
@@ -84,24 +83,26 @@ class OperatorTransaction extends React.Component {
             columns={[
           	{ 
               Header: '日期',
-              accessor: "date"
-             
+              id: "date",
+              accessor: d=>d.dataForTable.date,
           	},
           	{ 
               Header: '訂單數量',
               columns: [
               { 
                 Header: '上期',
-                accessor: 'LastAmount'
+                id:'LastAmount',
+                //accessor: d=>d.dataForTable.lastAmount
               },
               { 
                 Header: '本期',
-                accessor: 'CurrentAmount'
+                id:'CurrentAmount',
+                //accessor: d=>d.dataForTable.currentAmount
               },
               {	 
                 Header: '差異',
                 id:'diffAmount',
-                accessor: d => _.round(d.CurrentAmount- d.LastAmount),
+                //accessor: d=>d.dataForTable.diffAmount,
                 Cell: row =>  (
                         <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
@@ -111,7 +112,7 @@ class OperatorTransaction extends React.Component {
               {  
                 Header: '％',
                 id:'RatioAmount',
-                accessor: d => _.round(((d.CurrentAmount - d.LastAmount)/d.LastAmount)*10000)/100,
+                accessor: d=>d.dataForTable.ratioAmount,
                 Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
               }]	
           	},
@@ -120,25 +121,28 @@ class OperatorTransaction extends React.Component {
           		columns: [
           		{ 
           		  Header:'上期',
-                accessor: 'LastValue'
+                id:'LastValue',
+                accessor: d=>d.dataForTable.lastValue
   				    },
           		{ 
           		  Header:'本期',
-                accessor: 'CurrentValue'
+                id:'currentValue',
+                accessor: d=>d.dataForTable.currentValue
           		},
           		{ 
           		  Header:'差異',
           		  id:'diffValue',
+                accessor: d=>d.dataForTable.diffValue,
                 Cell: row =>  (
                       <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
                       </span>
-                 )
+                )
           		},
           		{ 
           		  Header: '％',
           		  id:'RatioValue',
-                accessor: d => _.round(((d.CurrentValue - d.LastValue)/d.LastValue)*10000)/100,
+                accessor: d=>d.dataForTable.ratioValue,
                 Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
   					      
   				    }]
