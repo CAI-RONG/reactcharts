@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export default function Gridcalculator(state, type, beginDate, timeFilter){
+export default function Gridcalculator(state, type, beginDate, timeFilter, operator){
 
 	var selectedDate=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(beginDate));
 	var current,last;
@@ -50,7 +50,7 @@ export default function Gridcalculator(state, type, beginDate, timeFilter){
 								if(parsedDate===last){
 									sum.lastAmount+=r.transactionAmount;
 									sum.lastValue+=r.transactionValue;
-								}	
+								}
 							}
 						);
 						return sum;
@@ -70,9 +70,15 @@ export default function Gridcalculator(state, type, beginDate, timeFilter){
 						total.lastValue+=s.lastValue;
 					}
 				);
+				if(timeFilter==='week'){
+					current=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-7)));
+					current=d3.timeFormat("%m/%d")(current)+'-'+d3.timeFormat("%m/%d")(new Date(current.getFullYear(),current.getMonth(),current.getDate()+6));
+					last=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-14)));
+					last=d3.timeFormat("%m/%d")(last)+'-'+d3.timeFormat("%m/%d")(new Date(last.getFullYear(),last.getMonth(),last.getDate()+6));
+				}
 				return {
-					currentdate:current,
-					lastdate:last,
+					currentDate:current,
+					lastDate:last,
 					name:d.Operator,
 					currentAmount:total.currentAmount,
 					lastAmount:total.lastAmount,

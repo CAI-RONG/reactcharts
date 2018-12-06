@@ -9,7 +9,7 @@ const mapStateToProp=(state,props)=>{
 
 	var outputData=[];
 	var calculatedData=Gridcalculator(state,'PKLots', state.beginDate, state.timeScaleFilter);
-	
+
 	function outputObject(data){
 		var obj={
 			'dataForTable':data,

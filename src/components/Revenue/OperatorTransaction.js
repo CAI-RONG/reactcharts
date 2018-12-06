@@ -44,16 +44,10 @@ class OperatorTransaction extends React.Component {
   }
 
   render () {
-	  var amountData={'Amount':{'date':[],'value':[]}};
-	  var valueData={'Value':{'date':[],'value':[]}};
-	  const data=this.props.data;
-	  for(var i=data.length-1; i>=0; --i){
-		  amountData.Amount.date.push(data[i].date);
-		  valueData.Value.date.push(data[i].date);
-		  amountData.Amount.value.push(data[i].CurrentAmount);
-		  valueData.Value.value.push(data[i].CurrentValue);
-	  }
-	  
+
+	var amountData={'Amount':this.props.data.Amount};
+	var valueData={'Value':this.props.data.Value};
+
     return (
       <div>
         <a className="btn btn-sm btn-primary" onClick={this.handleOpenModal}>
@@ -79,12 +73,12 @@ class OperatorTransaction extends React.Component {
           <ReactTable 
       		
        		  style={{cellspacing:0,  width:"100%"}}
-            data={this.props.data}     		
+            data={this.props.data.dataForTable}     		
             columns={[
           	{ 
               Header: '日期',
               id: "date",
-              accessor: d=>d.dataForTable.date,
+              accessor: d=>d.date,
           	},
           	{ 
               Header: '訂單數量',
@@ -92,17 +86,17 @@ class OperatorTransaction extends React.Component {
               { 
                 Header: '上期',
                 id:'LastAmount',
-                //accessor: d=>d.dataForTable.lastAmount
+                accessor: d=>d.lastAmount
               },
               { 
                 Header: '本期',
                 id:'CurrentAmount',
-                //accessor: d=>d.dataForTable.currentAmount
+                accessor: d=>d.currentAmount
               },
               {	 
                 Header: '差異',
                 id:'diffAmount',
-                //accessor: d=>d.dataForTable.diffAmount,
+                accessor: d=>d.diffAmount,
                 Cell: row =>  (
                         <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
@@ -112,7 +106,7 @@ class OperatorTransaction extends React.Component {
               {  
                 Header: '％',
                 id:'RatioAmount',
-                accessor: d=>d.dataForTable.ratioAmount,
+                accessor: d=>d.ratioAmount,
                 Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
               }]	
           	},
@@ -122,17 +116,17 @@ class OperatorTransaction extends React.Component {
           		{ 
           		  Header:'上期',
                 id:'LastValue',
-                accessor: d=>d.dataForTable.lastValue
+                accessor: d=>d.lastValue
   				    },
           		{ 
           		  Header:'本期',
                 id:'currentValue',
-                accessor: d=>d.dataForTable.currentValue
+                accessor: d=>d.currentValue
           		},
           		{ 
           		  Header:'差異',
           		  id:'diffValue',
-                accessor: d=>d.dataForTable.diffValue,
+                accessor: d=>d.diffValue,
                 Cell: row =>  (
                       <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
@@ -142,7 +136,7 @@ class OperatorTransaction extends React.Component {
           		{ 
           		  Header: '％',
           		  id:'RatioValue',
-                accessor: d=>d.dataForTable.ratioValue,
+                accessor: d=>d.ratioValue,
                 Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
   					      
   				    }]
