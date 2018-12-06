@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 export default function Gridcalculator(state, type, beginDate, timeFilter){
 
 	var selectedDate=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(beginDate));
-	
 	var current,last;
 	
 	function parser(date){
@@ -22,7 +21,7 @@ export default function Gridcalculator(state, type, beginDate, timeFilter){
 				return d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(date));
 		}
 	}
-	
+
 	
 	if(type==='operator'){
 		var outputData=state.data.map(
@@ -43,6 +42,7 @@ export default function Gridcalculator(state, type, beginDate, timeFilter){
 						selectedData.forEach(
 							function(r){
 								var parsedDate=parser(r.date);
+
 								if(parsedDate===current){
 									sum.currentAmount+=r.transactionAmount;
 									sum.currentValue+=r.transactionValue;
@@ -71,6 +71,8 @@ export default function Gridcalculator(state, type, beginDate, timeFilter){
 					}
 				);
 				return {
+					currentdate:current,
+					lastdate:last,
 					name:d.Operator,
 					currentAmount:total.currentAmount,
 					lastAmount:total.lastAmount,

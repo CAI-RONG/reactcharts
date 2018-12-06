@@ -2,94 +2,38 @@ import {connect} from 'react-redux';
 import OperatorTransaction from  "../components/Revenue/OperatorTransaction";
 import * as d3 from 'd3';
 import _ from 'lodash';
+import Gridcalculator from '../utils/Gridcalculator';
 
 const mapStateToProp=(state,props)=>{
-	
-	var outputData={'OperatorMonthlyData':[]};
-	var op, pklot;
+	var outputData=[];
 	var Today=new Date();
 	var Y = Today.getFullYear();
 	var M = Today.getMonth()+1;
-	var currentAmount=null,currentValue=null;
-	var lastAmount,lastValue;
+	var days = new Date(Y,M,0).getDate();
+	var d = Today.getDate();
+	var begin = Y+"-"+M+"-"+d;
 
 
-	state.data.map(function(value, index){
-			op = state.data[index];
-			if(op.Operator === props.Operator){ 
-				/*--this month--*/
-				currentAmount=null; currentValue=null;
-				op.PKLots.map(function(value, index){
-					pklot=op.PKLots[index];
-					var days = new Date(Y,M,0).getDate();
-					var begin = Y+"-"+M+"-01";
-					var	end = Y+"-"+M+"-"+days;
 
-					var selectedData={'select':pklot.transactions.slice()};	
-					var i=0;
-					selectedData.select.forEach(function(data){
-						if(d3.timeParse("%Y-%m-%d")(data.date)<d3.timeParse("%Y-%m-%d")(begin))i++;
-					})
-					selectedData.select.splice(0,i);
-					i=0;
-					selectedData.select.forEach(function(data){
-						if(d3.timeParse("%Y-%m-%d")(data.date)>d3.timeParse("%Y-%m-%d")(end))i++;
-					})
-					selectedData.select.splice(selectedData.select.length-i,i);
-				 	currentAmount += _.sumBy(selectedData.select, 'transactionAmount');
-					currentValue += _.sumBy(selectedData.select, 'transactionValue');	
-					return 0;					
-				})
-
-				_.times(11,(function(){
-					M--;
-					lastAmount=0; lastValue=0;
-					op.PKLots.map(function(value, index){
-						/*--各停車場--*/
-						pklot=op.PKLots[index];
-						var days = new Date(Y,M,0).getDate();
-						var begin = Y+"-"+M+"-01";
-						var	end = Y+"-"+M+"-"+days;
-
-						var selectedData={'select':pklot.transactions.slice()};	
-						var i=0;
-						selectedData.select.forEach(function(data){
-							if(d3.timeParse("%Y-%m-%d")(data.date)<d3.timeParse("%Y-%m-%d")(begin))i++;
-						})
-						selectedData.select.splice(0,i);
-						i=0;
-						selectedData.select.forEach(function(data){
-							if(d3.timeParse("%Y-%m-%d")(data.date)>d3.timeParse("%Y-%m-%d")(end))i++;
-						})
-						selectedData.select.splice(selectedData.select.length-i,i);
-				 		lastAmount += _.sumBy(selectedData.select, 'transactionAmount');
-				 		lastValue += _.sumBy(selectedData.select, 'transactionValue');															
-						/*--/各停車場--*/		
-
-						return 0;
-
-					})
-					/*--/op.PKLots.map--*/
-					outputData.OperatorMonthlyData.push({ date:Y+"/"+(M+1),
-														LastAmount: lastAmount,
-														CurrentAmount: currentAmount, 
-														LastValue: lastValue, 
-														CurrentValue: currentValue 
-														});
-					
-					currentAmount=lastAmount;
-					currentValue=lastValue;
-					return 0;					
-				}))
-
-				
-			}
-			return 0;		
-		}
-	)
+	var calculatedData=Gridcalculator(state,'operator',d3.timeParse("%Y-%m-%d")(begin), state.timeScaleFilter);
 	
+
+	function outputObject(data){
+		var obj={
+			'dataForTable':data,
+			'TransactionAmount':{'date':[],'value':[]},
+			'TransactionValue':{'date':[],'value':[]}
+		}
+		return obj;
+	}
+
+	_.times(4, function(){
+		outputData.push(Gridcalculator(state,'operator', d3.timeParse("%Y-%m-%d")(Y+"-"+M+"-"+d), state.timeScaleFilter)); 
+	})
+console.log(outputData);
+			
 	return {
-		data:outputData.OperatorMonthlyData
+		data:outputData
 	}
 }
 
