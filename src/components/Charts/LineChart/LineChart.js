@@ -203,12 +203,13 @@ export default class LineChart extends React.Component{
 		const axisX=d3.axisBottom(scaleX).tickFormat(function(d){return Object.entries(data)[0][1].date[d]})
 					.ticks(Object.entries(data)[0][1].date.length-1==0?1:Object.entries(data)[0][1].date.length-1);
 					
+		if(Object.entries(data)[0][1].date.length>5)axisX.ticks(Object.entries(data)[0][1].date.length/2);			
 		if(Object.entries(data)[0][1].date.length>10)axisX.ticks(Object.entries(data)[0][1].date.length/4);
 		if(Object.entries(data)[0][1].date.length>20)axisX.ticks(Object.entries(data)[0][1].date.length/6);
 		if(Object.entries(data)[0][1].date.length>30)axisX.ticks(Object.entries(data)[0][1].date.length/8);
 		if(Object.entries(data)[0][1].date.length>40)axisX.ticks(Object.entries(data)[0][1].date.length/10);
 		
-		const axisY=d3.axisLeft(scaleY);
+		const axisY=d3.axisLeft(scaleY).ticks(6);
 		svg.select('#axisX').call(axisX).attr('stroke-width','2')
 										.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
 		svg.select('#axisY').call(axisY).attr('stroke-width','2')
