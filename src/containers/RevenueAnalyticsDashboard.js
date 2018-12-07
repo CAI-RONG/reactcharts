@@ -59,11 +59,10 @@ class RevenueAnalyticsDashboard extends React.Component{
     return (
       <Provider store={this.state.store}>
         <div>
-          <div>
-            <ContainerTimeScale name="revenue"/>
-          </div>
-          <br/>
           <div className="right_col" role="main">
+			<div style={{marginBottom:30}}>
+				<ContainerTimeScale name="revenue"/>
+			</div>
             <TileCountContainer />
             <GridContainer name='路外停車' header='業者'/>
             <GridContainer name='路邊停車' header='機關'/>
