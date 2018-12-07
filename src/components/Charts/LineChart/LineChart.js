@@ -154,6 +154,11 @@ export default class LineChart extends React.Component{
 									.attr('stroke',color[i%9])
 									.attr('stroke-width',2)
 									.attr('fill','white');
+				if(Object.entries(data)[0][1].date.length>10)j++;
+				if(Object.entries(data)[0][1].date.length>15)j++;
+				if(Object.entries(data)[0][1].date.length>20)j++;
+				//if(Object.entries(data)[0][1].date.length>25)j++;
+				//if(Object.entries(data)[0][1].date.length>30)j++;
 			}
 			var label=graphic.append('g').attr('class','label label-'+Object.entries(data)[i][0])
 									.attr('id',Object.entries(data)[i][0])
