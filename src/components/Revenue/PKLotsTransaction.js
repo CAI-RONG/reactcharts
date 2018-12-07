@@ -150,7 +150,6 @@ class PKLotsTransactionAnalytics extends React.Component {
                       </span>
 */}
                 </Row>
-
               )
             }}
           />
