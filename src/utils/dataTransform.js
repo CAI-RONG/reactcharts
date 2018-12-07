@@ -35,63 +35,19 @@ export default function transform(state,props){
 		selectedData.android.splice(selectedData.android.length-j,j);
 	}
 	
-	if(props.active){
-		switch(props.timeFilter){
-			case "day":
-				dataParse(d3.timeFormat("%m/%d"),props.name);
-				break;
-			case "week":
-				dataParse(d3.timeFormat("%Y-%U"),props.name);
-				/*var iosDate=outputData.iOS.date;
-				for(var i=0; i<iosDate.length; ++i){
-					var firstDayOftheWeek=d3.timeParse("%Y-%U")(iosDate[i]);
-					iosDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
-					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
-					iosDate[i]=iosDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
-				}
-				var androidDate=outputData.Android.date;
-				for(var i=0; i<androidDate.length; ++i){
-					var firstDayOftheWeek=d3.timeParse("%Y-%U")(androidDate[i]);
-					androidDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
-					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
-					androidDate[i]=androidDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
-				}*/
-				break;
-			case "month":
-				dataParse(d3.timeFormat("%Y/%m"),props.name);
-				break;
-			default:
-				return console.log("DataTransform Props TimeFilter Error");
-		}
-	}
-	else{
-		switch(state.timeScaleFilter){
-			case "day":
-				dataParse(d3.timeFormat("%m/%d"),props.name);
-				break;
-			case "week":
-				dataParse(d3.timeFormat("%Y-%U"),props.name);
-				/*var iosDate=outputData.iOS.date;
-				for(var i=0; i<iosDate.length; ++i){
-					var firstDayOftheWeek=d3.timeParse("%Y-%U")(iosDate[i]);
-					iosDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
-					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
-					iosDate[i]=iosDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
-				}
-				var androidDate=outputData.Android.date;
-				for(var i=0; i<androidDate.length; ++i){
-					var firstDayOftheWeek=d3.timeParse("%Y-%U")(androidDate[i]);
-					androidDate[i]=d3.timeFormat("%m/%d")(firstDayOftheWeek);
-					firstDayOftheWeek.setDate(firstDayOftheWeek.getDate()+6);
-					androidDate[i]=androidDate[i]+d3.timeFormat("-%m/%d")(firstDayOftheWeek);
-				}*/
-				break;
-			case "month":
-				dataParse(d3.timeFormat("%Y/%m"),props.name);
-				break;
-			default:
-				return console.log("DataTransform State TimeFilter Error");
-		}
+	
+	switch(state.timeScaleFilter){
+		case "day":
+			dataParse(d3.timeFormat("%Y/%m/%d"),props.name);
+			break;
+		case "week":
+			dataParse(d3.timeFormat("%Y/%U"),props.name);
+			break;
+		case "month":
+			dataParse(d3.timeFormat("%Y/%m"),props.name);
+			break;
+		default:
+			return console.log("DataTransform State TimeFilter Error");
 	}
 	
 	function dataParse(parseTime,name){
@@ -100,13 +56,59 @@ export default function transform(state,props){
 			function(data){
 				var parsedDate=parseTime(d3.timeParse("%Y-%m-%d")(data.date));
 				var ios=outputData.iOS;
-				if(parsedDate!==currentFilter){
-					currentFilter=parsedDate;
-					ios.date.push(data.date);
-					ios.value.push(data[name]);
+				
+				if(props.active){
+					if(parsedDate!==currentFilter){
+						currentFilter=parsedDate;
+						var lastDay,limit;
+						switch(state.timeScaleFilter){
+							case 'day':
+								lastDay=d3.timeParse("%Y/%m/%d")(parsedDate);
+								break;
+							case 'week':
+								lastDay=d3.timeParse("%Y/%U")(parsedDate);
+								lastDay=new Date(lastDay.valueOf()+86400000*6)>=end?end:new Date(lastDay.valueOf()+86400000*6);
+								break;
+							case 'month':
+								lastDay=d3.timeParse("%Y/%m")(parsedDate);
+								lastDay=new Date(lastDay.getFullYear(),lastDay.getMonth()+1,0)>=end?end:new Date(lastDay.getFullYear(),lastDay.getMonth()+1,0);
+								break;
+						}
+						switch(props.timeFilter){
+							case 'day':
+								limit=lastDay;
+								break;
+							case 'week':
+								limit=new Date(lastDay.valueOf()-86400000*6);
+								break;
+							case 'month':
+								limit=new Date(lastDay.valueOf()-86400000*29);
+								break;
+						}
+						var sum=0;
+						console.log(props.timeFilter);
+						console.log(limit);
+						console.log(lastDay);
+						state.userData.iosData.forEach(
+							function(d){
+								var currentDate=d3.timeParse("%Y-%m-%d")(d.date);
+								if(currentDate>=limit && currentDate<=lastDay)
+									sum+=d.activedUser;
+							}
+						)
+						ios.date.push(data.date);
+						ios.value.push(sum);
+					}
 				}
-				else
-					ios.value[ios.date.length-1]+=data[name];
+				else{
+					if(parsedDate!==currentFilter){
+						currentFilter=parsedDate;
+						ios.date.push(data.date);
+						ios.value.push(data[name]);
+					}
+					else
+						ios.value[ios.date.length-1]+=data[name];
+				}
 			}
 		)
 		currentFilter="";
@@ -114,13 +116,56 @@ export default function transform(state,props){
 			function(data){
 				var parsedDate=parseTime(d3.timeParse("%Y-%m-%d")(data.date));
 				var android=outputData.Android;
-				if(parsedDate!==currentFilter){
-					currentFilter=parsedDate;
-					android.date.push(data.date);
-					android.value.push(data[name]);
+				
+				if(props.active){
+					if(parsedDate!==currentFilter){
+						currentFilter=parsedDate;
+						var lastDay,limit;
+						switch(state.timeScaleFilter){
+							case 'day':
+								lastDay=d3.timeParse("%Y/%m/%d")(parsedDate);
+								break;
+							case 'week':
+								lastDay=d3.timeParse("%Y/%U")(parsedDate);
+								lastDay=new Date(lastDay.valueOf()+86400000*6)>=end?end:new Date(lastDay.valueOf()+86400000*6);
+								break;
+							case 'month':
+								lastDay=d3.timeParse("%Y/%m")(parsedDate);
+								lastDay=new Date(lastDay.getFullYear(),lastDay.getMonth()+1,0)>=end?end:new Date(lastDay.getFullYear(),lastDay.getMonth()+1,0);
+								break;
+						}
+						switch(props.timeFilter){
+							case 'day':
+								limit=lastDay;
+								break;
+							case 'week':
+								limit=new Date(lastDay.valueOf()-86400000*6);
+								break;
+							case 'month':
+								limit=new Date(lastDay.valueOf()-86400000*29);
+								break;
+						}
+						var sum=0;
+						state.userData.androidData.forEach(
+							function(d){
+								var currentDate=d3.timeParse("%Y-%m-%d")(d.date);
+								if(currentDate>=limit && currentDate<=lastDay)
+									sum+=d.activedUser;
+							}
+						)
+						android.date.push(data.date);
+						android.value.push(sum);
+					}
 				}
-				else
-					android.value[android.date.length-1]+=data[name];
+				else{
+					if(parsedDate!==currentFilter){
+						currentFilter=parsedDate;
+						android.date.push(data.date);
+						android.value.push(data[name]);
+					}
+					else
+						android.value[android.date.length-1]+=data[name];
+				}
 			}
 		)
 	}
