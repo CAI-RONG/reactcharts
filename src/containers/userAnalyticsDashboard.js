@@ -29,11 +29,10 @@ export default class UserAnalyticsDashboard extends React.Component{
 		return (
 			<Provider store={this.state.store}>
 				<div>
-					<div>
-						<ContainerTimeScale name="user"/>
-					</div>
-					<br/>
           			<div className="right_col" role="main">
+						<div style={{marginBottom:30}}>
+							<ContainerTimeScale name="user"/>
+						</div>
 						<Growth/>
 					<ActivedUser/>
 					<ContainerUserStatusTable/>
