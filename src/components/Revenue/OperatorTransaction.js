@@ -137,12 +137,10 @@ class OperatorTransaction extends React.Component {
           		  Header: '％',
           		  id:'RatioValue',
                 accessor: d=>d.ratioValue,
-                Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
-  					      
+                Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>    
   				    }]
   				  }]}
   			     defaultPageSize={5}
-        
   				  className="-striped -highlight"  
           />
         </Modal>
