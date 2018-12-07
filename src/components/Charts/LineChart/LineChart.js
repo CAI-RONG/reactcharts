@@ -176,7 +176,7 @@ export default class LineChart extends React.Component{
 			label.append('circle').attr('class','cover cover-'+Object.entries(data)[i][0]).attr('display','none')
 								.attr('r',5).attr('fill','#ddd')
 								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+30)+','+($('svg#'+this.props.name).height()*0.92)+')');
-			label.append('text').text(function(){return Object.entries(data)[i][0]})
+			label.append('text').text(function(){return Object.entries(data)[i][0]}).attr('class','circle-text')
 						.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+38)+','+($('svg#'+this.props.name).height()*0.93)+')');
 		}
 		
@@ -203,12 +203,13 @@ export default class LineChart extends React.Component{
 		const axisX=d3.axisBottom(scaleX).tickFormat(function(d){return Object.entries(data)[0][1].date[d]})
 					.ticks(Object.entries(data)[0][1].date.length-1==0?1:Object.entries(data)[0][1].date.length-1);
 					
+		if(Object.entries(data)[0][1].date.length>5)axisX.ticks(Object.entries(data)[0][1].date.length/2);			
 		if(Object.entries(data)[0][1].date.length>10)axisX.ticks(Object.entries(data)[0][1].date.length/4);
 		if(Object.entries(data)[0][1].date.length>20)axisX.ticks(Object.entries(data)[0][1].date.length/6);
 		if(Object.entries(data)[0][1].date.length>30)axisX.ticks(Object.entries(data)[0][1].date.length/8);
 		if(Object.entries(data)[0][1].date.length>40)axisX.ticks(Object.entries(data)[0][1].date.length/10);
 		
-		const axisY=d3.axisLeft(scaleY);
+		const axisY=d3.axisLeft(scaleY).ticks(6);
 		svg.select('#axisX').call(axisX).attr('stroke-width','2')
 										.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
 		svg.select('#axisY').call(axisY).attr('stroke-width','2')
@@ -231,6 +232,7 @@ export default class LineChart extends React.Component{
 	render(){
 		d3.selectAll("svg#"+this.props.name+" path").remove();
 		d3.selectAll("circle").remove();
+		d3.selectAll('text.circle-text').remove();
 		return (
 			
 				<svg id={this.props.name} style={{marginLeft:-10, marginBottom:20}}>
