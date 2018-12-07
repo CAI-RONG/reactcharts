@@ -5,9 +5,6 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import {Row,Col} from 'react-bootstrap';
 import LineChart from '../Charts/LineChart/LineChart';
-
-import _ from 'lodash';
-
 const customStyles = {
   content : {
     top                   : '50%',
@@ -30,19 +27,7 @@ class OperatorTransaction extends React.Component {
     this.state = {
       showModal: false
     };
-   
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-  }
-  
-  handleOpenModal () {
-    this.setState({ showModal: true });
-  }
-  
-  handleCloseModal () {
-    this.setState({ showModal: false });
-  }
-
+ }
   render () {
 
 	var amountData={'Amount':this.props.data.Amount};
@@ -50,15 +35,15 @@ class OperatorTransaction extends React.Component {
 
     return (
       <div>
-        <a className="btn btn-sm btn-primary" onClick={this.handleOpenModal}>
+        <button className="btn btn-sm btn-primary" onClick={() => this.setState({ showModal: true})}>
         	<i className="fas fa-chart-area" />
-        </a> 
+        </button> 
         <Modal 
            isOpen={this.state.showModal}
            style={customStyles}
 		   onRequestClose={this.handleCloseModal}
         >
-         <button style={{float:'right', border:'0px'}} onClick={this.handleCloseModal} >X</button>
+         <button style={{float:'right', border:'0px'}} onClick={() => this.setState({ showModal: false})} >X</button>
           <h5> {this.props.Operator} 每月訂單分析 </h5>
 		  <Row>
 			<Col lg={6}>

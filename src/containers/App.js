@@ -25,16 +25,13 @@ class App extends Component {
     });
   };   
 
-  backdropClickHandler = () => {
-    this.setState({sideDrawerOpen: false});
-  }
-
+ 
   render() {
    
     let backdrop;
 
     if(this.state.sideDrawerOpen){
-      backdrop = <Backdrop click={this.backdropClickHandler}/>;
+      backdrop = <Backdrop click={() => { this.setState({sideDrawerOpen: false}) }}/>;
     }
     return (
 
@@ -51,7 +48,7 @@ class App extends Component {
               </div>
               <footer>
                 <div className="pull-right">
-                  <a>Copyright &copy; 2018 PKLOT</a>
+                  {/*<a>Copyright &copy; 2018 PKLOT</a>*/}
                 </div>
                 <div className="clearfix"></div>
               </footer>

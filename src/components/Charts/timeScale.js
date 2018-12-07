@@ -3,8 +3,7 @@ import {DropdownButton, MenuItem} from 'react-bootstrap/lib';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import PropTypes from 'prop-types';
 import 'react-day-picker/lib/style.css';
-import $ from 'jquery';
-import * as d3 from 'd3';
+
 
 export default class TimeScale extends React.Component{
 	constructor(props){
@@ -29,12 +28,14 @@ export default class TimeScale extends React.Component{
 			case 'month':
 				this.setState({dropdownTitle:'月'});
 				break;
+			default:
+				return console.log("TimeScale Component Error");
 		}
 		
 	}
 	
 	render(){
-		if(this.props.name!="revenue"){
+		if(this.props.name!=="revenue"){
 		return (
 			<div id={this.props.name} style={{display:'inline-flex',alignItems:'center',fontFamily:'微軟正黑體',fontSize:16}}>
 				<span>顯示單位：</span>

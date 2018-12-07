@@ -3,7 +3,6 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import './UserStatusTable.css';
 import {Glyphicon,Button} from 'react-bootstrap';
-import $ from 'jquery';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 
@@ -121,13 +120,12 @@ class UserStatusTable extends React.Component{
 				switch(row.value){
 					case 'Taipei':
 						return '台北市';
-						break;
 					case 'New_Taipei':
 						return '新北市';
-						break;
 					case 'Kaohsiung':
 						return '高雄市';
-						break;
+					default:
+						return console.log("UserStatusTable autoPayColumn Error");
 				}
 			}
 		},

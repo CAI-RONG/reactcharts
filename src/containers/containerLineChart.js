@@ -17,9 +17,7 @@ const mapStateToProp=(state,props)=>{
 	output=Object.assign({},total);
 	output=Object.assign({},output,transformedData.data);
 	
-	for(var lines in output){
-		output[lines].date.map(
-			function(d){
+	function setTimeFilter(d){
 				var currentDate=d3.timeParse("%Y-%m-%d")(d);
 				var firstDayOftheWeek;
 				if(props.active){
@@ -59,7 +57,9 @@ const mapStateToProp=(state,props)=>{
 					}
 				}
 			}
-		)
+
+	for(var lines in output){
+		output[lines].date.map(setTimeFilter)
 	}
 	
 	return {

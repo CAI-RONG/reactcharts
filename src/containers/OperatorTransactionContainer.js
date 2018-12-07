@@ -20,6 +20,8 @@ const mapStateToProp=(state,props)=>{
 		case 'month':
 			limit=new Date(limit.getFullYear(),limit.getMonth()-6);
 			break;
+		default:
+			console.log("Operator Transaction Container State TimeScaleFilter Error");
 	}
 	
 	function parser(date,selectedDate){
@@ -59,6 +61,25 @@ const mapStateToProp=(state,props)=>{
 	
 	var dataUnderOperator=state.data.find(d=>d.Operator===props.Operator);
 	
+	var calculate = function() {dataUnderOperator.PKLots.forEach(
+			function(p){
+				p.transactions.forEach(
+					function(t){
+						var parsedDate=parser(t.date,selectedDate);
+						if(parsedDate===current){
+							total.currentAmount+=t.transactionAmount;
+							total.currentValue+=t.transactionValue;
+						}
+						if(parsedDate===last){
+							total.lastAmount+=t.transactionAmount;
+							total.lastValue+=t.transactionValue;
+						}
+					}
+				)
+			}
+		)}
+
+
 	for(var selectedDate=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate)); 
 		selectedDate>=limit; 
 		selectedDate=previous(selectedDate)){
@@ -75,24 +96,8 @@ const mapStateToProp=(state,props)=>{
 			'diffValue':0,
 			'ratioValue':0
 		}
+		calculate();
 		
-		dataUnderOperator.PKLots.forEach(
-			function(p){
-				p.transactions.forEach(
-					function(t){
-						var parsedDate=parser(t.date,selectedDate);
-						if(parsedDate===current){
-							total.currentAmount+=t.transactionAmount;
-							total.currentValue+=t.transactionValue;
-						}
-						if(parsedDate===last){
-							total.lastAmount+=t.transactionAmount;
-							total.lastValue+=t.transactionValue;
-						}
-					}
-				)
-			}
-		)
 		if(state.timeScaleFilter==='week'){
 			current=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-7)));
 			current=d3.timeFormat("%m/%d")(current)+'-'+d3.timeFormat("%m/%d")(new Date(current.getFullYear(),current.getMonth(),current.getDate()+6));

@@ -6,7 +6,6 @@ import "react-table/react-table.css";
 import LineChart from '../Charts/LineChart/LineChart';
 import {Row,Col} from 'react-bootstrap';
 
-import _ from 'lodash';
 
 const customStyles = {
   content : {
@@ -29,31 +28,20 @@ class PKLotsTransactionAnalytics extends React.Component {
     this.state = {
       showModal: false
     };
-   
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-  }
-  
-  handleOpenModal () {
-    this.setState({ showModal: true });
-  }
-  
-  handleCloseModal () {
-    this.setState({ showModal: false });
   }
 
   render () {
     return (
       <div>
-        <a className="btn btn-sm btn-primary" onClick={this.handleOpenModal}>
+        <button className="btn btn-sm btn-primary" onClick={() => this.setState({ showModal: true})}>
           <i className="fas fa-table"/>
-        </a>
+        </button>
         <Modal 
            isOpen={this.state.showModal}
            style={customStyles}
 		   onRequestClose={this.handleCloseModal}
         >
-          <button style={{float:'right', border:'0px'}} onClick={this.handleCloseModal} >X</button>
+          <button style={{float:'right', border:'0px'}} onClick={() => this.setState({ showModal: false})} >X</button>
           <p style={{fontSize:"20px"}}> {this.props.Operator} - 各停車場站每月訂單分析 </p>
 
           <ReactTable 

@@ -3,7 +3,6 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import PropTypes from 'prop-types';
 import './Revenue.css';
-import _ from 'lodash';
 
 
 import OperatorTransactionContainer from  "../../containers/OperatorTransactionContainer";

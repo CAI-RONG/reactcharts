@@ -29,6 +29,8 @@ const mapStateToProp=(state,props)=>{
 		case 'month':
 			limit=new Date(limit.getFullYear(),limit.getMonth()-6);
 			break;
+		default:
+			console.log("PKLots Transaction Container State TimeScaleFilter Error");
 	}
 	var current;
 	function parser(date){
@@ -42,6 +44,8 @@ const mapStateToProp=(state,props)=>{
 			case 'day':
 				current=d3.timeFormat("%Y-%m-%d")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-1));
 				return d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(date));
+			default:
+				console.log("PKLots Transaction Container Function Parser Error");
 		}
 	}
 	
@@ -53,6 +57,8 @@ const mapStateToProp=(state,props)=>{
 				return new Date(date.getFullYear(),date.getMonth(),date.getDate()-(new Date(date.getFullYear(),date.getMonth(),0).getDate()));
 			case 'day':
 				return new Date(date.getFullYear(),date.getMonth(),date.getDate()-1);
+			default:
+				console.log("PKLots Transaction Container Function Previous Error");	
 		}
 	}
 	
@@ -91,23 +97,9 @@ const mapStateToProp=(state,props)=>{
 			}		
 		}
 	);*/
-	
-	for(var selectedDate=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate)); 
-		selectedDate>=limit; 
-		selectedDate=previous(selectedDate)){
-		
-		var total={
-			'name':'',
-			'date':'',
-			'amount':0,
-			'value':0
-		}
-		
-		dataUnderOperator.PKLots.forEach(
-			function(p){
+	var pushPKLotsData = function() { dataUnderOperator.PKLots.forEach(function(p){
 				total.name=p.name;
-				p.transactions.forEach(
-					function(t){
+				p.transactions.forEach(function(t){
 						var parsedDate=parser(t.date,selectedDate);
 						if(parsedDate===current){
 							total.amount+=t.transactionAmount;
@@ -129,6 +121,11 @@ const mapStateToProp=(state,props)=>{
 				currentPKLots.TransactionValue.value.push(total.value);
 			}
 		)
+	};
+	
+	for(var selectedDate=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));selectedDate>=limit;selectedDate=previous(selectedDate)){
+		var total={'name':'','date':'','amount':0,'value':0}
+		pushPKLotsData();
 	}
 	
 	outputData.forEach(

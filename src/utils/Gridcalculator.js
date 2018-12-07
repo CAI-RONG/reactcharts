@@ -19,12 +19,14 @@ export default function Gridcalculator(state, type, beginDate, timeFilter, opera
 				current=d3.timeFormat("%Y-%m-%d")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-1));
 				last=d3.timeFormat("%Y-%m-%d")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-2));
 				return d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(date));
+			default:
+				return console.log("Gridcalculator Function Parser Error")
 		}
 	}
 
-	
+	var outputData;
 	if(type==='operator'){
-		var outputData=state.data.map(
+		outputData=state.data.map(
 			function(d){
 				var calculatedData=d.PKLots.map(
 					function(t){
@@ -93,7 +95,7 @@ export default function Gridcalculator(state, type, beginDate, timeFilter, opera
 		);
 	}
 	else if(type==='PKLots'){
-		var outputData=[];
+		outputData=[];
 		var output=state.data.map(
 			function(d){
 				var calculatedData=d.PKLots.map(

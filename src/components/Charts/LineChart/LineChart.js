@@ -53,6 +53,7 @@ export default class LineChart extends React.Component{
 							.on('mousemove',move);
 		
 		function move(){
+			var i;
 			const valX=scaleX.invert(d3.mouse(this)[0]);
 			
 			const selector=svg.selectAll('g.focus').attr('transform','translate('+scaleX(Math.round(valX))+','+scaleY(highestData[Math.round(valX)])+')');
@@ -67,8 +68,8 @@ export default class LineChart extends React.Component{
 			/*selector.select('text.total').text(function(){return "Total: "+highestData[Math.round(valX)]})
 										.attr('transform','translate(80,35)')
 										.style('fill','#fff');*/
-			for(var i=0; i<dataAmount; ++i){
-				selector.select('text.'+keys[i]).text(function(){return keys[i]+": "+data[keys[i]].value[Math.round(valX)]})
+			for(i=0; i<dataAmount; ++i){
+				selector.select('text.'+keys[i]).text(keys[i]+": "+data[keys[i]].value[Math.round(valX)])
 											.attr('transform','translate(80,'+(35+15*i)+')')
 											.style('fill','#fff');
 				/*selector.select('text.android').text(function(){return "Android: "+data.androidData.value[Math.round(valX)]})
@@ -80,19 +81,20 @@ export default class LineChart extends React.Component{
 				selector.select('rect').attr('transform','translate(-70,0)');
 				selector.select('text.date').attr('transform','translate(-60,20)');
 				selector.select('text.total').attr('transform','translate(-60,35)');
-				for(var i=0; i<dataAmount; ++i){
+				for(i=0; i<dataAmount; ++i){
 					selector.select('text.'+keys[i]).attr('transform','translate(-60,'+(35+15*i)+')');
 				}
 			}
 			
 			svg.selectAll('circle.circle'+Math.round(valX)).attr('r',5);
-			for(var i=0; i<highestData.length; ++i)
-				if(i!=Math.round(valX))
+			for(i=0; i<highestData.length; ++i)
+				if(i!==Math.round(valX))
 					svg.selectAll('circle.circle'+i).attr('r',3);
 		}
 	}
 	
 	drawChart(){
+		var i;
 		const color=['#13A0DA', '#726BC0', '#22B0A6', '#197EB5', '#8948AE',
                 '#3C8D93','#9DAA15', '#DFAB19', '#BF7F34', '#B0367C'];
 		const data=this.props.data;
@@ -115,7 +117,7 @@ export default class LineChart extends React.Component{
 		}*/
 		
 		var highestData=[];
-		for(var i=0; i<dataWidthDomain; ++i){
+		for(i=0; i<dataWidthDomain; ++i){
 			var currentIndexData=[];
 			for(var d in data){currentIndexData.push(data[d].value[i])}
 			highestData.push(d3.max(currentIndexData));
@@ -135,7 +137,7 @@ export default class LineChart extends React.Component{
 					.y(function(d,i){return scaleY(d);});
 		
 		
-		for(var i=0;i<dataAmount;++i){
+		for(i=0;i<dataAmount;++i){
 			var graphic=svg.append('g').attr('class','graphic graphic-'+Object.entries(data)[i][0]);
 			graphic.append('path').attr('d',line(Object.entries(data)[i][1].value))
 					.attr('stroke',color[i%9])
@@ -176,7 +178,7 @@ export default class LineChart extends React.Component{
 			label.append('circle').attr('class','cover cover-'+Object.entries(data)[i][0]).attr('display','none')
 								.attr('r',5).attr('fill','#ddd')
 								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+30)+','+($('svg#'+this.props.name).height()*0.92)+')');
-			label.append('text').text(function(){return Object.entries(data)[i][0]}).attr('class','circle-text')
+			label.append('text').text(Object.entries(data)[i][0]).attr('class','circle-text')
 						.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+38)+','+($('svg#'+this.props.name).height()*0.93)+')');
 		}
 		
@@ -201,7 +203,7 @@ export default class LineChart extends React.Component{
 		
 		
 		const axisX=d3.axisBottom(scaleX).tickFormat(function(d){return Object.entries(data)[0][1].date[d]})
-					.ticks(Object.entries(data)[0][1].date.length-1==0?1:Object.entries(data)[0][1].date.length-1);
+					.ticks(Object.entries(data)[0][1].date.length-1===0?1:Object.entries(data)[0][1].date.length-1);
 					
 		if(Object.entries(data)[0][1].date.length>5)axisX.ticks(Object.entries(data)[0][1].date.length/2);			
 		if(Object.entries(data)[0][1].date.length>10)axisX.ticks(Object.entries(data)[0][1].date.length/4);
