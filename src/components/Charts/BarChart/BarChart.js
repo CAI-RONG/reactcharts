@@ -62,7 +62,7 @@ export default class BarChart extends React.Component{
 		
 		const bankTitle=svg.append('g').attr('id','bankTitle').style('font-family','微軟正黑體').style('font-weight','bold');
 		for(var i=0; i<data.value.length; ++i)
-			bankTitle.append('text').text(function(){return data.bank[i]})
+			bankTitle.append('text').text(data.bank[i])
 									.attr('x',0).attr('y',i>0?i*30+20:20);
 									
 		const focus=svg.append('g').attr('class','focus').style('display','none');

@@ -9,7 +9,7 @@ export default class Growth extends React.Component{
 			<div className="row">
           		<div className="col-md-12 col-sm-12 col-xs-12">
             		<div className="x_panel">
-            			<div class="row x_title"><h3>Growth</h3></div>
+            			<div className="row x_title"><h3>Growth</h3></div>
             			<Row>
 							<ContainerGrowthElement name='downloads' title='下載量' icon='fas fa-download'/>
 							<ContainerGrowthElement name='members' title= '會員數' icon='fas fa-user'/>		

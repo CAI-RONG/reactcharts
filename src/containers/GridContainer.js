@@ -1,8 +1,6 @@
-
 import {connect} from 'react-redux';
 import Grid from "../components/Revenue/Grid";
 import Gridcalculator from "../utils/Gridcalculator";
-import * as d3 from 'd3';
 
 const mapStateToProps=(state,props)=>{
 

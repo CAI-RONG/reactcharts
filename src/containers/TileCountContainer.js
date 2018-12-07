@@ -1,4 +1,3 @@
-import React from "react";
 import {connect} from 'react-redux';
 import TileCount from "../components/Revenue/TileCount";
 import Gridcalculator from "../utils/Gridcalculator";

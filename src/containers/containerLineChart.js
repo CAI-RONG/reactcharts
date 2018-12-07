@@ -9,6 +9,7 @@ const mapStateToProp=(state,props)=>{
 	total.Total.date=transformedData.data.iOS.date.slice();
 	total.Total.value=transformedData.data.iOS.value.map(
 		function(d,i){
+			console.log(d);
 			return d+transformedData.data.Android.value[i];
 		}
 	);
@@ -20,13 +21,14 @@ const mapStateToProp=(state,props)=>{
 		output[lines].date.map(
 			function(d){
 				var currentDate=d3.timeParse("%Y-%m-%d")(d);
+				var firstDayOftheWeek;
 				if(props.active){
 					switch(props.timeFilter){
 						case 'day':
 							output[lines].date[output[lines].date.indexOf(d)]=d3.timeFormat("%m/%d")(currentDate);
 							break;
 						case 'week':
-							var firstDayOftheWeek=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(currentDate));
+							firstDayOftheWeek=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(currentDate));
 							//var lastDayOftheWeek=new Date(firstDayOftheWeek.getFullYear(),firstDayOftheWeek.getMonth(),firstDayOftheWeek.getDate()+6);
 							output[lines].date[output[lines].date.indexOf(d)]=(currentDate>firstDayOftheWeek?d3.timeFormat("%m/%d")(currentDate):d3.timeFormat("%m/%d")(firstDayOftheWeek))+'-'
 							+(new Date(firstDayOftheWeek.valueOf()+86400000*6)<=state.endDate?d3.timeFormat("%m/%d")(new Date(firstDayOftheWeek.valueOf()+86400000*6)):d3.timeFormat("%m/%d")(state.endDate));
@@ -34,6 +36,8 @@ const mapStateToProp=(state,props)=>{
 						case 'month':
 							output[lines].date[output[lines].date.indexOf(d)]=d3.timeFormat("%Y/%m")(currentDate);
 							break;
+						default:
+							return console.log("LineChart Props TimeFilter Error")
 					}
 				}
 				else{
@@ -42,7 +46,7 @@ const mapStateToProp=(state,props)=>{
 							output[lines].date[output[lines].date.indexOf(d)]=d3.timeFormat("%m/%d")(currentDate);
 							break;
 						case 'week':
-							var firstDayOftheWeek=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(currentDate));
+							firstDayOftheWeek=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(currentDate));
 							//var lastDayOftheWeek=new Date(firstDayOftheWeek.getFullYear(),firstDayOftheWeek.getMonth(),firstDayOftheWeek.getDate()+6);
 							output[lines].date[output[lines].date.indexOf(d)]=(currentDate>firstDayOftheWeek?d3.timeFormat("%m/%d")(currentDate):d3.timeFormat("%m/%d")(firstDayOftheWeek))+'-'
 							+(new Date(firstDayOftheWeek.valueOf()+86400000*6)<=state.endDate?d3.timeFormat("%m/%d")(new Date(firstDayOftheWeek.valueOf()+86400000*6)):d3.timeFormat("%m/%d")(state.endDate));
@@ -50,6 +54,8 @@ const mapStateToProp=(state,props)=>{
 						case 'month':
 							output[lines].date[output[lines].date.indexOf(d)]=d3.timeFormat("%Y/%m")(currentDate);
 							break;
+						default:
+							return console.log("LineChart State TimeFilter Error")
 					}
 				}
 			}

@@ -2,7 +2,6 @@
 import {connect} from 'react-redux';
 import PKLotsTransaction from  "../components/Revenue/PKLotsTransaction";
 import * as d3 from 'd3';
-import _ from 'lodash';
 import Gridcalculator from '../utils/Gridcalculator';
 
 const mapStateToProp=(state,props)=>{

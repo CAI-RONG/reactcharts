@@ -1,6 +1,5 @@
 import React from 'react';
 import ContainerLineChart from '../../containers/containerLineChart';
-import {Grid,Row,Col} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import ContainerBarChart from '../../containers/containerBarChart';

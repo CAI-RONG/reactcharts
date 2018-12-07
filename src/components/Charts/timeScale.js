@@ -1,6 +1,5 @@
 import React from 'react';
-import {DropdownButton, DropdownToggle, DropdownMenu, MenuItem} from 'react-bootstrap/lib';
-import DayPicker from 'react-day-picker';
+import {DropdownButton, MenuItem} from 'react-bootstrap/lib';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import PropTypes from 'prop-types';
 import 'react-day-picker/lib/style.css';

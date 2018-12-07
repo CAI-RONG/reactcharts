@@ -1,10 +1,6 @@
 import React from "react";
-import { render } from "react-dom";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import { ReactTableDefaults } from 'react-table';
-import _ from 'lodash';
-import UserStatusData from './UserStatusData.json';
 import './UserStatusTable.css';
 import {Glyphicon,Button} from 'react-bootstrap';
 import $ from 'jquery';

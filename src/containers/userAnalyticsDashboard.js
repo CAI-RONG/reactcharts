@@ -1,7 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
 import ContainerTimeScale from './containerTimeScale';
-import ContainerLineChart from './containerLineChart';
 import Growth from '../components/Charts/growth';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';

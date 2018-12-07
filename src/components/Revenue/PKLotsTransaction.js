@@ -1,10 +1,8 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import ContainerLineChart from '../../containers/containerLineChart';
 import LineChart from '../Charts/LineChart/LineChart';
 import {Row,Col} from 'react-bootstrap';
 

@@ -1,8 +1,6 @@
 import {connect} from 'react-redux';
 import OperatorTransaction from  "../components/Revenue/OperatorTransaction";
 import * as d3 from 'd3';
-import _ from 'lodash';
-import Gridcalculator from '../utils/Gridcalculator';
 
 const mapStateToProp=(state,props)=>{
 	var outputData={
@@ -29,6 +27,8 @@ const mapStateToProp=(state,props)=>{
 				current=d3.timeFormat("%Y-%m-%d")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-1));
 				last=d3.timeFormat("%Y-%m-%d")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-2));
 				return d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(date));
+			default:
+				return console.log("OperatorTransaction Container Function Parser Error");
 		}
 	}
 	
@@ -40,6 +40,8 @@ const mapStateToProp=(state,props)=>{
 				return new Date(date.getFullYear(),date.getMonth(),date.getDate()-(new Date(date.getFullYear(),date.getMonth(),0).getDate()));
 			case 'day':
 				return new Date(date.getFullYear(),date.getMonth(),date.getDate()-1);
+			default:
+				return console.log("OperatorTransaction Container Function Previous Error");
 		}
 	}
 	

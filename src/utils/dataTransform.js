@@ -7,11 +7,12 @@ export default function transform(state,props){
 	var begin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));
 	var	end=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.endDate));
 	
-	if(state.beginDate>state.endDate || state.endDate==undefined)
+	if(state.beginDate>state.endDate || state.endDate===undefined)
 		end=d3.timeParse("%Y-%m-%d")(state.userDataLastDay);
 	
+	var i,j;
 	if(state.beginDate){
-		var i=0,j=0;
+		i=0;j=0;
 		selectedData.ios.forEach(
 			function(data){if(d3.timeParse("%Y-%m-%d")(data.date)<begin)i++;}
 		)
@@ -21,8 +22,9 @@ export default function transform(state,props){
 		selectedData.ios.splice(0,i);
 		selectedData.android.splice(0,j);
 	}
+
 	if(state.endDate){
-		var i=0,j=0;
+		i=0;j=0;
 		selectedData.ios.forEach(
 			function(data){if(d3.timeParse("%Y-%m-%d")(data.date)>end)i++;}
 		)
@@ -58,6 +60,8 @@ export default function transform(state,props){
 			case "month":
 				dataParse(d3.timeFormat("%Y/%m"),props.name);
 				break;
+			default:
+				return console.log("DataTransform Props TimeFilter Error");
 		}
 	}
 	else{
@@ -85,6 +89,8 @@ export default function transform(state,props){
 			case "month":
 				dataParse(d3.timeFormat("%Y/%m"),props.name);
 				break;
+			default:
+				return console.log("DataTransform State TimeFilter Error");
 		}
 	}
 	
@@ -94,7 +100,7 @@ export default function transform(state,props){
 			function(data){
 				var parsedDate=parseTime(d3.timeParse("%Y-%m-%d")(data.date));
 				var ios=outputData.iOS;
-				if(parsedDate!=currentFilter){
+				if(parsedDate!==currentFilter){
 					currentFilter=parsedDate;
 					ios.date.push(data.date);
 					ios.value.push(data[name]);
@@ -108,7 +114,7 @@ export default function transform(state,props){
 			function(data){
 				var parsedDate=parseTime(d3.timeParse("%Y-%m-%d")(data.date));
 				var android=outputData.Android;
-				if(parsedDate!=currentFilter){
+				if(parsedDate!==currentFilter){
 					currentFilter=parsedDate;
 					android.date.push(data.date);
 					android.value.push(data[name]);

@@ -19,13 +19,14 @@ const mapStateToProp=state=>{
 	console.log(dataPerUnit);
 	function outputObject(data,index){
 		var beginDate="",endDate="";
+		var begin;
 		switch(state.timeScaleFilter){
 			case 'day':
 				beginDate=endDate=data.date[index];
 				break;
 			case 'week':
 				beginDate=data.date[index];
-				var begin=d3.timeParse("%Y-%m-%d")(beginDate);
+				begin=d3.timeParse("%Y-%m-%d")(beginDate);
 				endDate=(new Date(begin.valueOf()+86400000*6)<=state.endDate?d3.timeFormat("%Y-%m-%d")(new Date(begin.valueOf()+86400000*6)):d3.timeFormat("%Y-%m-%d")(state.endDate));
 				//var splitedDate=data.date[index].split('-');
 				//beginDate=d3.timeParse("%Y/%m/%d")(d3.timeFormat("%Y")(state.beginDate)+'/'+splitedDate[0])<=state.beginDate?d3.timeFormat("%Y/%m/%d")(state.beginDate):splitedDate[0];
@@ -33,12 +34,14 @@ const mapStateToProp=state=>{
 				break;
 			case 'month':
 				beginDate=data.date[index];
-				var begin=d3.timeParse("%Y-%m-%d")(beginDate);
+				begin=d3.timeParse("%Y-%m-%d")(beginDate);
 				endDate=(new Date(begin.getFullYear(),begin.getMonth()+1,0)<=state.endDate?d3.timeFormat("%Y-%m-%d")(new Date(begin.getFullYear(),begin.getMonth()+1,0)):d3.timeFormat("%Y-%m-%d")(state.endDate));
 				//var splitedDate=data.date[index].split('/');
 				//beginDate=d3.timeParse("%Y/%m")(data.date[index])<=state.beginDate?d3.timeFormat("%Y/%m/%d")(state.beginDate):d3.timeFormat("%Y/%m/%d")(new Date(splitedDate[0],splitedDate[1]-1,1));
 				//endDate=(new Date(splitedDate[0],splitedDate[1],0))>=state.endDate?d3.timeFormat("%Y/%m/%d")(state.endDate):d3.timeFormat("%Y/%m/%d")(new Date(splitedDate[0],splitedDate[1],0));
 				break;
+			default:
+				return console.log("error");
 		}
 		//var MAU,WAU,DAU;
 		//var activedData=transform(state,{'active':false,'name':'activedUser','timeFilter':'week'});
