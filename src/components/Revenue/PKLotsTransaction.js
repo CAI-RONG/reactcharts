@@ -136,7 +136,6 @@ class PKLotsTransactionAnalytics extends React.Component {
 				      var amountData={'Amount':row.original.TransactionAmount};
 				      var valueData={'Value':row.original.TransactionValue};
               return (
-<<<<<<< HEAD
                 <Row>
 					<Col lg={6}>
 						<h3>訂單數分析</h3>
@@ -147,12 +146,6 @@ class PKLotsTransactionAnalytics extends React.Component {
 						<LineChart data={valueData} name={row.original.dataForTable.name+"-value"} width='100%' />
 					</Col>
                 </Row>
-=======
-                <span style={{display:'flex'}}>
-						      <LineChart data={amountData} name={row.original.dataForTable.name+"amount"} width='50%' />
-						      <LineChart data={valueData} name={row.original.dataForTable.name+"value"} width='50%' />
-                </span>
->>>>>>> feature/修改sidebar
               )
             }}
           />

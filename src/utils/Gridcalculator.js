@@ -8,9 +8,9 @@ export default function Gridcalculator(state, type, beginDate, timeFilter, opera
 	function parser(date){
 		switch(timeFilter){
 			case 'week':
-				current=d3.timeFormat("%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-7));
-				last=d3.timeFormat("%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-14));
-				return d3.timeFormat("%U")(d3.timeParse("%Y-%m-%d")(date));
+				current=d3.timeFormat("%Y/%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-7));
+				last=d3.timeFormat("%Y/%U")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-14));
+				return d3.timeFormat("%Y/%U")(d3.timeParse("%Y-%m-%d")(date));
 			case 'month':
 				current=d3.timeFormat("%Y/%m")(new Date(selectedDate.getFullYear(),selectedDate.getMonth()-1));
 				last=d3.timeFormat("%Y/%m")(new Date(selectedDate.getFullYear(),selectedDate.getMonth()-2));
@@ -122,6 +122,7 @@ export default function Gridcalculator(state, type, beginDate, timeFilter, opera
 							}
 						);
 						sum.name=t.name;
+						sum['date']=current;
 						sum['diffAmount']=sum.currentAmount-sum.lastAmount;
 						sum['diffValue']=sum.currentValue-sum.lastValue;
 						sum['ratioAmount']=parseInt((sum.currentAmount/sum.lastAmount-1)*100);

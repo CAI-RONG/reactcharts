@@ -11,6 +11,18 @@ const mapStateToProp=(state,props)=>{
 		'Value':{'date':[],'value':[]}
 	};
 	var current,last;
+	var limit=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));
+	switch(state.timeScaleFilter){
+		case 'day':
+			limit=new Date(limit.getFullYear(),limit.getMonth()-1,limit.getDate());
+			break;
+		case 'week':
+			limit=new Date(limit.getFullYear(),limit.getMonth()-3,limit.getDate());
+			break;
+		case 'month':
+			limit=new Date(limit.getFullYear(),limit.getMonth()-6);
+			break;
+	}
 	
 	function parser(date,selectedDate){
 		switch(state.timeScaleFilter){
@@ -46,7 +58,7 @@ const mapStateToProp=(state,props)=>{
 	var dataUnderOperator=state.data.find(d=>d.Operator===props.Operator);
 	
 	for(var selectedDate=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate)); 
-		selectedDate>=d3.timeParse("%Y-%m-%d")(state.userDataFirstDay); 
+		selectedDate>=limit; 
 		selectedDate=previous(selectedDate)){
 		
 		var total={
