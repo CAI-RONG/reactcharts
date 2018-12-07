@@ -136,23 +136,23 @@ class PKLotsTransactionAnalytics extends React.Component {
 				      var amountData={'Amount':row.original.TransactionAmount};
 				      var valueData={'Value':row.original.TransactionValue};
               return (
-<<<<<<< HEAD
                 <Row>
-					<Col lg={6}>
-						<h3>訂單數分析</h3>
-						<LineChart data={amountData} name={row.original.dataForTable.name+"-amount"} width='100%' />
-					</Col>
-					<Col lg={6}>
-						<h3>訂單金額分析</h3>
-						<LineChart data={valueData} name={row.original.dataForTable.name+"-value"} width='100%' />
-					</Col>
-                </Row>
-=======
+					         <Col lg={6}>
+						          <h3>訂單數分析</h3>
+						          <LineChart data={amountData} name={row.original.dataForTable.name+"-amount"} width='100%' />
+					         </Col>
+					         <Col lg={6}>
+						          <h3>訂單金額分析</h3>
+						          <LineChart data={valueData} name={row.original.dataForTable.name+"-value"} width='100%' />
+					         </Col>
+                   {/*
                 <span style={{display:'flex'}}>
-						      <LineChart data={amountData} name={row.original.dataForTable.name+"amount"} width='50%' />
-						      <LineChart data={valueData} name={row.original.dataForTable.name+"value"} width='50%' />
+                  <LineChart data={amountData} name={row.original.dataForTable.name+"amount"} width='50%' />
+                  <LineChart data={valueData} name={row.original.dataForTable.name+"value"} width='50%' />
                 </span>
->>>>>>> feature/修改sidebar
+*/}
+                </Row>
+
               )
             }}
           />
