@@ -73,6 +73,8 @@ export default function transform(state,props){
 								lastDay=d3.timeParse("%Y/%m")(parsedDate);
 								lastDay=new Date(lastDay.getFullYear(),lastDay.getMonth()+1,0)>=end?end:new Date(lastDay.getFullYear(),lastDay.getMonth()+1,0);
 								break;
+							default:
+								return console.log("Error!");
 						}
 						switch(props.timeFilter){
 							case 'day':
@@ -84,6 +86,8 @@ export default function transform(state,props){
 							case 'month':
 								limit=new Date(lastDay.valueOf()-86400000*29);
 								break;
+							default:
+								return console.log("Error!");
 						}
 						var sum=0;
 						console.log(props.timeFilter);
@@ -133,6 +137,8 @@ export default function transform(state,props){
 								lastDay=d3.timeParse("%Y/%m")(parsedDate);
 								lastDay=new Date(lastDay.getFullYear(),lastDay.getMonth()+1,0)>=end?end:new Date(lastDay.getFullYear(),lastDay.getMonth()+1,0);
 								break;
+							default:
+								return console.log("Error!");
 						}
 						switch(props.timeFilter){
 							case 'day':
@@ -144,6 +150,8 @@ export default function transform(state,props){
 							case 'month':
 								limit=new Date(lastDay.valueOf()-86400000*29);
 								break;
+							default:
+								return console.log("Error!");
 						}
 						var sum=0;
 						state.userData.androidData.forEach(

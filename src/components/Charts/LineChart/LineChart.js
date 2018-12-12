@@ -144,8 +144,12 @@ export default class LineChart extends React.Component{
 					.attr('stroke-width',2)
 					.attr('fill','none')
 					.attr('transform','translate(50,30)');
-										
-			for(var j=0; j<Object.entries(data)[i][1].value.length;++j){				
+			
+			var n=1;
+			if(Object.entries(data)[0][1].date.length>10)n=2;
+			if(Object.entries(data)[0][1].date.length>15)n=3;
+			if(Object.entries(data)[0][1].date.length>20)n=4;
+			for(var j=0; j<Object.entries(data)[i][1].value.length-1;j+=n){				
 				graphic.append('circle').attr('class',Object.entries(data)[i][0]+' circle circle'+j)
 									.attr('cx',scaleX(j))
 									.attr('cy',scaleY(Object.entries(data)[i][1].value[j]))
@@ -154,12 +158,17 @@ export default class LineChart extends React.Component{
 									.attr('stroke',color[i%9])
 									.attr('stroke-width',2)
 									.attr('fill','white');
-				if(Object.entries(data)[0][1].date.length>10)j++;
-				if(Object.entries(data)[0][1].date.length>15)j++;
-				if(Object.entries(data)[0][1].date.length>20)j++;
-				//if(Object.entries(data)[0][1].date.length>25)j++;
-				//if(Object.entries(data)[0][1].date.length>30)j++;
 			}
+			var lastOne=Object.entries(data)[i][1].value.length-1
+			graphic.append('circle').attr('class',Object.entries(data)[i][0]+' circle circle'+lastOne)
+									.attr('cx',scaleX(lastOne))
+									.attr('cy',scaleY(Object.entries(data)[i][1].value[lastOne]))
+									.attr('r','3')
+									.attr('transform','translate(50,30)')
+									.attr('stroke',color[i%9])
+									.attr('stroke-width',2)
+									.attr('fill','white');
+			
 			var label=graphic.append('g').attr('class','label label-'+Object.entries(data)[i][0])
 									.attr('id',Object.entries(data)[i][0])
 									.style('cursor','pointer')
