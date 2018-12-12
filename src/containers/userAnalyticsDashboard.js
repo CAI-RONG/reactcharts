@@ -9,6 +9,7 @@ import creditCard from '../components/Charts/BarChart/creditCard.json';
 import UserData from '../components/Charts/LineChart/data.json';
 import ActivedUser from '../components/Charts/activedUser';
 import ContainerUserStatusTable from './containerUserStatusTable.js';
+import ContainerDataUnit from './containerDataUnit';
 
 export default class UserAnalyticsDashboard extends React.Component{
 	constructor(){
@@ -30,8 +31,9 @@ export default class UserAnalyticsDashboard extends React.Component{
 			<Provider store={this.state.store}>
 				<div>
           			<div className="right_col" role="main">
-						<div style={{marginBottom:30}}>
+						<div style={{marginBottom:30,display:'inline-flex'}}>
 							<ContainerTimeScale name="user"/>
+							<ContainerDataUnit />
 						</div>
 						<Growth/>
 					<ActivedUser/>

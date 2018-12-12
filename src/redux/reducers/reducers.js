@@ -6,6 +6,8 @@ const reducer=(state=[],action)=>{
 			return Object.assign({},state,{beginDate:action.begin});
 		case "ENDDATE_FILTER":
 			return Object.assign({},state,{endDate:action.end});
+		case "DATA_UNIT_FILTER":
+			return Object.assign({},state,{unitFilter:action.filter})
 		default:
 			return state;
 	}

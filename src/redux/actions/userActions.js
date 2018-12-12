@@ -27,3 +27,9 @@ export const endDateFilter=(end)=>{
 		end
 	}
 }
+export const dataUnitFilter=filter=>{
+	return {
+		type:"DATA_UNIT_FILTER",
+		filter
+	}
+}

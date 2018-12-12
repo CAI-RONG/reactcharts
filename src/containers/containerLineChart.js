@@ -9,7 +9,6 @@ const mapStateToProp=(state,props)=>{
 	total.Total.date=transformedData.data.iOS.date.slice();
 	total.Total.value=transformedData.data.iOS.value.map(
 		function(d,i){
-			console.log(d);
 			return d+transformedData.data.Android.value[i];
 		}
 	);
@@ -65,7 +64,8 @@ const mapStateToProp=(state,props)=>{
 	return {
 		data:output,
 		name:transformedData.name,
-		width:'100%'
+		width:'100%',
+		unit:state.unitFilter==='thousand'?1000:1
 	};
 }
 
