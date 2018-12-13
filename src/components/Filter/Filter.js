@@ -47,9 +47,9 @@ export default class Filter extends React.Component{
                             <input type="radio" value="compare" checked={this.state.mainOption==='compare'} onChange={this.handleRadioChange}/>
                             以同期比較
                         </div>
-                        <br/>
-                        {selectedFilter}
-                        <br/>
+                        <div className='selectedFilter' style={{marginTop:20,marginBottom:20}}>
+                            {selectedFilter}
+                        </div>
                         <Button bsStyle='primary'>GO</Button>
                     </div>
                 </div>

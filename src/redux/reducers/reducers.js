@@ -16,6 +16,10 @@ const reducer=(state=[],action)=>{
 			return Object.assign({},state,{competitorNumber:action.number});
 		case "FILTER_OPTION_CHANGE":
 			return Object.assign({},state,{filterOption:action.choice});
+		case "UPPER_LIMIT_CHANGE":
+			return Object.assign({},state,{upperLimit:action.number});
+		case "LOWER_LIMIT_CHANGE":
+			return Object.assign({},state,{lowerLimit:action.number});
 		default:
 			return state;
 	}

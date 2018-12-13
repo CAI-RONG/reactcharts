@@ -11,6 +11,7 @@ export default class CompareFilter extends React.Component{
         }
         this.handleCompetitorClick=this.handleCompetitorClick.bind(this);
         this.handleDurationClick=this.handleDurationClick.bind(this);
+        this.handleCompetitorChange=this.handleCompetitorChange.bind(this);
     }
 
     handleDurationClick(filter){
@@ -48,9 +49,13 @@ export default class CompareFilter extends React.Component{
         }
     }
 
+    handleCompetitorChange(e){
+        this.props.competitorNumChange(e.target.value);
+    }
+
     render(){
         var dropdown_competitor;
-        switch(this.props.durationFilter){
+        switch(this.props.duration){
             case 'year':
                 dropdown_competitor=(
                     <DropdownButton style={{marginLeft:10}} id="compare-competitor" bsStyle="primary" title={this.state.title_competitor} noCaret>
@@ -90,6 +95,22 @@ export default class CompareFilter extends React.Component{
                 );
                 break;
         }
+        var errorText='';
+        if(this.props.duration==='year'){
+            if(this.props.competitor==='month')
+                if(parseInt(this.props.this.props.competitorNumber)>12)errorText='Out of range!';
+            if(this.props.competitor==='week')
+                if(parseInt(this.props.competitorNumber)>52)errorText='Out of range!';
+        }
+        else if(this.props.duration==='month'){
+            if(this.props.competitor==='week')
+                if(parseInt(this.props.competitorNumber)>4)errorText='Out of range!';
+            if(this.props.competitor==='day')
+                if(parseInt(this.props.competitorNumber)>30)errorText='Out of range!';
+        }
+        else if(this.props.duration==='week'){
+            if(parseInt(this.props.competitorNumber)>7)errorText='Out of range!';
+        }
 
         return (
             <div>
@@ -103,8 +124,9 @@ export default class CompareFilter extends React.Component{
                     週</MenuItem>
                 </DropdownButton>
                 <span style={{marginLeft:10}}>第</span>
-                <input id='competitor' style={{marginLeft:10,width:60}} type="text" />
+                <input id='competitor' style={{marginLeft:10,width:60}} type="text" onChange={this.handleCompetitorChange} />
                 {dropdown_competitor}
+                <text style={{color:'#ff0000'}}>{errorText}</text>
             </div>
         )
     }

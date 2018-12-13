@@ -62,3 +62,17 @@ export const filterOptionChange=choice=>{
 		choice
 	}
 }
+
+export const upperLimitChange=number=>{
+	return {
+		type:"UPPER_LIMIT_CHANGE",
+		number
+	}
+}
+
+export const lowerLimitChange=number=>{
+	return {
+		type:"LOWER_LIMIT_CHANGE",
+		number
+	}
+}

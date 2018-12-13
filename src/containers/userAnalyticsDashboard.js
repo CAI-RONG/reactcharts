@@ -1,6 +1,5 @@
 import React from 'react';
 import * as d3 from 'd3';
-import ContainerTimeScale from './containerTimeScale';
 import Growth from '../components/Charts/growth';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
@@ -9,7 +8,6 @@ import creditCard from '../components/Charts/BarChart/creditCard.json';
 import UserData from '../components/Charts/LineChart/data.json';
 import ActivedUser from '../components/Charts/activedUser';
 import ContainerUserStatusTable from './containerUserStatusTable.js';
-import ContainerDataUnit from './containerDataUnit';
 import ContainerFilter from './containerFilter';
 
 export default class UserAnalyticsDashboard extends React.Component{
@@ -23,7 +21,10 @@ export default class UserAnalyticsDashboard extends React.Component{
 										banks:creditCard.data,
 										userDataFirstDay:UserData.data.iosData[0].date,
 										userDataLastDay:UserData.data.iosData[UserData.data.iosData.length-1].date,
-										filterOption:'date'
+										filterOption:'date',
+										duration:'year',
+										competitor:'week',
+										competitorNumber:1
 										})
 		}
 	}
@@ -33,10 +34,10 @@ export default class UserAnalyticsDashboard extends React.Component{
 			<Provider store={this.state.store}>
 				<div>
           			<div className="right_col" role="main">
-						<div style={{marginBottom:30,display:'inline-flex'}}>
+						{/*<div style={{marginBottom:30,display:'inline-flex'}}>
 							<ContainerTimeScale name="user"/>
 							<ContainerDataUnit />
-						</div>
+						</div>*/}
 						<ContainerFilter/>
 						<Growth/>
 						<ActivedUser/>

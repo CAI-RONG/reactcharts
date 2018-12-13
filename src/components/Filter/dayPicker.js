@@ -3,12 +3,12 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
 export default class DayPicker extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
-            before:'',
-            after:'',
-            selectedDay:{}
+            before:props.dateOfFirstData,
+            after:props.dateOfLastData,
+            selectedDay:props.dateOfFirstData
         }
     }
     

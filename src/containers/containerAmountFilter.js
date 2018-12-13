@@ -1,15 +1,18 @@
 import {connect} from 'react-redux';
 import AmountFilter from '../components/Filter/amountFilter';
+import {lowerLimitChange, upperLimitChange} from '../redux/actions/userActions';
 
 const mapStateToProps=(state)=>{
     return {
-
+        lowerLimit:state.lowerLimit,
+        upperLimit:state.upperLimit
     }
 }
 
 const mapDispatchToProps=(dispatch)=>{
     return {
-
+        upperChange:num=>dispatch(upperLimitChange(num)),
+        lowerChange:num=>dispatch(lowerLimitChange(num))
     }
 }
 

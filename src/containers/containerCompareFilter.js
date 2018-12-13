@@ -4,8 +4,9 @@ import {compareDurationFilter, compareCompetitorFilter, competitorNumFilter} fro
 
 const mapStateToProps=(state)=>{
     return {
-        durationFilter:state.duration,//need to be init
-        data:{}//calculate data in API
+        duration:state.duration,
+        competitor:state.competitor,
+        competitorNumber:state.competitorNumber
     }
 }
 
