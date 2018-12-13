@@ -53,11 +53,3 @@
 	color: #fa923f;
 }
 
-@media (max-width: 768px) {
-	.toolbar_navigation-items {
-		display: none;
-		
-
-	}
-
-}

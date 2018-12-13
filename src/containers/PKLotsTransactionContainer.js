@@ -30,7 +30,7 @@ const mapStateToProp=(state,props)=>{
 			limit=new Date(limit.getFullYear(),limit.getMonth()-6);
 			break;
 		default:
-			console.log("PKLots Transaction Container State TimeScaleFilter Error");
+			return console.log("PKLots Transaction Container State TimeScaleFilter Error");
 	}
 	var current;
 	function parser(date){
@@ -45,7 +45,7 @@ const mapStateToProp=(state,props)=>{
 				current=d3.timeFormat("%Y-%m-%d")(new Date(selectedDate.getFullYear(),selectedDate.getMonth(),selectedDate.getDate()-1));
 				return d3.timeFormat("%Y-%m-%d")(d3.timeParse("%Y-%m-%d")(date));
 			default:
-				console.log("PKLots Transaction Container Function Parser Error");
+				return console.log("PKLots Transaction Container Function Parser Error");
 		}
 	}
 	
@@ -58,7 +58,7 @@ const mapStateToProp=(state,props)=>{
 			case 'day':
 				return new Date(date.getFullYear(),date.getMonth(),date.getDate()-1);
 			default:
-				console.log("PKLots Transaction Container Function Previous Error");	
+				return console.log("PKLots Transaction Container Function Previous Error");	
 		}
 	}
 	
@@ -114,7 +114,7 @@ const mapStateToProp=(state,props)=>{
 				total.date=current;
 				
 				var currentPKLots=outputData.find(p=>p.dataForTable.name===total.name);
-				console.log(currentPKLots);
+				//console.log(currentPKLots);
 				currentPKLots.TransactionAmount.date.push(total.date);
 				currentPKLots.TransactionAmount.value.push(total.amount);
 				currentPKLots.TransactionValue.date.push(total.date);
@@ -137,7 +137,7 @@ const mapStateToProp=(state,props)=>{
 		}
 	)
 	
-	console.log(outputData);
+	//console.log(outputData);
 	return {
 		data:outputData
 	}

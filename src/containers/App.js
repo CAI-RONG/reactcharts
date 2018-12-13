@@ -8,10 +8,11 @@ import 'mdbreact/dist/css/mdb.css';
 
 import HomePage from './HomePage';
 import Toolbar from '../components/Toolbar/Toolbar';
-import SideDrawer from '../components/SideDrawer/SideDrawer';
-import Backdrop from '../components/Backdrop/Backdrop';
+import SideDrawer from '../components/SideDrawer';
+import Backdrop from '../components/Backdrop';
 import UserAnalyticsDashboard from './userAnalyticsDashboard';
-import RevenueAnalyticsDashboard from './RevenueAnalyticsDashboard'
+import RevenueAnalyticsDashboard from './RevenueAnalyticsDashboard';
+import Login from './Login';
 
 class App extends Component {
   
@@ -45,6 +46,7 @@ class App extends Component {
                 <Route path="/" exact component={HomePage} />
                 <Route path="/UserAnalyticsDashboard" exact component={UserAnalyticsDashboard} />   
                 <Route path="/RevenueAnalyticsDashboard" exact component={RevenueAnalyticsDashboard} /> 
+                <Route path="/Login" exact component={Login} /> 
               </div>
               <footer>
                 <div className="pull-right">

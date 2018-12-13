@@ -1,3 +1,4 @@
+
 .side-drawer{
 	height: 100%;
 	position: fixed;
@@ -5,9 +6,9 @@
 	left: 0;
 	width: 30%;
 	max-width: 200px;
+	font-size:16px;
 	color: rgb(112, 110, 108);
-    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang TC", 微軟正黑體, sans-serif;
-    font-size: 17px;
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang TC", 微軟正黑體, sans-serif;  
     font-weight: 400;
     line-height: 1.471;
     background: rgb(69, 69, 69);
@@ -15,17 +16,28 @@
 	transform: translateX(-100%);
 	transition: transform  0.3s ease-out;
 	padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
+    margin-bottom: 10;
+    list-style: none; 
 }
-
 
 .side-drawer.open{
-	transform: translateX(0);
-	
+	transform: translateX(0);	
 }
 
-.side-drawer ul {
+.sidebar-brand {
+	font-size:20px;
+	padding:10px;
+}
+
+.sidebar-brand a{
+	color: #E7E7E7;
+}
+
+.info{
+	padding: 18px;
+}
+
+.sidebar-menu ul {
 	height: 100%;
 	list-style: none;
 	display: flex;
@@ -33,27 +45,43 @@
 	justify-content: flex-start;
 }
 
-.side-drawer li {
-	margin: 0.5rem 0;
-
-}
-
-.side-drawer a {
+.sidebar-menu a {
 	text-decoration: none;
 	margin-bottom: 6px;
 	color: #E7E7E7;
     font-weight: 500;
-    position: relative;
+   	position: relative;
     display: block;
     padding: 10px 20px;
-}
+} 
 
-.side-drawer a:hover,
-.side-drawer a:active {
+.sidebar-menu a:hover,
+.sidebar-menu a:active {
+	width: 100%;
 	border-right: 5px solid #13A0DA;
 	background: #0b5b7c;
 	position: relative;
     display: block;
     cursor: pointer;
     box-sizing: border-box;
+}
+
+.div-inline{ 
+	display:inline;
+	margin:5px;
+} 
+
+
+@media screen and (max-width: 510px) {
+	.div-inline{
+		display:flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+@media screen and (max-width: 440px) {
+	.sidebar-brand p{
+		display: none;
+	}
 }

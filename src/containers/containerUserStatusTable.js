@@ -19,7 +19,7 @@ const mapStateToProp=state=>{
 	var dateObject={};
 	dateObject['date']=lineChartData.data.iOS.date;
 	dataPerUnit=Object.assign({},dataPerUnit,dateObject);
-	console.log(dataPerUnit);
+	//console.log(dataPerUnit);
 	function outputObject(data,index){
 		var beginDate="",endDate="";
 		var begin;

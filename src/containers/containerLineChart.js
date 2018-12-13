@@ -9,7 +9,6 @@ const mapStateToProp=(state,props)=>{
 	total.Total.date=transformedData.data.iOS.date.slice();
 	total.Total.value=transformedData.data.iOS.value.map(
 		function(d,i){
-			console.log(d);
 			return d+transformedData.data.Android.value[i];
 		}
 	);
