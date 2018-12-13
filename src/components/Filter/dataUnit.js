@@ -22,7 +22,7 @@ export default class DataUnit extends React.Component{
                     <input type='radio' value='one' onChange={this.handleChange} checked={this.state.selected==='one'} />Original
                 </div>
                 <div style={{marginLeft:10}}>
-                    <input type='radio' value='thousand' onChange={this.handleChange} checked={this.state.selected==='thousand'} />K
+                    <input type='radio' value='K' onChange={this.handleChange} checked={this.state.selected==='K'} />K
                 </div>
             </div>
         )

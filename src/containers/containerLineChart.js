@@ -65,7 +65,7 @@ const mapStateToProp=(state,props)=>{
 		data:output,
 		name:transformedData.name,
 		width:'100%',
-		unit:state.unitFilter==='thousand'?1000:1
+		unit:state.unitFilter==='K'?1000:1
 	};
 }
 

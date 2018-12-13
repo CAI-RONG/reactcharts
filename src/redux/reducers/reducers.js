@@ -7,7 +7,13 @@ const reducer=(state=[],action)=>{
 		case "ENDDATE_FILTER":
 			return Object.assign({},state,{endDate:action.end});
 		case "DATA_UNIT_FILTER":
-			return Object.assign({},state,{unitFilter:action.filter})
+			return Object.assign({},state,{unitFilter:action.filter});
+		case "COMPARE_DURATION_FILTER":
+			return Object.assign({},state,{duration:action.duration});
+		case "COMPARE_COMPETITOR_FILTER":
+			return Object.assign({},state,{competitor:action.competitor});
+		case "COMPETITOR_NUM_FILTER":
+			return Object.assign({},state,{competitorNumber:action.number})
 		default:
 			return state;
 	}
