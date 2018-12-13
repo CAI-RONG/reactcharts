@@ -41,18 +41,18 @@ class OperatorTransaction extends React.Component {
         <Modal 
            isOpen={this.state.showModal}
            style={customStyles}
-		   onRequestClose={this.handleCloseModal}
+		       onRequestClose={()=>this.setState({showModal:false})}
         >
          <button style={{float:'right', border:'0px'}} onClick={() => this.setState({ showModal: false})} >X</button>
           <h5> {this.props.Operator} 每月訂單分析 </h5>
 		  <Row>
 			<Col lg={6}>
 				<h3>訂單數分析</h3>
-				<LineChart data={amountData} name={this.props.Operator+'-amount'} width='100%'/>
+				<LineChart data={amountData} name={this.props.Operator+'-amount'} width='100%' unit={this.props.unit}/>
 			</Col>
 			<Col lg={6}>
 				<h3>訂單金額分析</h3>
-				<LineChart data={valueData} name={this.props.Operator+'-value'} width='100%'/>
+				<LineChart data={valueData} name={this.props.Operator+'-value'} width='100%' unit={this.props.unit}/>
 			</Col>
 		  </Row>
           <ReactTable 

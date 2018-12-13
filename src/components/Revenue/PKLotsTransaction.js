@@ -39,7 +39,7 @@ class PKLotsTransactionAnalytics extends React.Component {
         <Modal 
            isOpen={this.state.showModal}
            style={customStyles}
-		   onRequestClose={this.handleCloseModal}
+           onRequestClose={()=>this.setState({showModal:false})}
         >
           <button style={{float:'right', border:'0px'}} onClick={() => this.setState({ showModal: false})} >X</button>
           <p style={{fontSize:"20px"}}> {this.props.Operator} - 各停車場站每月訂單分析 </p>
@@ -125,11 +125,11 @@ class PKLotsTransactionAnalytics extends React.Component {
                 <Row>
 					         <Col lg={6}>
 						          <h3>訂單數分析</h3>
-						          <LineChart data={amountData} name={row.original.dataForTable.name+"-amount"} width='100%' />
+						          <LineChart data={amountData} name={row.original.dataForTable.name+"-amount"} width='100%' unit={this.props.unit}/>
 					         </Col>
 					         <Col lg={6}>
 						          <h3>訂單金額分析</h3>
-						          <LineChart data={valueData} name={row.original.dataForTable.name+"-value"} width='100%' />
+						          <LineChart data={valueData} name={row.original.dataForTable.name+"-value"} width='100%' unit={this.props.unit}/>
 					         </Col>
 {/*
                       <span style={{display:'flex'}}>

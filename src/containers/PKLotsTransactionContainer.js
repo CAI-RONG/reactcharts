@@ -137,7 +137,8 @@ const mapStateToProp=(state,props)=>{
 	)
 	
 	return {
-		data:outputData
+		data:outputData,
+		unit:state.unitFilter==='K'?1000:1
 	}
 }
 
