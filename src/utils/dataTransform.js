@@ -90,9 +90,6 @@ export default function transform(state,props){
 								return console.log("Error!");
 						}
 						var sum=0;
-						console.log(props.timeFilter);
-						console.log(limit);
-						console.log(lastDay);
 						state.userData.iosData.forEach(
 							function(d){
 								var currentDate=d3.timeParse("%Y-%m-%d")(d.date);
