@@ -10,6 +10,7 @@ import UserData from '../components/Charts/LineChart/data.json';
 import ActivedUser from '../components/Charts/activedUser';
 import ContainerUserStatusTable from './containerUserStatusTable.js';
 import ContainerDataUnit from './containerDataUnit';
+import ContainerFilter from './containerFilter';
 
 export default class UserAnalyticsDashboard extends React.Component{
 	constructor(){
@@ -21,7 +22,8 @@ export default class UserAnalyticsDashboard extends React.Component{
 										endDate:d3.timeParse("%Y-%m-%d")(UserData.data.iosData[UserData.data.iosData.length-1].date),
 										banks:creditCard.data,
 										userDataFirstDay:UserData.data.iosData[0].date,
-										userDataLastDay:UserData.data.iosData[UserData.data.iosData.length-1].date
+										userDataLastDay:UserData.data.iosData[UserData.data.iosData.length-1].date,
+										filterOption:'date'
 										})
 		}
 	}
@@ -35,9 +37,10 @@ export default class UserAnalyticsDashboard extends React.Component{
 							<ContainerTimeScale name="user"/>
 							<ContainerDataUnit />
 						</div>
+						<ContainerFilter/>
 						<Growth/>
-					<ActivedUser/>
-					<ContainerUserStatusTable/>
+						<ActivedUser/>
+						<ContainerUserStatusTable/>
 					</div>
 				</div>
 			</Provider>

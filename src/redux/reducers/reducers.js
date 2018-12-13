@@ -13,7 +13,9 @@ const reducer=(state=[],action)=>{
 		case "COMPARE_COMPETITOR_FILTER":
 			return Object.assign({},state,{competitor:action.competitor});
 		case "COMPETITOR_NUM_FILTER":
-			return Object.assign({},state,{competitorNumber:action.number})
+			return Object.assign({},state,{competitorNumber:action.number});
+		case "FILTER_OPTION_CHANGE":
+			return Object.assign({},state,{filterOption:action.choice});
 		default:
 			return state;
 	}

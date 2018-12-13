@@ -55,3 +55,10 @@ export const competitorNumFilter=number=>{
 		number
 	}
 }
+
+export const filterOptionChange=choice=>{
+	return {
+		type:"FILTER_OPTION_CHANGE",
+		choice
+	}
+}

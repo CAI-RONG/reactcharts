@@ -1,7 +1,5 @@
 import React from 'react';
-import {DropdownButton, MenuItem, Button, Row, Col, Glyphicon} from 'react-bootstrap/lib';
-import Modal from 'react-modal';
-import LineChart from '../Charts/LineChart/LineChart';
+import {DropdownButton, MenuItem} from 'react-bootstrap/lib';
 
 export default class CompareFilter extends React.Component{
     constructor(){
@@ -13,8 +11,6 @@ export default class CompareFilter extends React.Component{
         }
         this.handleCompetitorClick=this.handleCompetitorClick.bind(this);
         this.handleDurationClick=this.handleDurationClick.bind(this);
-        this.handleShow=this.handleShow.bind(this);
-        this.handleClose=this.handleClose.bind(this);
     }
 
     handleDurationClick(filter){
@@ -50,15 +46,6 @@ export default class CompareFilter extends React.Component{
             default:
                 return console.log("Error!");
         }
-    }
-
-    handleShow(){
-        this.setState({show:true});
-        this.props.competitorNumChange(document.getElementById('competitor').value);
-    }
-
-    handleClose(){
-        this.setState({show:false});
     }
 
     render(){
@@ -105,7 +92,7 @@ export default class CompareFilter extends React.Component{
         }
 
         return (
-            <div style={{display:'inline-flex',alignItems:'center'}}>
+            <div>
                 <span>每</span>
                 <DropdownButton style={{marginLeft:10}} id="compare-duration" bsStyle="primary" title={this.state.title_duration} noCaret>
                     <MenuItem onClick={()=>this.handleDurationClick('year')}>
@@ -118,36 +105,6 @@ export default class CompareFilter extends React.Component{
                 <span style={{marginLeft:10}}>第</span>
                 <input id='competitor' style={{marginLeft:10,width:60}} type="text" />
                 {dropdown_competitor}
-                <Button style={{marginLeft:30}} bsStyle='primary' onClick={this.handleShow}>GO</Button>
-                <Modal style={{overlay:{zIndex:1000},content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:'70%',height:'70%'}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
-                    <h2 style={{marginBottom:30}}>Top 10 Banks<Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>
-					<Row>
-                        <Col lg={3}>
-                            <LineChart name="download_compare" data={this.props.data} width='100%' />
-                        </Col>
-                        <Col lg={3}>
-                            <LineChart name="member_compare" data={this.props.data} width='100%' />
-                        </Col>
-                        <Col lg={3}>
-                            <LineChart name="bind_compare" data={this.props.data} width='100%' />
-                        </Col>
-                        <Col lg={3}>
-                            <LineChart name="subscribe_compare" data={this.props.data} width='100%' />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col lg={4}>
-                            <LineChart name="MAU_compare" data={this.props.data} width='100%' />
-                        </Col>
-                        <Col lg={4}>
-                            <LineChart name="WAU_compare" data={this.props.data} width='100%' />
-                        </Col>
-                        <Col lg={4}>
-                            <LineChart name="DAU_compare" data={this.props.data} width='100%' />
-                        </Col>
-                    </Row>
-					<Button style={{float:'right'}} onClick={this.handleClose}>Close</Button>
-                </Modal>
             </div>
         )
     }
