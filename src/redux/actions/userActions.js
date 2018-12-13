@@ -27,3 +27,31 @@ export const endDateFilter=(end)=>{
 		end
 	}
 }
+
+export const dataUnitFilter=filter=>{
+	return {
+		type:"DATA_UNIT_FILTER",
+		filter
+	}
+}
+
+export const compareDurationFilter=duration=>{
+	return {
+		type:"COMPARE_DURATION_FILTER",
+		duration
+	}
+}
+
+export const compareCompetitorFilter=competitor=>{
+	return {
+		type:"COMPARE_COMPETITOR_FILTER",
+		competitor
+	}
+}
+
+export const competitorNumFilter=number=>{
+	return {
+		type:"COMPETITOR_NUM_FILTER",
+		number
+	}
+}

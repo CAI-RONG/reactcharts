@@ -44,7 +44,8 @@ const mapStateToProp=(state,props)=>{
 	return {
 		data:output,
 		name:transformedData.name,
-		width:'100%'
+		width:'100%',
+		unit:state.unitFilter==='K'?1000:1
 	};
 }
 

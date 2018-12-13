@@ -104,7 +104,6 @@ class UserStatusTable extends React.Component{
 										]
 									}
 								);
-								console.log(this.state);
 							}}>
 								<Glyphicon glyph="th-list"/>
 							</Button>

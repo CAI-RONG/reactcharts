@@ -16,7 +16,12 @@ export default class LineChart extends React.Component{
 	showValue(highestData,dataAmount,svg,scaleX,scaleY){
 		const Height=$('svg#'+this.props.name).height()*0.7;
 		const Width=$('svg#'+this.props.name).width()*0.7;
+		const unit=this.props.unit;
 		const data=this.props.data;
+		var convertedData=JSON.parse(JSON.stringify(data));
+		for(var lines in convertedData){
+			convertedData[lines].value=convertedData[lines].value.map(function(d){return d/unit;});
+		}
 		const keys=Object.keys(data);
 		
 		var focus=svg.append('g').attr('class','focus')
@@ -98,6 +103,11 @@ export default class LineChart extends React.Component{
 		const color=['#13A0DA', '#726BC0', '#22B0A6', '#197EB5', '#8948AE',
                 '#3C8D93','#9DAA15', '#DFAB19', '#BF7F34', '#B0367C'];
 		const data=this.props.data;
+		const unit=this.props.unit;
+		var convertedData=JSON.parse(JSON.stringify(data));
+		for(var lines in convertedData){
+			convertedData[lines].value=convertedData[lines].value.map(function(d){return d/unit;});
+		}
 		const dataAmount=Object.keys(data).length;
 		const svg=d3.select('svg#'+this.props.name).attr('width',this.props.width)
 													.attr('height',300);
@@ -119,7 +129,7 @@ export default class LineChart extends React.Component{
 		var highestData=[];
 		for(i=0; i<dataWidthDomain; ++i){
 			var currentIndexData=[];
-			for(var d in data){currentIndexData.push(data[d].value[i])}
+			for(var d in data){currentIndexData.push(convertedData[d].value[i])}
 			highestData.push(d3.max(currentIndexData));
 		}
 		
@@ -139,7 +149,7 @@ export default class LineChart extends React.Component{
 		
 		for(i=0;i<dataAmount;++i){
 			var graphic=svg.append('g').attr('class','graphic graphic-'+Object.entries(data)[i][0]);
-			graphic.append('path').attr('d',line(Object.entries(data)[i][1].value))
+			graphic.append('path').attr('d',line(Object.entries(convertedData)[i][1].value))
 					.attr('stroke',color[i%9])
 					.attr('stroke-width',2)
 					.attr('fill','none')
@@ -152,7 +162,7 @@ export default class LineChart extends React.Component{
 			for(var j=0; j<Object.entries(data)[i][1].value.length-1;j+=n){				
 				graphic.append('circle').attr('class',Object.entries(data)[i][0]+' circle circle'+j)
 									.attr('cx',scaleX(j))
-									.attr('cy',scaleY(Object.entries(data)[i][1].value[j]))
+									.attr('cy',scaleY(Object.entries(convertedData)[i][1].value[j]))
 									.attr('r','3')
 									.attr('transform','translate(50,30)')
 									.attr('stroke',color[i%9])
@@ -225,7 +235,8 @@ export default class LineChart extends React.Component{
 		if(Object.entries(data)[0][1].date.length>30)axisX.ticks(Object.entries(data)[0][1].date.length/8);
 		if(Object.entries(data)[0][1].date.length>40)axisX.ticks(Object.entries(data)[0][1].date.length/10);
 		
-		const axisY=d3.axisLeft(scaleY).ticks(6);
+		const axisY=d3.axisLeft(scaleY).ticks(4);
+		if(unit===1000)axisY.tickFormat(function(d){return d+'K';});
 		svg.select('#axisX').call(axisX).attr('stroke-width','2')
 										.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
 		svg.select('#axisY').call(axisY).attr('stroke-width','2')
