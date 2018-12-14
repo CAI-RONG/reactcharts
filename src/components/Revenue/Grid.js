@@ -25,31 +25,38 @@ class Grid extends React.Component{
     const columns = [
       { 
         Header: () => <span>{this.props.header}</span>,
-        accessor: 'name',
-        sortable: false,
+        headerStyle: {textAlign: "center"},
+        columns: [
+          { 
+            Header: '',
+            headerStyle: {textAlign: "center"},
+            accessor: 'name',
+            sortable: false,
+          }
+        ]
         
       },
       { 
         Header: '訂單數量',
-        headerStyle: {backgroundColor: "#118fc3", borderright: "1px solid #118fc3 !important"},
+        headerStyle: {backgroundColor: "#118fc3", borderright: "1px solid #118fc3 !important", textAlign: "center"},
         
         columns: [
           { 
             Header: '上期',
             accessor: 'lastAmount',
-            headerStyle: {backgroundColor: "#118fc3"},
+            headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '本期',
             accessor: 'currentAmount',
-            headerStyle: {backgroundColor: "#118fc3"},
+            headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '差異',
             accessor:'diffAmount',
-            headerStyle: {backgroundColor: "#118fc3"},
+            headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
@@ -65,30 +72,30 @@ class Grid extends React.Component{
       },
       {
         Header: '訂單金額',
-        headerStyle: {backgroundColor: "#118fc3"},
+        headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
         columns: [
           { 
             Header: '上期',
             accessor: 'lastValue',
-            headerStyle: {backgroundColor: "#118fc3"},
+            headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '本期',
             accessor: 'currentValue',
-            headerStyle: {backgroundColor: "#118fc3"},
+            headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '差異',
             accessor:'diffValue',
-            headerStyle: {backgroundColor: "#118fc3"},
+            headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '％',
             id:'ratioValue',
-            headerStyle: {  backgroundColor: "#118fc3"},
+            headerStyle: {  backgroundColor: "#118fc3", textAlign: "center"},
             accessor: d => d.ratioValue,
             Cell: row => <span>{row.value}%</span>,
             minWidth: 70
@@ -98,6 +105,7 @@ class Grid extends React.Component{
       {
         Header: "Actions",
         id: "Actions",
+        headerStyle: {  textAlign: "center"},
         columns: [
         {
           expander: true,
@@ -136,7 +144,7 @@ class Grid extends React.Component{
               <div className="row x_title"><h3>{this.props.name}</h3></div>
               <div className="row x_content" >
                 <ReactTable
-                  style={{cellspacing:0,  width:"100%"}} 
+                  style={{cellspacing:0,  width:"100%", textAlign: 'right'}} 
                   data = {this.props.MonthlyData}
                   columns={columns}
                   defaultPageSize={this.props.data.length}
