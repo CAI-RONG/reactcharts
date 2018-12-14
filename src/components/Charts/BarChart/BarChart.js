@@ -38,7 +38,7 @@ export default class BarChart extends React.Component{
 				function(d,i){
 					var point = d3.mouse(this), p = {x: point[0], y: point[1] };
 
-					svg.select('g.focus').attr("transform", "translate(" + p.x + "," + p.y + ")")	
+					svg.select('g.focus').attr("transform", "translate(" + (p.x+10)+ "," + (p.y+10) + ")");	
 					svg.select('g.focus').select('text.bankName').text(()=>{return data.bank[i]}).attr('transform','translate(10,20)');
 					svg.select('g.focus').select('text.memberAmount').text(()=>{return '會員數: '+d}).attr('transform','translate(10,36)');
 					svg.select('g.focus').style('display',null);
