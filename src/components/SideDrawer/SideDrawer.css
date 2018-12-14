@@ -6,7 +6,7 @@
 	left: 0;
 	width: 30%;
 	max-width: 200px;
-	font-size:16px;
+	font-size:17px;
 	color: rgb(112, 110, 108);
     font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang TC", 微軟正黑體, sans-serif;  
     font-weight: 400;
@@ -25,8 +25,8 @@
 }
 
 .sidebar-brand {
-	font-size:20px;
-	padding:10px;
+	font-size: 20px;
+	padding: 10px;
 }
 
 .sidebar-brand a{
@@ -67,21 +67,33 @@
 }
 
 .div-inline{ 
-	display:inline;
-	margin:5px;
+	display: inline;
+	margin: 5px;
 } 
 
 
 @media screen and (max-width: 510px) {
+	.sidebar-brand p{
+		display: none;
+	}
 	.div-inline{
-		display:flex;
+		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: center;	
+	}
+	.side-drawer{
+		width: 20%;	
+	}
+	.info{
+		padding-left: 6px;
 	}
 }
 
-@media screen and (max-width: 440px) {
-	.sidebar-brand p{
+@media screen and (max-width: 423px) {
+	.info{
 		display: none;
+	}
+	.sidebar-menu{
+		margin-top: 50%;
 	}
 }

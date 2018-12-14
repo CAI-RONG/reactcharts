@@ -5,6 +5,24 @@ import Modal from 'react-modal';
 import ContainerBarChart from '../../containers/containerBarChart';
 import {Button,Glyphicon} from 'react-bootstrap';
 
+const customStyles ={
+	content:{		
+		top: '50%',
+    	left: '50%',
+		right: 'auto',
+		bottom: 'auto',
+		marginRight: '-50%',
+		transform: 'translate(-50%, -50%)',
+		maxWidth: 680,
+		maxHeight: 510,
+		width: '90%',
+		height: '70%',
+		overflow: 'hidden',
+	},
+	overlay:{zIndex:1000}
+};
+
+
 export default class GrowthElement extends React.Component{
 	constructor(props){
 		super(props);
@@ -25,6 +43,7 @@ export default class GrowthElement extends React.Component{
 	handleClose(){
 		this.setState({show:false});
 	}
+
 	
 	render(){
 		const count ={
@@ -32,6 +51,7 @@ export default class GrowthElement extends React.Component{
 		  fontSize: '30px',
 		  color: '#13A0DA'
 		}
+
 
     	let bankButton;
     	if(this.state.name==='bind'){
@@ -41,10 +61,10 @@ export default class GrowthElement extends React.Component{
 					onClick={this.handleShow}>
 					<Glyphicon glyph='credit-card'/> Top 10 Banks
 				</Button>
-				<Modal style={{content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:680,height:510},overlay:{zIndex:1000}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
-					<h2 style={{marginBottom:30}}>Top 10 Banks<Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>
+				<Modal style={customStyles} 
+						isOpen={this.state.show} onRequestClose={this.handleClose}>
+					<h2 style={{marginBottom:30}}>Top 10 Banks <Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>
 					<ContainerBarChart/>
-					<Button style={{float:'right'}} onClick={this.handleClose}>Close</Button>
 				</Modal>
 			</div>;
 	    }
