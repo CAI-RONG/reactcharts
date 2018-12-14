@@ -7,8 +7,8 @@ const mapStateToProp=state=>{
 	var outputData=[];
 	var keys=Object.keys(state.userData.iosData[0]);
 	var dataPerUnit={};
-	
-	function getValue(d,i){return d+lineChartData.data.Android.value[i]};
+
+	function getValue(d,i){return d+lineChartData.data.Android.value[i];}
 
 	for(var n=1; n<9; ++n){
 		var lineChartData=transform(state,{'active':false,'name':keys[n]});
@@ -19,7 +19,7 @@ const mapStateToProp=state=>{
 	var dateObject={};
 	dateObject['date']=lineChartData.data.iOS.date;
 	dataPerUnit=Object.assign({},dataPerUnit,dateObject);
-	//console.log(dataPerUnit);
+
 	function outputObject(data,index){
 		var beginDate="",endDate="";
 		var begin;
@@ -30,7 +30,8 @@ const mapStateToProp=state=>{
 			case 'week':
 				beginDate=data.date[index];
 				begin=d3.timeParse("%Y-%m-%d")(beginDate);
-				endDate=(new Date(begin.valueOf()+86400000*6)<=state.endDate?d3.timeFormat("%Y-%m-%d")(new Date(begin.valueOf()+86400000*6)):d3.timeFormat("%Y-%m-%d")(state.endDate));
+				var firstDayOfWeek=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(begin));
+				endDate=(new Date(begin.valueOf()+86400000*6)<=state.endDate?d3.timeFormat("%Y-%m-%d")(new Date(firstDayOfWeek.valueOf()+86400000*6)):d3.timeFormat("%Y-%m-%d")(state.endDate));
 				//var splitedDate=data.date[index].split('-');
 				//beginDate=d3.timeParse("%Y/%m/%d")(d3.timeFormat("%Y")(state.beginDate)+'/'+splitedDate[0])<=state.beginDate?d3.timeFormat("%Y/%m/%d")(state.beginDate):splitedDate[0];
 				//endDate=d3.timeParse("%Y/%m/%d")(d3.timeFormat("%Y")(state.endDate)+'/'+splitedDate[1])>=state.endDate?d3.timeFormat("%Y/%m/%d")(state.endDate):splitedDate[1];

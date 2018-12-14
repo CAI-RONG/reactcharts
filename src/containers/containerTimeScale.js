@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import TimeScale from '../components/Charts/timeScale';
+import TimeScale from '../components/Filter/timeScale';
 import {timeScaleFilter, beginDateFilter, endDateFilter} from '../redux/actions/userActions';
 import * as d3 from 'd3';
 

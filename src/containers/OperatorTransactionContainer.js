@@ -120,7 +120,8 @@ const mapStateToProp=(state,props)=>{
 	outputData.Value.value.reverse();
 	
 	return {
-		data:outputData
+		data:outputData,
+		unit:state.unitFilter==='K'?1000:1
 	}
 }
 

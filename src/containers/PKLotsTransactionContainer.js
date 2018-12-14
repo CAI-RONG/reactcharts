@@ -114,7 +114,7 @@ const mapStateToProp=(state,props)=>{
 				total.date=current;
 				
 				var currentPKLots=outputData.find(p=>p.dataForTable.name===total.name);
-				//console.log(currentPKLots);
+
 				currentPKLots.TransactionAmount.date.push(total.date);
 				currentPKLots.TransactionAmount.value.push(total.amount);
 				currentPKLots.TransactionValue.date.push(total.date);
@@ -137,9 +137,10 @@ const mapStateToProp=(state,props)=>{
 		}
 	)
 	
-	//console.log(outputData);
+
 	return {
-		data:outputData
+		data:outputData,
+		unit:state.unitFilter==='K'?1000:1
 	}
 }
 
