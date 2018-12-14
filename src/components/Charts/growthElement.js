@@ -69,7 +69,7 @@ export default class GrowthElement extends React.Component{
 			</div>;
 	    }
 		return (
-			<div className="col-sm-3 col-xs-12" >
+			<div className="col-lg-3 col-md-6 col-xs-12" >
 			 	{bankButton}
                	<span className="count_top"><i className={this.state.icon}></i>{this.state.title}</span>
                 <div style={count}>{this.props.data}</div>
