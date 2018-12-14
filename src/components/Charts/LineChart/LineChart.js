@@ -38,7 +38,7 @@ export default class LineChart extends React.Component{
 							.attr('y2',Height);
 		
 		//detail label background size	& style 				
-		focus.append('rect').attr('width',100)
+		focus.append('rect').attr('width',120)
 							.attr('height',75)
 							.attr('rx',10)
 							.attr('ry',10)
@@ -215,8 +215,8 @@ export default class LineChart extends React.Component{
 
 
 
-		if(Object.entries(data)[0][1].date.length>5)axisX.ticks(Object.entries(data)[0][1].date.length/2);			
-		if(Object.entries(data)[0][1].date.length>10)axisX.ticks(Object.entries(data)[0][1].date.length/4);
+		if(Object.entries(data)[0][1].date.length>=5)axisX.ticks(Object.entries(data)[0][1].date.length/2);			
+		if(Object.entries(data)[0][1].date.length>=10)axisX.ticks(Object.entries(data)[0][1].date.length/4);
 		if(Object.entries(data)[0][1].date.length>20)axisX.ticks(Object.entries(data)[0][1].date.length/6);
 		if(Object.entries(data)[0][1].date.length>30)axisX.ticks(Object.entries(data)[0][1].date.length/8);
 		if(Object.entries(data)[0][1].date.length>40)axisX.ticks(Object.entries(data)[0][1].date.length/10);
