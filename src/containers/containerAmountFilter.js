@@ -4,8 +4,7 @@ import {lowerLimitChange, upperLimitChange} from '../redux/actions/userActions';
 
 const mapStateToProps=(state)=>{
     return {
-        lowerLimit:state.lowerLimit,
-        upperLimit:state.upperLimit
+        
     }
 }
 

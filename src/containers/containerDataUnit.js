@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import DataUnit from '../components/Filter/dataUnit';
+import DataUnit from '../components/UnitSelector/dataUnit';
 import {dataUnitFilter} from '../redux/actions/userActions';
 
 const mapStateToProps=state=>{
     return {
-        test:state.unitFilter
+        
     }
 }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import ContainerDayPicker from '../../containers/containerDayPicker';
 import ContainerCompareFilter from '../../containers/containerCompareFilter';
 import ContainerAmountFilter from '../../containers/containerAmountFilter';
-import {Button} from 'react-bootstrap';
 
 export default class Filter extends React.Component{
     constructor(){
@@ -50,7 +49,6 @@ export default class Filter extends React.Component{
                         <div className='selectedFilter' style={{marginTop:20,marginBottom:20}}>
                             {selectedFilter}
                         </div>
-                        <Button bsStyle='primary'>GO</Button>
                     </div>
                 </div>
             </div>

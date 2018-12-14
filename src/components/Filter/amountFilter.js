@@ -3,21 +3,29 @@ import React from 'react';
 export default class AmountFilter extends React.Component{
     constructor(){
         super();
+        this.state={
+            lower:undefined,
+            upper:undefined
+        }
         this.upperChange=this.upperChange.bind(this);
         this.lowerChange=this.lowerChange.bind(this);
     }
-
+    
     upperChange(e){
-        this.props.upperChange(e.target.value);
+        this.setState({upper:e.target.value});
+        if(parseInt(this.state.lower)<=parseInt(this.state.upper))
+            this.props.upperChange(parseInt(e.target.value));
     }
 
     lowerChange(e){
-        this.props.lowerChange(e.target.value);
+        this.setState({lower:e.target.value});
+        if(parseInt(this.state.lower)<=parseInt(this.state.upper))
+            this.props.lowerChange(parseInt(e.target.value));
     }
 
     render(){
         var errorText='';
-        if(parseInt(this.props.lowerLimit)>parseInt(this.props.upperLimit))
+        if(parseInt(this.state.lower)>parseInt(this.state.upper))
             errorText='下限不能大於上限!';
         
         return (

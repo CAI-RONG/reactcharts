@@ -7,55 +7,77 @@ export default class CompareFilter extends React.Component{
         this.state={
             title_duration:'年',
             title_competitor:'週',
-            show:false
+            duration:'year',
+            competitor:'week',
+            competitorNum:undefined
         }
         this.handleCompetitorClick=this.handleCompetitorClick.bind(this);
         this.handleDurationClick=this.handleDurationClick.bind(this);
         this.handleCompetitorChange=this.handleCompetitorChange.bind(this);
     }
 
-    handleDurationClick(filter){
-        this.props.compareDurationChange(filter);
-        this.setState({title_competitor:filter==='week'?'天':'週'});
-        switch(filter){
-            case 'year':
-                this.setState({title_duration:'年'});
-                break;
-            case 'month':
-                this.setState({title_duration:'月'});
-                break;
-            case 'week':
-                this.setState({title_duration:'週'});
-                break;
-            default:
-                return console.log("Error!");
+    validate(){
+        if(this.state.duration==='year'){
+            if(this.state.competitor==='month'){
+                if(parseInt(this.state.competitorNum)>12){return false;}
+            }
+            else if(this.state.competitor==='week'){
+                if(parseInt(this.state.competitorNum)>52){return false;}
+            }
         }
+        else if(this.state.duration==='month'){
+            if(this.state.competitor==='week'){
+                if(parseInt(this.state.competitorNum)>4){return false;}
+            }
+            else if(this.state.competitor==='day'){
+                if(parseInt(this.state.competitorNum)>30){return false;}
+            }
+        }
+        else if(this.state.duration==='week'){
+            if(parseInt(this.state.competitorNum)>7){return false;}
+        }
+        return true;
+    }
+
+    unitTransform(unit){
+        switch(unit){
+            case 'year':
+                return '年';
+            case 'month':
+                return '月';
+            case 'week':
+                return '週';
+            case 'day':
+                return '天';
+            default:
+                return console.log("Error");
+        }
+    }
+
+    handleDurationClick(filter){
+        this.setState({title_competitor:filter==='week'?'天':'週'});
+        this.setState({title_duration:this.unitTransform(filter),duration:filter,competitorNum:''});
+        document.getElementById('competitor').value='';
+        this.props.competitorNumChange(1);
+        this.props.compareDurationChange(filter);
     }
 
     handleCompetitorClick(filter){
+        this.setState({title_competitor:this.unitTransform(filter),competitor:filter,competitorNum:''});
+        document.getElementById('competitor').value='';
+        this.props.competitorNumChange(1);
         this.props.compareCompetitorChange(filter);
-        switch(filter){
-            case 'month':
-                this.setState({title_competitor:'月'});
-                break;
-            case 'week':
-                this.setState({title_competitor:'週'});
-                break;
-            case 'day':
-                this.setState({title_competitor:'天'});
-                break;
-            default:
-                return console.log("Error!");
-        }
     }
 
     handleCompetitorChange(e){
-        this.props.competitorNumChange(e.target.value);
+        this.setState({competitorNum:e.target.value});
+        if(this.validate())
+            this.props.competitorNumChange(parseInt(e.target.value));
     }
 
     render(){
         var dropdown_competitor;
-        switch(this.props.duration){
+        switch(this.state.duration){
             case 'year':
                 dropdown_competitor=(
                     <DropdownButton style={{marginLeft:10}} id="compare-competitor" bsStyle="primary" title={this.state.title_competitor} noCaret>
@@ -96,21 +118,8 @@ export default class CompareFilter extends React.Component{
                 break;
         }
         var errorText='';
-        if(this.props.duration==='year'){
-            if(this.props.competitor==='month')
-                if(parseInt(this.props.this.props.competitorNumber)>12)errorText='Out of range!';
-            if(this.props.competitor==='week')
-                if(parseInt(this.props.competitorNumber)>52)errorText='Out of range!';
-        }
-        else if(this.props.duration==='month'){
-            if(this.props.competitor==='week')
-                if(parseInt(this.props.competitorNumber)>4)errorText='Out of range!';
-            if(this.props.competitor==='day')
-                if(parseInt(this.props.competitorNumber)>30)errorText='Out of range!';
-        }
-        else if(this.props.duration==='week'){
-            if(parseInt(this.props.competitorNumber)>7)errorText='Out of range!';
-        }
+        if(!this.validate())
+            errorText='Out of range!';
 
         return (
             <div>
@@ -124,7 +133,7 @@ export default class CompareFilter extends React.Component{
                     週</MenuItem>
                 </DropdownButton>
                 <span style={{marginLeft:10}}>第</span>
-                <input id='competitor' style={{marginLeft:10,width:60}} type="text" onChange={this.handleCompetitorChange} />
+                <input id='competitor' style={{marginLeft:10,width:60}} type="text" onBlur={this.handleCompetitorChange} />
                 {dropdown_competitor}
                 <text style={{color:'#ff0000'}}>{errorText}</text>
             </div>

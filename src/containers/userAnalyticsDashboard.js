@@ -9,6 +9,7 @@ import UserData from '../components/Charts/LineChart/data.json';
 import ActivedUser from '../components/Charts/activedUser';
 import ContainerUserStatusTable from './containerUserStatusTable.js';
 import ContainerFilter from './containerFilter';
+import UnitSelector from '../components/UnitSelector/UnitSelector';
 
 export default class UserAnalyticsDashboard extends React.Component{
 	constructor(){
@@ -42,6 +43,7 @@ export default class UserAnalyticsDashboard extends React.Component{
 						<Growth/>
 						<ActivedUser/>
 						<ContainerUserStatusTable/>
+						<UnitSelector/>
 					</div>
 				</div>
 			</Provider>

@@ -7,9 +7,9 @@ import * as d3 from 'd3';
 import '../components/Revenue/Revenue.css';
 import makeData from '../components/Revenue/RevenueData.json';
 import GridContainer from "./GridContainer";
-import ContainerTimeScale from './containerTimeScale';
 import TileCountContainer from './TileCountContainer';
-import ContainerDataUnit from './containerDataUnit';
+import ContainerFilter from './containerFilter';
+import UnitSelector from '../components/UnitSelector/UnitSelector';
 
 
 class RevenueAnalyticsDashboard extends React.Component{
@@ -51,7 +51,11 @@ class RevenueAnalyticsDashboard extends React.Component{
           
           beginDate:new Date(),
           //endDate:d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(new Date())),
-          timeScaleFilter:'week',
+					timeScaleFilter:'week',
+					filterOption:'date',
+					duration:'year',
+					competitor:'week',
+					competitorNumber:1
         })
     }
   }
@@ -61,13 +65,11 @@ class RevenueAnalyticsDashboard extends React.Component{
       <Provider store={this.state.store}>
         <div>
           <div className="right_col" role="main">
-			<div style={{marginBottom:30,display:'inline-flex'}}>
-				<ContainerTimeScale name="revenue"/>
-				<ContainerDataUnit/>
-			</div>
+						<ContainerFilter/>
             <TileCountContainer />
             <GridContainer name='路外停車' header='業者'/>
             <GridContainer name='路邊停車' header='機關'/>
+						<UnitSelector/>
           </div>
         </div>
       </Provider>
