@@ -23,7 +23,7 @@ class Grid extends React.Component{
     const columns = [
       { 
         Header: () => <span>{this.props.header}</span>,
-        headerStyle: {textAlign: "center"},
+        headerStyle: {textAlign: "center", borderRight:"0px"},
         columns: [
           { 
             Header: '',

@@ -58,30 +58,35 @@ class OperatorTransaction extends React.Component {
 		  </Row>
           <ReactTable 
       		
-       		  style={{cellspacing:0,  width:"100%"}}
+       		  style={{cellspacing:0,  width:"100%", textAlign: 'right'}}
             data={this.props.data.dataForTable}     		
             columns={[
           	{ 
               Header: '日期',
+              headerStyle: {textAlign: "center"},
               id: "date",
               accessor: d=>d.date,
           	},
           	{ 
               Header: '訂單數量',
+              headerStyle: {textAlign: "center"},
               columns: [
               { 
                 Header: '上期',
                 id:'LastAmount',
+                headerStyle: {textAlign: "center"},
                 accessor: d=>numberWithCommas(d.lastAmount)
               },
               { 
                 Header: '本期',
                 id:'CurrentAmount',
+                headerStyle: {textAlign: "center"},
                 accessor: d=>numberWithCommas(d.currentAmount)
               },
               {	 
                 Header: '差異',
                 id:'diffAmount',
+                headerStyle: {textAlign: "center"},
                 accessor: d=>numberWithCommas(d.diffAmount),
                 Cell: row =>  (
                         <span style={{color: row.value >= 0 ? 'null': 'red'}}>
@@ -92,26 +97,31 @@ class OperatorTransaction extends React.Component {
               {  
                 Header: '％',
                 id:'RatioAmount',
+                headerStyle: {textAlign: "center"},
                 accessor: d=>d.ratioAmount,
                 Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
               }]	
           	},
           	{
           		Header: '訂單金額',
+              headerStyle: {textAlign: "center"},
           		columns: [
           		{ 
           		  Header:'上期',
+                headerStyle: {textAlign: "center"},
                 id:'LastValue',
                 accessor: d=>numberWithCommas(d.lastValue)
   				    },
           		{ 
           		  Header:'本期',
+                headerStyle: {textAlign: "center"},
                 id:'currentValue',
                 accessor: d=>numberWithCommas(d.currentValue)
                 
           		},
           		{ 
           		  Header:'差異',
+                headerStyle: {textAlign: "center"},
           		  id:'diffValue',
                 accessor: d=>numberWithCommas(d.diffValue),
                 Cell: row =>  (
@@ -122,6 +132,7 @@ class OperatorTransaction extends React.Component {
           		},
           		{ 
           		  Header: '％',
+                headerStyle: {textAlign: "center"},
           		  id:'RatioValue',
                 accessor: d=>d.ratioValue,
                 Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>    

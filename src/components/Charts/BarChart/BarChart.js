@@ -2,6 +2,8 @@ import React from 'react';
 import * as d3 from 'd3';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
+import numberWithCommas from "../../../utils/numberWithCommas";
+
 export default class BarChart extends React.Component{
 	
 	componentDidMount(){
@@ -40,7 +42,7 @@ export default class BarChart extends React.Component{
 
 					svg.select('g.focus').attr("transform", "translate(" + (p.x+10)+ "," + (p.y+10) + ")");	
 					svg.select('g.focus').select('text.bankName').text(()=>{return data.bank[i]}).attr('transform','translate(10,20)');
-					svg.select('g.focus').select('text.memberAmount').text(()=>{return '會員數: '+d}).attr('transform','translate(10,36)');
+					svg.select('g.focus').select('text.memberAmount').text(()=>{return '會員數: '+numberWithCommas(d)}).attr('transform','translate(10,36)');
 					svg.select('g.focus').style('display',null);
 					d3.select(this).attr('opacity',0.8);
 				}

@@ -2,6 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
+import numberWithCommas from "../../../utils/numberWithCommas";
 
 export default class LineChart extends React.Component{
 	
@@ -83,7 +84,7 @@ export default class LineChart extends React.Component{
 										.style('fill','#fff');
 			//display data
 			for(i=0; i<dataAmount; ++i){
-				selector.select('text.'+keys[i]).text(keys[i]+": "+data[keys[i]].value[Math.round(valX)])
+				selector.select('text.'+keys[i]).text(keys[i]+": "+ numberWithCommas(data[keys[i]].value[Math.round(valX)]))
 											.attr('transform','translate(80,'+(35+15*i)+')')
 											.style('fill','#fff');
 			}
