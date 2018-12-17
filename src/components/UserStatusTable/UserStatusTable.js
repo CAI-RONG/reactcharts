@@ -48,33 +48,33 @@ class UserStatusTable extends React.Component{
         { 
           Header: '期間',
           columns: [
-            {Header: '開始', accessor: 'begin'},
-            {Header: '結束', accessor: 'end'}
+            {Header: '開始', accessor:'begin'},
+            {Header: '結束', accessor:'end'}
           ]
         },
         { 
           Header: 'Downloads',
           columns: [
-            { Header: '安裝事件', accessor: 'installation', minWidth: 80},
-            { Header: '使用中裝置數', accessor: 'DevicesInUse', minWidth: 110}
+            { Header: '安裝事件', accessor: d => numberWithCommas(d.installation) ,id: 'installation', minWidth: 80},
+            { Header: '使用中裝置數', accessor: d => numberWithCommas(d.DevicesInUse) ,id: 'DevicesInUse', minWidth: 110}
           ]
         },
         { 
           Header: 'Active User',
           columns: [
-            { Header: 'MAU', accessor: 'MAU', minWidth: 70},
-            { Header: 'WAU', accessor: 'WAU', minWidth: 70},
-            { Header: 'DAU', accessor: 'DAU', minWidth: 70},
-            { Header: 'Stickiness', accessor: 'stickiness', minWidth: 80}
+            { Header: 'MAU', accessor: d => numberWithCommas(d.MAU) ,id: 'MAU', minWidth: 70},
+            { Header: 'WAU', accessor: d => numberWithCommas(d.WAU) ,id: 'WAU', minWidth: 70},
+            { Header: 'DAU', accessor: d => numberWithCommas(d.DAU) ,id: 'DAU', minWidth: 70},
+            { Header: 'Stickiness', accessor: d => numberWithCommas(d.stickiness) ,id: 'stickiness', minWidth: 80}
           ]
         },
         {
           Header: '會員',
           columns: [
-            { Header: '註冊會員', accessor: 'member', minWidth: 80},
-            { Header: '綁定信用卡會員', accessor: 'bindCreditCard', minWidth: 120},
-            { Header: '綁定車牌會員', accessor: 'bindLicensePlate', minWidth: 110},
-            { Header: '訂閱會員', accessor: 'subscribe', minWidth: 80},
+            { Header: '註冊會員', accessor: d => numberWithCommas(d.member) ,id: 'member', minWidth: 80},
+            { Header: '綁定信用卡會員', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 120},
+            { Header: '綁定車牌會員', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 110},
+            { Header: '訂閱會員', accessor: d => numberWithCommas(d.subscribe) ,id: 'subscribe', minWidth: 80},
           ]
         },
         {
@@ -82,7 +82,7 @@ class UserStatusTable extends React.Component{
           id: 'AutomaticPayment',
           accessor: d => (d),
           Cell: row => <span>
-							{row.value.autoPay_Taipei+row.value.autoPay_NewTaipei+row.value.autoPay_Kaohsiung}
+							{numberWithCommas(row.value.autoPay_Taipei+row.value.autoPay_NewTaipei+row.value.autoPay_Kaohsiung)}
 							<Button bsStyle='primary' style={{marginTop:0,padding:6,float:'right'}} 
 							onClick={()=>{
 								this.handleShow();

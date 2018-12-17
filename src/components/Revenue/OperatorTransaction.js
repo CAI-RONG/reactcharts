@@ -1,10 +1,11 @@
-
 import React from 'react';
 import Modal from 'react-modal';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import {Row,Col} from 'react-bootstrap';
 import LineChart from '../Charts/LineChart/LineChart';
+import numberWithCommas from "../../utils/numberWithCommas";
+
 const customStyles = {
   content : {
     top                   : '50%',
@@ -71,17 +72,17 @@ class OperatorTransaction extends React.Component {
               { 
                 Header: '上期',
                 id:'LastAmount',
-                accessor: d=>d.lastAmount
+                accessor: d=>numberWithCommas(d.lastAmount)
               },
               { 
                 Header: '本期',
                 id:'CurrentAmount',
-                accessor: d=>d.currentAmount
+                accessor: d=>numberWithCommas(d.currentAmount)
               },
               {	 
                 Header: '差異',
                 id:'diffAmount',
-                accessor: d=>d.diffAmount,
+                accessor: d=>numberWithCommas(d.diffAmount),
                 Cell: row =>  (
                         <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
@@ -101,18 +102,18 @@ class OperatorTransaction extends React.Component {
           		{ 
           		  Header:'上期',
                 id:'LastValue',
-                accessor: d=>d.lastValue
+                accessor: d=>numberWithCommas(d.lastValue)
   				    },
           		{ 
           		  Header:'本期',
                 id:'currentValue',
-                accessor: d=>d.currentValue
+                accessor: d=>numberWithCommas(d.currentValue)
                 
           		},
           		{ 
           		  Header:'差異',
           		  id:'diffValue',
-                accessor: d=>d.diffValue,
+                accessor: d=>numberWithCommas(d.diffValue),
                 Cell: row =>  (
                       <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}

@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 import OperatorTransaction from  "../components/Revenue/OperatorTransaction";
 import * as d3 from 'd3';
-import numberWithCommas from "../utils/numberWithCommas";
 
 const mapStateToProp=(state,props)=>{
 	var outputData={
@@ -119,17 +118,6 @@ const mapStateToProp=(state,props)=>{
 	outputData.Amount.value.reverse();
 	outputData.Value.date.reverse();
 	outputData.Value.value.reverse();
-	
-	outputData.dataForTable.forEach(
-		function(d){
-			d.currentAmount = numberWithCommas(d.currentAmount);
-			d.lastAmount = numberWithCommas(d.lastAmount);
-			d.diffAmount = numberWithCommas(d.diffAmount);
-			d.currentValue = numberWithCommas(d.currentValue);
-			d.lastValue = numberWithCommas(d.lastValue);
-			d.diffValue = numberWithCommas(d.diffValue);
-		}
-	);
 
 	return {
 		data:outputData,

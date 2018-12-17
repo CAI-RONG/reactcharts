@@ -3,7 +3,6 @@ import _ from 'lodash';
 import * as d3 from 'd3';
 import TileCount from "../components/Revenue/TileCount";
 import Gridcalculator from "../utils/Gridcalculator";
-import numberWithCommas from "../utils/numberWithCommas";
 
 const mapStateToProps=(state,props)=>{
 	var day = new Date();
@@ -20,9 +19,9 @@ const mapStateToProps=(state,props)=>{
 
 	return {
 		Month:m,
-		TotalValue: numberWithCommas(TotalParkingLotsValue+TotalRoadsideValue),
-		TotalParkingLotsValue: numberWithCommas(TotalParkingLotsValue),
-		TotalRoadsideValue:numberWithCommas(TotalRoadsideValue),
+		TotalValue: TotalParkingLotsValue+TotalRoadsideValue,
+		TotalParkingLotsValue: TotalParkingLotsValue,
+		TotalRoadsideValue:TotalRoadsideValue,
 		Ratio:0,
 		ParkingLotsRatio:ParkingLotsRatio,
 		RoadsideRatio:0

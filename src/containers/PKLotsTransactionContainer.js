@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import PKLotsTransaction from  "../components/Revenue/PKLotsTransaction";
 import * as d3 from 'd3';
 import Gridcalculator from '../utils/Gridcalculator';
-import numberWithCommas from "../utils/numberWithCommas";
 
 const mapStateToProp=(state,props)=>{
 

@@ -3,11 +3,9 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import PropTypes from 'prop-types';
 import './Revenue.css';
-
-
 import OperatorTransactionContainer from  "../../containers/OperatorTransactionContainer";
 import PKLotsTransactionContainer from  "../../containers/PKLotsTransactionContainer";
-
+import numberWithCommas from "../../utils/numberWithCommas";
 
 class Grid extends React.Component{
   constructor(props) { 
@@ -43,19 +41,22 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            accessor: 'lastAmount',
+            id:'lastAmount',
+            accessor:d=> numberWithCommas(d.lastAmount),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '本期',
-            accessor: 'currentAmount',
+            id: 'currentAmount',
+            accessor:d=> numberWithCommas(d.currentAmount),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '差異',
-            accessor:'diffAmount',
+            id:'diffAmount',
+            accessor:d=> numberWithCommas(d.diffAmount),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
@@ -76,19 +77,22 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            accessor: 'lastValue',
+            id: 'lastValue',
+            accessor: d => numberWithCommas(d.lastValue),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '本期',
-            accessor: 'currentValue',
+            id: 'currentValue',
+            accessor: d => numberWithCommas(d.currentValue),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '差異',
-            accessor:'diffValue',
+            id:'diffValue',
+            accessor: d => numberWithCommas(d.diffValue),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },

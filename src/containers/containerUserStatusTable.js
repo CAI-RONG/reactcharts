@@ -2,7 +2,6 @@ import {connect} from 'react-redux';
 import UserStatusTable from '../components/UserStatusTable/UserStatusTable';
 import * as d3 from 'd3';
 import transform from '../utils/dataTransform';
-import numberWithCommas from "../utils/numberWithCommas";
 
 const mapStateToProp=state=>{
 	var outputData=[];
@@ -81,16 +80,16 @@ const mapStateToProp=state=>{
 		var obj={
 			"begin":beginDate,
 			"end":endDate,
-			"installation":numberWithCommas(data.downloads[index]),
-			"DevicesInUse":numberWithCommas(data.downloads[index]),
-			"MAU":numberWithCommas(MAU),
-			"WAU":numberWithCommas(WAU),
-			"DAU":numberWithCommas(DAU),
+			"installation":data.downloads[index],
+			"DevicesInUse":data.downloads[index],
+			"MAU":MAU,
+			"WAU":WAU,
+			"DAU":DAU,
 			"stickiness":(DAU/MAU*100).toFixed(1)+'%',
-			"member":numberWithCommas(data.members[index]),
-			"bindCreditCard":numberWithCommas(data.bind[index]),
-			"bindLicensePlate":numberWithCommas(data.bind[index]),
-			"subscribe":numberWithCommas(data.subscribe[index]),
+			"member":data.members[index],
+			"bindCreditCard":data.bind[index],
+			"bindLicensePlate":data.bind[index],
+			"subscribe":data.subscribe[index],
 			"autoPay_Taipei":data.autoPay_Taipei[index],
 			"autoPay_NewTaipei":data.autoPay_NewTaipei[index],
 			"autoPay_Kaohsiung":data.autoPay_Kaohsiung[index]
