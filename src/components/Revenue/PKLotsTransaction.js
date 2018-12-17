@@ -5,7 +5,7 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import LineChart from '../Charts/LineChart/LineChart';
 import {Row,Col} from 'react-bootstrap';
-
+import numberWithCommas from "../../utils/numberWithCommas";
 
 const customStyles = {
   content : {
@@ -60,17 +60,17 @@ class PKLotsTransactionAnalytics extends React.Component {
             	    { 
             	       Header: '上期',
 					           id:'LastAmount',
-                     accessor: d=>d.dataForTable.lastAmount
+                     accessor: d=>numberWithCommas(d.dataForTable.lastAmount)
             		  },
             		  { 
             		    Header: '本期',
 						        id:'CurrentAmount',
-                    accessor: d=>d.dataForTable.currentAmount
+                    accessor: d=>numberWithCommas(d.dataForTable.currentAmount)
             		  },
             		  {	 
             		    Header: '差異',
             		    id:'diffAmount',
-                    accessor: d=>d.dataForTable.diffAmount,
+                    accessor: d=>numberWithCommas(d.dataForTable.diffAmount),
                     Cell: row =>  (
                         <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
@@ -90,17 +90,17 @@ class PKLotsTransactionAnalytics extends React.Component {
             		  { 
             		    Header:'上期',
 						id:'LastValue',
-                     accessor: d=>d.dataForTable.lastValue
+                     accessor: d=>numberWithCommas(d.dataForTable.lastValue)
     				      },
             		  { 
             		    Header:'本期',
 						id:'currentValue',
-                    accessor: d=>d.dataForTable.currentValue
+                    accessor: d=>numberWithCommas(d.dataForTable.currentValue)
             		  },
             		  { 
             		    Header:'差異',
             		    id:'diffValue',
-                    accessor: d=>d.dataForTable.diffValue,
+                    accessor: d=>numberWithCommas(d.dataForTable.diffValue),
             		    Cell: row =>  (
                       <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}

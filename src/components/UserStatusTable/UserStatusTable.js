@@ -5,6 +5,7 @@ import './UserStatusTable.css';
 import {Glyphicon,Button} from 'react-bootstrap';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
+import numberWithCommas from "../../utils/numberWithCommas";
 
 class UserStatusTable extends React.Component{
 	
@@ -87,19 +88,19 @@ class UserStatusTable extends React.Component{
 								this.handleShow();
 								this.setState(
 									{
-										total:row.value.autoPay_Taipei+row.value.autoPay_NewTaipei+row.value.autoPay_Kaohsiung,
+										total:numberWithCommas(row.value.autoPay_Taipei+row.value.autoPay_NewTaipei+row.value.autoPay_Kaohsiung),
 										autoPayData:[
 											{
 												key:'Taipei',
-												value:row.value.autoPay_Taipei
+												value:numberWithCommas(row.value.autoPay_Taipei)
 											},
 											{
 												key:'New_Taipei',
-												value:row.value.autoPay_NewTaipei
+												value:numberWithCommas(row.value.autoPay_NewTaipei)
 											},
 											{
 												key:'Kaohsiung',
-												value:row.value.autoPay_Kaohsiung
+												value:numberWithCommas(row.value.autoPay_Kaohsiung)
 											}
 										]
 									}

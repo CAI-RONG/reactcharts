@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import OperatorTransaction from  "../components/Revenue/OperatorTransaction";
 import * as d3 from 'd3';
+import numberWithCommas from "../utils/numberWithCommas";
 
 const mapStateToProp=(state,props)=>{
 	var outputData={
@@ -107,7 +108,7 @@ const mapStateToProp=(state,props)=>{
 		total.ratioAmount=parseInt((total.currentAmount/total.lastAmount-1)*100);
 		total.diffValue=total.currentValue-total.lastValue;
 		total.ratioValue=parseInt((total.currentValue/total.lastValue-1)*100);
-		
+
 		outputData.dataForTable.push(total);
 		outputData.Amount.date.push(total.date);
 		outputData.Amount.value.push(total.currentAmount);
@@ -119,6 +120,17 @@ const mapStateToProp=(state,props)=>{
 	outputData.Value.date.reverse();
 	outputData.Value.value.reverse();
 	
+	outputData.dataForTable.forEach(
+		function(d){
+			d.currentAmount = numberWithCommas(d.currentAmount);
+			d.lastAmount = numberWithCommas(d.lastAmount);
+			d.diffAmount = numberWithCommas(d.diffAmount);
+			d.currentValue = numberWithCommas(d.currentValue);
+			d.lastValue = numberWithCommas(d.lastValue);
+			d.diffValue = numberWithCommas(d.diffValue);
+		}
+	);
+
 	return {
 		data:outputData,
 		unit:state.unitFilter==='K'?1000:1

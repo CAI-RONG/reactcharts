@@ -107,6 +107,7 @@ class OperatorTransaction extends React.Component {
           		  Header:'本期',
                 id:'currentValue',
                 accessor: d=>d.currentValue
+                
           		},
           		{ 
           		  Header:'差異',

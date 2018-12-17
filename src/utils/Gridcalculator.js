@@ -128,37 +128,24 @@ export default function Gridcalculator(state, type, beginDate, timeFilter, opera
 						sum['diffAmount']=sum.currentAmount-sum.lastAmount;
 						sum['diffValue']=sum.currentValue-sum.lastValue;
 						sum['ratioAmount']=parseInt((sum.currentAmount/sum.lastAmount-1)*100);
-						sum['ratioValue']=parseInt((sum.currentValue/sum.lastValue-1)*100)
+						sum['ratioValue']=parseInt((sum.currentValue/sum.lastValue-1)*100);
 						return sum;
 					}
 				);
-				/*var total={
-					currentAmount:0,
-					currentValue:0,
-					lastAmount:0,
-					lastValue:0
-				};
-				calculatedData.forEach(
-					function(s){
-						total.currentAmount+=s.currentAmount;
-						total.currentValue+=s.currentValue;
-						total.lastAmount+=s.lastAmount;
-						total.lastValue+=s.lastValue;
-					}
-				);*/
 				calculatedData.forEach(
 					function(s){
 						s['operator']=d.Operator;
 					}
 				);
-				
 				return calculatedData;
 			}
 		);
+		
 		for(var k in output){
 			outputData.push(...output[k]);
 		}
 	}
 	
+
 	return outputData;
 }
