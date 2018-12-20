@@ -3,13 +3,14 @@ import GrowthElement from '../components/Charts/growthElement';
 import * as d3 from 'd3';
 
 const mapStateToProp=(state,props)=>{
-	var begin=new Date(new Date()-86400000*7);
-	var end=new Date(new Date()-86400000);
-	var lastWeekBegin=new Date(new Date()-86400000*14);
-	var lastWeekEnd=new Date(new Date()-86400000*8);
+	var begin=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(new Date()))-86400000*7;//first day of last week
+	var end=begin+86400000*6;//last day of last week
+	var lastWeekBegin=begin-86400000*7;//first day of last last week
+	var lastWeekEnd=lastWeekBegin+86400000*6;//last day of last last week
 	var total=0;
 	var lastWeekTotal=0;
 	
+	/*transform value to date */
 	begin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(begin));
 	end=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(end));
 	lastWeekBegin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(lastWeekBegin));
