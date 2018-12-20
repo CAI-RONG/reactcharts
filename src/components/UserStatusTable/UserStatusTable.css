@@ -14,7 +14,7 @@
 .ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td{
 	background-color:#0b5b7c;
 	color: white;
-	border-right: 2px solid rgba(0,0,0,0.05);
+	border-right:  1.3px solid rgba(0,0,0,0.08);
 }
 
 *{
