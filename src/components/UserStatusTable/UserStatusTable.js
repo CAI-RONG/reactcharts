@@ -41,41 +41,59 @@ class UserStatusTable extends React.Component{
   
   handleClose(){
 	  this.setState({show:false});
-  }
-    
+	}
+
   render(){
     const columns = [
+				{//exapnder for iOS and Android
+					Header:'',
+					expander:true,
+					Expander:({isExpanded})=>{
+							return (
+								<div>
+									Total	{" "}
+									{isExpanded?<Glyphicon glyph='triangle-bottom'/>:<Glyphicon glyph='triangle-right'/>}
+								</div>
+							)
+					},
+					width:70,
+					headerStyle: {  textAlign: "center"}
+				},
         { 
           Header: '期間',
           columns: [
-            {Header: '開始', accessor:'begin'},
-            {Header: '結束', accessor:'end'}
-          ]
+            {Header: '開始', accessor:'begin',width:90,headerStyle: {  textAlign: "center"}},
+            {Header: '結束', accessor:'end',width:90,headerStyle: {  textAlign: "center"}}
+          ],
+					headerStyle: {  textAlign: "center"}
         },
         { 
           Header: 'Downloads',
           columns: [
-            { Header: '安裝事件', accessor: d => numberWithCommas(d.installation) ,id: 'installation', minWidth: 80},
-            { Header: '使用中裝置數', accessor: d => numberWithCommas(d.DevicesInUse) ,id: 'DevicesInUse', minWidth: 110}
-          ]
+            { Header: '安裝事件', accessor: d => numberWithCommas(d.installation) ,id: 'installation', minWidth: 80,headerStyle: {  textAlign: "center"}},
+            { Header: '使用中裝置', accessor: d => numberWithCommas(d.DevicesInUse) ,id: 'DevicesInUse', minWidth: 90,headerStyle: {  textAlign: "center"}}
+          ],
+					headerStyle: {  textAlign: "center"}
         },
         { 
           Header: 'Active User',
           columns: [
-            { Header: 'MAU', accessor: d => numberWithCommas(d.MAU) ,id: 'MAU', minWidth: 70},
-            { Header: 'WAU', accessor: d => numberWithCommas(d.WAU) ,id: 'WAU', minWidth: 70},
-            { Header: 'DAU', accessor: d => numberWithCommas(d.DAU) ,id: 'DAU', minWidth: 70},
+            { Header: 'MAU', accessor: d => numberWithCommas(d.MAU) ,id: 'MAU', minWidth: 70,headerStyle: {  textAlign: "center"}},
+            { Header: 'WAU', accessor: d => numberWithCommas(d.WAU) ,id: 'WAU', minWidth: 70,headerStyle: {  textAlign: "center"}},
+            { Header: 'DAU', accessor: d => numberWithCommas(d.DAU) ,id: 'DAU', minWidth: 70,headerStyle: {  textAlign: "center"}},
             { Header: 'Stickiness', accessor: d => numberWithCommas(d.stickiness) ,id: 'stickiness', minWidth: 80}
-          ]
+          ],
+					headerStyle: {  textAlign: "center"}
         },
         {
           Header: '會員',
           columns: [
-            { Header: '註冊會員', accessor: d => numberWithCommas(d.member) ,id: 'member', minWidth: 80},
-            { Header: '綁定信用卡會員', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 120},
-            { Header: '綁定車牌會員', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 110},
-            { Header: '訂閱會員', accessor: d => numberWithCommas(d.subscribe) ,id: 'subscribe', minWidth: 80},
-          ]
+            { Header: '註冊會員', accessor: d => numberWithCommas(d.member) ,id: 'member', minWidth: 80,headerStyle: {  textAlign: "center"}},
+            { Header: '綁定信用卡會員', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 120,headerStyle: {  textAlign: "center"}},
+            { Header: '綁定車牌會員', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 110,headerStyle: {  textAlign: "center"}},
+            { Header: '訂閱會員', accessor: d => numberWithCommas(d.subscribe) ,id: 'subscribe', minWidth: 80,headerStyle: {  textAlign: "center"}},
+          ],
+					headerStyle: {  textAlign: "center"}
         },
         {
           Header: '啟用自動繳費',
@@ -108,7 +126,8 @@ class UserStatusTable extends React.Component{
 							}}>
 								<Glyphicon glyph="th-list"/>
 							</Button>
-                        </span>
+                        </span>,
+       		headerStyle: {  textAlign: "center"}
         }
       ];
 	  
@@ -141,10 +160,108 @@ class UserStatusTable extends React.Component{
             <div className="x_panel">
               <div className="row x_title"><h3>User Status</h3></div>
 				<ReactTable className="align-left -striped -highlight"
+						style={{cellspacing:0,  width:"100%", textAlign: 'right'}}
 						data={this.props.data} 
 						columns={columns}
 						defaultPageSize={10}
 						noDataText="No Data"
+						SubComponent={
+							/*another react-table for iOS and Android as a subComponent
+							(can not use pivot due to the autoPayment)*/
+							row=>{
+								const subCol=[
+									{
+										Header:'平台',
+										accessor:'os',
+										width:70,
+										headerStyle: {display:'none',  textAlign: "center"}
+									},
+									{ 
+										Header: '期間',
+										columns: [
+											{Header: '開始', accessor:'begin',width:90,headerStyle: {  display:'none',  textAlign: "center"}},
+											{Header: '結束', accessor:'end',width:90,headerStyle: {  display:'none',  textAlign: "center"}}
+										],
+										headerStyle: {  display:'none',  textAlign: "center"}
+									},
+									{ 
+										Header: 'Downloads',
+										columns: [
+											{ Header: '安裝事件', accessor: d => numberWithCommas(d.installation) ,id: 'installation', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '使用中裝置', accessor: d => numberWithCommas(d.DevicesInUse) ,id: 'DevicesInUse', minWidth: 90,headerStyle: {  display:'none',  textAlign: "center"}}
+										],
+										headerStyle: {  display:'none',  textAlign: "center"}
+									},
+									{ 
+										Header: 'Active User',
+										columns: [
+											{ Header: 'MAU', accessor: d => numberWithCommas(d.MAU) ,id: 'MAU', minWidth: 70,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: 'WAU', accessor: d => numberWithCommas(d.WAU) ,id: 'WAU', minWidth: 70,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: 'DAU', accessor: d => numberWithCommas(d.DAU) ,id: 'DAU', minWidth: 70,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: 'Stickiness', accessor: d => numberWithCommas(d.stickiness) ,id: 'stickiness', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}}
+										],
+										headerStyle: {  display:'none',  textAlign: "center"}
+									},
+									{
+										Header: '會員',
+										columns: [
+											{ Header: '註冊會員', accessor: d => numberWithCommas(d.member) ,id: 'member', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '綁定信用卡會員', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 120,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '綁定車牌會員', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 110,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '訂閱會員', accessor: d => numberWithCommas(d.subscribe) ,id: 'subscribe', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
+										],
+										headerStyle: {  display:'none',  textAlign: "center"}
+									},
+									{
+										Header: '啟用自動繳費',
+										id: 'AutomaticPayment',
+										accessor: d => (d),
+										Cell: row => <span>
+												{numberWithCommas(row.value.autoPay_Taipei+row.value.autoPay_NewTaipei+row.value.autoPay_Kaohsiung)}
+												<Button bsStyle='primary' style={{marginTop:0,padding:6,float:'right'}} 
+												onClick={()=>{
+													this.handleShow();
+													this.setState(
+														{
+															total:numberWithCommas(row.value.autoPay_Taipei+row.value.autoPay_NewTaipei+row.value.autoPay_Kaohsiung),
+															autoPayData:[
+																{
+																	key:'Taipei',
+																	value:numberWithCommas(row.value.autoPay_Taipei)
+																},
+																{
+																	key:'New_Taipei',
+																	value:numberWithCommas(row.value.autoPay_NewTaipei)
+																},
+																{
+																	key:'Kaohsiung',
+																	value:numberWithCommas(row.value.autoPay_Kaohsiung)
+																}
+															]
+														}
+													);
+												}}>
+													<Glyphicon glyph="th-list"/>
+												</Button>
+																	</span>,
+										 headerStyle: {  display:'none',  textAlign: "center"}
+									}
+								];
+								return (
+									<div>
+										<ReactTable className="sub -striped -highlight"
+												data={this.props.subData}
+												columns={subCol}
+												defaultPageSize={2}
+												showPagination={false}
+												noDataText="No Data"
+												getTheadGroupProps={()=>{return {style: { display: 'none' }}}}
+										/>
+										<br/><br/>
+									</div>
+								)
+							}
+						}
 				/>
 		  		<Modal style={{content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:300,height:300}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
 				<h2 style={{marginBottom:30}}>啟用自動繳費<Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>

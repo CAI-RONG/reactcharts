@@ -32,23 +32,16 @@ const mapStateToProp=state=>{
 				begin=d3.timeParse("%Y-%m-%d")(beginDate);
 				var firstDayOfWeek=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(begin));
 				endDate=(new Date(begin.valueOf()+86400000*6)<=state.endDate?d3.timeFormat("%Y-%m-%d")(new Date(firstDayOfWeek.valueOf()+86400000*6)):d3.timeFormat("%Y-%m-%d")(state.endDate));
-				//var splitedDate=data.date[index].split('-');
-				//beginDate=d3.timeParse("%Y/%m/%d")(d3.timeFormat("%Y")(state.beginDate)+'/'+splitedDate[0])<=state.beginDate?d3.timeFormat("%Y/%m/%d")(state.beginDate):splitedDate[0];
-				//endDate=d3.timeParse("%Y/%m/%d")(d3.timeFormat("%Y")(state.endDate)+'/'+splitedDate[1])>=state.endDate?d3.timeFormat("%Y/%m/%d")(state.endDate):splitedDate[1];
 				break;
 			case 'month':
 				beginDate=data.date[index];
 				begin=d3.timeParse("%Y-%m-%d")(beginDate);
 				endDate=(new Date(begin.getFullYear(),begin.getMonth()+1,0)<=state.endDate?d3.timeFormat("%Y-%m-%d")(new Date(begin.getFullYear(),begin.getMonth()+1,0)):d3.timeFormat("%Y-%m-%d")(state.endDate));
-				//var splitedDate=data.date[index].split('/');
-				//beginDate=d3.timeParse("%Y/%m")(data.date[index])<=state.beginDate?d3.timeFormat("%Y/%m/%d")(state.beginDate):d3.timeFormat("%Y/%m/%d")(new Date(splitedDate[0],splitedDate[1]-1,1));
-				//endDate=(new Date(splitedDate[0],splitedDate[1],0))>=state.endDate?d3.timeFormat("%Y/%m/%d")(state.endDate):d3.timeFormat("%Y/%m/%d")(new Date(splitedDate[0],splitedDate[1],0));
 				break;
 			default:
 				return console.log("error");
 		}
-		//var MAU,WAU,DAU;
-		//var activedData=transform(state,{'active':false,'name':'activedUser','timeFilter':'week'});
+		
 		
 		var MAU=0,WAU=0,DAU=0;
 		state.userData.iosData.forEach(
@@ -100,8 +93,14 @@ const mapStateToProp=state=>{
 	for(var i=0; i<dataPerUnit.date.length; ++i)
 		outputData.push(new outputObject(dataPerUnit,i));
 	
+	var sub=[];
+	const out0=Object.assign({},{os:'Android'},outputData[0]);
+	const out1=Object.assign({},{os:'iOS'},outputData[0]);
+	sub.push(out0,out1);
+
 	return {
-		data:outputData
+		data:outputData,
+		subData:sub
 	}
 }
 
