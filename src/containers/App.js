@@ -42,7 +42,8 @@ class App extends Component {
               <SideDrawer show={this.state.sideDrawerOpen}/>
               {backdrop}
               
-              <div className="right_col" role="main" style={{marginTop:'60px', color: 'rgb(112, 110, 108)'}} show={this.state.sideDrawerOpen=false}>
+              <div className="right_col" role="main" style={{marginTop:'60px', color: 'rgb(112, 110, 108)'}} >
+                {this.state.sideDrawerOpen=false}
                 <Route path="/" exact component={HomePage}  />
                 <Route path="/UserAnalyticsDashboard" exact component={UserAnalyticsDashboard} />   
                 <Route path="/RevenueAnalyticsDashboard" exact component={RevenueAnalyticsDashboard} /> 
