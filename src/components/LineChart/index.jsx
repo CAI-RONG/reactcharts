@@ -2,7 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import numberWithCommas from "../../../utils/numberWithCommas";
+import numberWithCommas from "../../utils/numberWithCommas";
 
 export default class LineChart extends React.Component{
 	

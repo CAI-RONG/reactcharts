@@ -2,7 +2,7 @@ import React from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import PropTypes from 'prop-types';
-import './Revenue.css';
+//import './Revenue.css';
 import OperatorTransactionContainer from  "../../containers/OperatorTransactionContainer";
 import PKLotsTransactionContainer from  "../../containers/PKLotsTransactionContainer";
 import numberWithCommas from "../../utils/numberWithCommas";

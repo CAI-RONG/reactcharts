@@ -14,9 +14,9 @@ const mapDispatchToProps=dispatch=>{
     }
 }
 
-const ContainerDataUnit=connect(
+const DataUnitContainer=connect(
     mapStateToProps,
     mapDispatchToProps
 )(DataUnit);
 
-export default ContainerDataUnit;
+export default DataUnitContainer;

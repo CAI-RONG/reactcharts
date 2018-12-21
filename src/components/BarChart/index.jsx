@@ -2,7 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
-import numberWithCommas from "../../../utils/numberWithCommas";
+import numberWithCommas from "../../utils/numberWithCommas";
 
 export default class BarChart extends React.Component{
 	

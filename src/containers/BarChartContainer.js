@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import BarChart from '../components/Charts/BarChart/BarChart';
+import BarChart from '../components/BarChart';
 
 const mapStateToProp=state=>{
 	var outputData={'bank':[],'value':[]};
@@ -26,9 +26,9 @@ const mapDispatchToProp=state=>{
 	return {}
 }
 
-const ContainerBarChart=connect(
+const BarChartContainer=connect(
 	mapStateToProp,
 	mapDispatchToProp
 )(BarChart);
 
-export default ContainerBarChart;
+export default BarChartContainer;

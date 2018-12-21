@@ -4,7 +4,7 @@ import {lowerLimitChange, upperLimitChange} from '../redux/actions/userActions';
 
 const mapStateToProps=(state)=>{
     return {
-        
+     
     }
 }
 
@@ -15,9 +15,9 @@ const mapDispatchToProps=(dispatch)=>{
     }
 }
 
-const ContainerAmountFilter=connect(
+const AmountFilterContainer=connect(
     mapStateToProps,
     mapDispatchToProps
 )(AmountFilter);
 
-export default ContainerAmountFilter;
+export default AmountFilterContainer;

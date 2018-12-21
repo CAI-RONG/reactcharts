@@ -1,6 +1,6 @@
 import React from 'react';
-import ContainerTimeUnit from '../../containers/containerTimeUnit';
-import ContainerDataUnit from '../../containers/containerDataUnit';
+import TimeUnitContainer from '../../containers/TimeUnitContainer';
+import DataUnitContainer from '../../containers/DataUnitContainer';
 
 export default class UnitSelector extends React.Component{
 
@@ -21,8 +21,8 @@ export default class UnitSelector extends React.Component{
         };
         return (
             <div style={fixed}>
-                <ContainerTimeUnit/>
-                <ContainerDataUnit/>
+                <TimeUnitContainer/>
+                <DataUnitContainer/>
             </div>
         )
     }

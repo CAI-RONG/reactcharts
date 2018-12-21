@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import LabelTag from '../components/Charts/LineChart/Label';
+import LabelTag from '../components/LineChart/Label';
 
 const mapStateToProps=state=>{
 	return {
@@ -10,8 +10,8 @@ const mapStateToProps=state=>{
 	}
 }
 
-const ContainerLabelTag=connect(
+const LabelTagContainer=connect(
 	mapStateToProps
 )(LabelTag);
 
-export default ContainerLabelTag;
+export default LabelTagContainer;

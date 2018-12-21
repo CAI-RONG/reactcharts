@@ -1,5 +1,5 @@
 import React from 'react';
-import ContainerLineChart from '../../containers/containerLineChart';
+import LineChartContainer from '../../containers/LineChartContainer';
 import {Row,Col} from 'react-bootstrap';
 
 
@@ -13,15 +13,15 @@ export default class ActivedUser extends React.Component{
 				<Row>
 					<Col lg={4}>
 						<h5>Monthly Actived Users</h5>
-						<ContainerLineChart active timeFilter="month" name="activedUser"/>
+						<LineChartContainer active timeFilter="month" name="activedUser"/>
 					</Col>
 					<Col lg={4}>
 						<h5>Weekly Actived Users</h5>
-						<ContainerLineChart active timeFilter="week" name="activedUser"/>
+						<LineChartContainer active timeFilter="week" name="activedUser"/>
 					</Col>
 					<Col lg={4}>
 						<h5>Daily Actived Users</h5>
-						<ContainerLineChart active timeFilter="day" name="activedUser"/>
+						<LineChartContainer active timeFilter="day" name="activedUser"/>
 					</Col>
 				</Row>
 			</div>

@@ -7,7 +7,7 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
 import HomePage from './HomePage';
-import Toolbar from '../components/Toolbar/Toolbar';
+import Toolbar from '../components/Toolbar';
 import SideDrawer from '../components/SideDrawer';
 import Backdrop from '../components/Backdrop';
 import UserAnalyticsDashboard from './userAnalyticsDashboard';
@@ -42,8 +42,8 @@ class App extends Component {
               <SideDrawer show={this.state.sideDrawerOpen}/>
               {backdrop}
               
-              <div className="right_col" role="main" style={{marginTop:'60px', color: 'rgb(112, 110, 108)'}}>
-                <Route path="/" exact component={HomePage} />
+              <div className="right_col" role="main" style={{marginTop:'60px', color: 'rgb(112, 110, 108)'}} show={this.state.sideDrawerOpen=false}>
+                <Route path="/" exact component={HomePage}  />
                 <Route path="/UserAnalyticsDashboard" exact component={UserAnalyticsDashboard} />   
                 <Route path="/RevenueAnalyticsDashboard" exact component={RevenueAnalyticsDashboard} /> 
                 <Route path="/Login" exact component={Login} /> 

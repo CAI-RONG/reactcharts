@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import UserStatusTable from '../components/UserStatusTable/UserStatusTable';
+import UserStatusTable from '../components/UserStatusTable';
 import * as d3 from 'd3';
 import transform from '../utils/dataTransform';
 
@@ -109,9 +109,9 @@ const mapDispatchToProp=Dispatch=>{
 	return {}
 }
 
-const ContainerUserStatusTable=connect(
+const UserStatusTableContainer=connect(
 	mapStateToProp,
 	mapDispatchToProp
 )(UserStatusTable);
 
-export default ContainerUserStatusTable;
+export default UserStatusTableContainer;

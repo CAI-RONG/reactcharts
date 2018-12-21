@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import LineChart from '../components/Charts/LineChart/LineChart';
+import LineChart from '../components/LineChart';
 import transform from '../utils/dataTransform';
 import * as d3 from 'd3';
 
@@ -52,9 +52,9 @@ const mapDispatchToProp=dispatch=>{
 	return {};
 }
 
-const ContainerLineChart=connect(
+const LineChartContainer=connect(
 	mapStateToProp,
 	mapDispatchToProp
 )(LineChart);
 
-export default ContainerLineChart;
+export default LineChartContainer;

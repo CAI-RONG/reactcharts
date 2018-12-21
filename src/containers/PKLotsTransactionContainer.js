@@ -1,6 +1,6 @@
 
 import {connect} from 'react-redux';
-import PKLotsTransaction from  "../components/Revenue/PKLotsTransaction";
+import PKLotsTransaction from  "../components/RevenueGrid/PKLotsTransaction";
 import * as d3 from 'd3';
 import Gridcalculator from '../utils/Gridcalculator';
 

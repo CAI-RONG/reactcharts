@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import {Row,Col} from 'react-bootstrap';
-import LineChart from '../Charts/LineChart/LineChart';
+import LineChart from '../LineChart';
 import numberWithCommas from "../../utils/numberWithCommas";
 
 const customStyles = {
