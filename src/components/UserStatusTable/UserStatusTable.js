@@ -6,6 +6,7 @@ import {Glyphicon,Button} from 'react-bootstrap';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import numberWithCommas from "../../utils/numberWithCommas";
+import GroupedBarChartContainer from '../../containers/GroupedBarChartContainer';
 
 class UserStatusTable extends React.Component{
 	
@@ -46,7 +47,7 @@ class UserStatusTable extends React.Component{
   render(){
     const columns = [
 				{//exapnder for iOS and Android
-					Header:'',
+					Header:'平台',
 					expander:true,
 					Expander:({isExpanded})=>{
 							return (
@@ -88,14 +89,14 @@ class UserStatusTable extends React.Component{
         {
           Header: '會員',
           columns: [
-            { Header: '註冊會員', accessor: d => numberWithCommas(d.member) ,id: 'member', minWidth: 80,headerStyle: {  textAlign: "center"}},
-            { Header: '綁定信用卡會員', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 120,headerStyle: {  textAlign: "center"}},
-            { Header: '綁定車牌會員', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 110,headerStyle: {  textAlign: "center"}},
-            { Header: '訂閱會員', accessor: d => numberWithCommas(d.subscribe) ,id: 'subscribe', minWidth: 80,headerStyle: {  textAlign: "center"}},
+						{ Header: '註冊會員', accessor: d => numberWithCommas(d.member) ,id: 'member', minWidth: 80,headerStyle: {  textAlign: "center"}},
+						{ Header: '訂閱會員', accessor: d => numberWithCommas(d.subscribe) ,id: 'subscribe', minWidth: 80,headerStyle: {  textAlign: "center"}},
+            { Header: '綁定信用卡', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 100,headerStyle: {  textAlign: "center"}},
+            { Header: '綁定車牌', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 90,headerStyle: {  textAlign: "center"}}
           ],
 					headerStyle: {  textAlign: "center"}
         },
-        {
+        /*{
           Header: '啟用自動繳費',
           id: 'AutomaticPayment',
           accessor: d => (d),
@@ -128,7 +129,16 @@ class UserStatusTable extends React.Component{
 							</Button>
                         </span>,
        		headerStyle: {  textAlign: "center"}
-        }
+				}*/
+				{
+					Header:'Detail',
+					id:'detail',
+					accessor:()=><Button bsStyle='primary' style={{marginTop:0,padding:6}} onClick={this.handleShow}>
+													<Glyphicon glyph='th-list'/>
+												</Button>,
+					width:60,
+					headerStyle: {  textAlign: "center"}
+				}
       ];
 	  
 	const autoPayColumn=[
@@ -206,13 +216,13 @@ class UserStatusTable extends React.Component{
 										Header: '會員',
 										columns: [
 											{ Header: '註冊會員', accessor: d => numberWithCommas(d.member) ,id: 'member', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
-											{ Header: '綁定信用卡會員', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 120,headerStyle: {  display:'none',  textAlign: "center"}},
-											{ Header: '綁定車牌會員', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 110,headerStyle: {  display:'none',  textAlign: "center"}},
 											{ Header: '訂閱會員', accessor: d => numberWithCommas(d.subscribe) ,id: 'subscribe', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '綁定信用卡', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 100,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '綁定車牌', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 90,headerStyle: {  display:'none',  textAlign: "center"}}
 										],
 										headerStyle: {  display:'none',  textAlign: "center"}
 									},
-									{
+									/*{
 										Header: '啟用自動繳費',
 										id: 'AutomaticPayment',
 										accessor: d => (d),
@@ -245,6 +255,15 @@ class UserStatusTable extends React.Component{
 												</Button>
 																	</span>,
 										 headerStyle: {  display:'none',  textAlign: "center"}
+									}*/
+									{
+										Header:'Detail',
+										id:'detail',
+										accessor:()=><Button bsStyle='primary' style={{marginTop:0,padding:6}} onClick={this.handleShow}>
+																		<Glyphicon glyph='th-list'/>
+																	</Button>,
+										width:60,
+										headerStyle: {display:'none',  textAlign: "center"}
 									}
 								];
 								return (
@@ -263,15 +282,13 @@ class UserStatusTable extends React.Component{
 							}
 						}
 				/>
-		  		<Modal style={{content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:300,height:300}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
-				<h2 style={{marginBottom:30}}>啟用自動繳費<Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>
-					<ReactTable data={this.state.autoPayData} 
-						columns={autoPayColumn} 
-						defaultPageSize={3}
-						showPagination={false}
-					/>
-				<Button style={{float:'right'}} onClick={this.handleClose}>Close</Button>
-			</Modal>
+		  		<Modal style={{overlay:{zIndex:1000},content:{top:'50%',left:'50%',right:'auto',bottom:'auto',marginRight:'-50%',transform:'translate(-50%, -50%)',width:'80%',height:'80%'}}} isOpen={this.state.show} onRequestClose={this.handleClose}>
+						<h2 style={{marginBottom:30}}>Detail<Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>
+							<div style={{height:'80%'}}>
+								<GroupedBarChartContainer/>
+							</div>
+						<Button style={{float:'right'}} onClick={this.handleClose}>Close</Button>
+					</Modal>
            </div>
           </div>
         </div> 
