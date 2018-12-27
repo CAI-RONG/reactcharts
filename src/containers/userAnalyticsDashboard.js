@@ -1,14 +1,15 @@
 import React from 'react';
 import * as d3 from 'd3';
-import Growth from '../components/Charts/growth';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
-import creditCard from '../components/Charts/BarChart/creditCard.json';
-import UserData from '../components/Charts/LineChart/data.json';
-import ActivedUser from '../components/Charts/activedUser';
-import ContainerUserStatusTable from './containerUserStatusTable.js';
-import ContainerFilter from './containerFilter';
+import creditCard from '../data/creditCard.json';
+import UserData from '../data/userStatus.json';
+
+import Growth from '../components/Growth/growth';
+import ActivedUser from '../components/ActivedUser';
+import UserStatusTableContainer from './UserStatusTableContainer.js';
+import FilterContainer from './FilterContainer';
 import UnitSelector from '../components/UnitSelector/UnitSelector';
 
 export default class UserAnalyticsDashboard extends React.Component{
@@ -39,10 +40,10 @@ export default class UserAnalyticsDashboard extends React.Component{
 							<ContainerTimeScale name="user"/>
 							<ContainerDataUnit />
 						</div>*/}
-						<ContainerFilter/>
+						<FilterContainer/>
 						<Growth/>
 						<ActivedUser/>
-						<ContainerUserStatusTable/>
+						<UserStatusTableContainer/>
 						<UnitSelector/>
 					</div>
 				</div>

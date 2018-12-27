@@ -1,7 +1,7 @@
 import React from 'react';
-import ContainerDayPicker from '../../containers/containerDayPicker';
-import ContainerCompareFilter from '../../containers/containerCompareFilter';
-import ContainerAmountFilter from '../../containers/containerAmountFilter';
+import DayPickerContainer from '../../containers/DayPickerContainer';
+import CompareFilterContainer from '../../containers/CompareFilterContainer';
+import AmountFilterContainer from '../../containers/AmountFilterContainer';
 
 export default class Filter extends React.Component{
     constructor(){
@@ -21,13 +21,13 @@ export default class Filter extends React.Component{
         var selectedFilter;
         switch(this.props.mainOption){
             case 'date':
-                selectedFilter=<ContainerDayPicker/>;
+                selectedFilter=<DayPickerContainer/>;
                 break;
             case 'amount':
-                selectedFilter=<ContainerAmountFilter/>;
+                selectedFilter=<AmountFilterContainer/>;
                 break;
             case 'compare':
-                selectedFilter=<ContainerCompareFilter/>;
+                selectedFilter=<CompareFilterContainer/>;
                 break;
             default:
                 return console.log("Error!");

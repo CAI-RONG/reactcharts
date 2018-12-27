@@ -1,8 +1,8 @@
 import React from 'react';
-import ContainerLineChart from '../../containers/containerLineChart';
+import LineChartContainer from '../../containers/LineChartContainer';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import ContainerBarChart from '../../containers/containerBarChart';
+import BarChartContainer from '../../containers/BarChartContainer';
 import {Button,Glyphicon} from 'react-bootstrap';
 
 const customStyles ={
@@ -64,7 +64,7 @@ export default class GrowthElement extends React.Component{
 				<Modal style={customStyles} 
 						isOpen={this.state.show} onRequestClose={this.handleClose}>
 					<h2 style={{marginBottom:30}}>Top 10 Banks <Glyphicon glyph='remove' onClick={this.handleClose} style={{float:'right'}}/></h2>
-					<ContainerBarChart/>
+					<BarChartContainer/>
 				</Modal>
 			</div>;
 	    }
@@ -75,7 +75,7 @@ export default class GrowthElement extends React.Component{
                 <div style={count}>{this.props.data}</div>
                 <Glyphicon glyph={this.props.glyph.icon} style={{color:this.props.glyph.color}}/> {this.props.grow}% from last week
         
-                <ContainerLineChart name={this.state.name}/>
+                <LineChartContainer name={this.state.name}/>
             </div>
 		)
 	}

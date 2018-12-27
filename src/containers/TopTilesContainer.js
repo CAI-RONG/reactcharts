@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import * as d3 from 'd3';
-import TileCount from "../components/Revenue/TileCount";
+import TopTiles from "../components/TopTiles";
 import Gridcalculator from "../utils/Gridcalculator";
 
 const mapStateToProps=(state,props)=>{
@@ -29,8 +29,8 @@ const mapStateToProps=(state,props)=>{
 }
 
 
-const TileCountContainer=connect(
+const TopTilesContainer=connect(
 	mapStateToProps,
-)(TileCount);
+)(TopTiles);
 
-export default TileCountContainer;
+export default TopTilesContainer;

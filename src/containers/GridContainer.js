@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import Grid from "../components/Revenue/Grid";
+import Grid from "../components/RevenueGrid/Grid";
 import Gridcalculator from "../utils/Gridcalculator";
 
 const mapStateToProps=(state,props)=>{

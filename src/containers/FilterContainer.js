@@ -14,9 +14,9 @@ const mapDispatchToProps=(dispatch)=>{
     }
 }
 
-const ContainerFilter=connect(
+const FilterContainer=connect(
     mapStateToProps,
     mapDispatchToProps
 )(Filter);
 
-export default ContainerFilter;
+export default FilterContainer;

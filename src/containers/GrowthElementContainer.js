@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import GrowthElement from '../components/Charts/growthElement';
+import GrowthElement from '../components/Growth/growthElement';
 import * as d3 from 'd3';
 
 const mapStateToProp=(state,props)=>{
@@ -54,9 +54,9 @@ const mapDispatchToProp=(dispatch)=>{
 	return {}
 }
 
-const ContainerGrowthElement=connect(
+const GrowthElementContainer=connect(
 	mapStateToProp,
 	mapDispatchToProp
 )(GrowthElement);
 
-export default ContainerGrowthElement;
+export default GrowthElementContainer;

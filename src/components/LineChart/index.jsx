@@ -2,7 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import numberWithCommas from "../../../utils/numberWithCommas";
+import numberWithCommas from "../../utils/numberWithCommas";
 
 export default class LineChart extends React.Component{
 	
@@ -38,17 +38,17 @@ export default class LineChart extends React.Component{
 							.attr('y1','0')
 							.attr('y2',Height);
 		
-		//detail label background size	& style 				
+		//tooltip background size & style 				
 		focus.append('rect').attr('width',120)
 							.attr('height',75)
 							.attr('rx',10)
 							.attr('ry',10)
 							.attr('fill','rgba(100,100,100,0.8)');
 
-		//detail label font size 					
+		//tooltip font size 					
 		focus.append('text').attr('class','date').style('font-size',12);
 		
-		//enter data into the detail label
+		//enter data into the tooltip
 		for(var key in data)
 			focus.append('text').attr('class',key).style('font-size',12);
 		
@@ -74,7 +74,7 @@ export default class LineChart extends React.Component{
 							.attr('transform','translate('+scaleX(Math.round(valX))+','+scaleY(highestData[Math.round(valX)])+')');
 			selector.select('line.hover-line-total').attr('y2',Height-scaleY(highestData[Math.round(valX)]));
 			
-			//detail label background
+			//tooltip background
 			selector.select('rect').style('display',null)
 									.attr('transform','translate(70,0)');
 									
@@ -89,7 +89,7 @@ export default class LineChart extends React.Component{
 											.style('fill','#fff');
 			}
 		
-			//change detail label location							
+			//change tooltip location							
 			if(Math.round(valX)>=highestData.length*0.5){
 				selector.select('rect').attr('transform','translate(-70,0)');
 				selector.select('text.date').attr('transform','translate(-60,20)');
@@ -143,6 +143,7 @@ export default class LineChart extends React.Component{
 		const line=d3.line()
 					.x(function(d,i){return scaleX(i);})
 					.y(function(d,i){return scaleY(d);});
+					//.curve(d3.curveCardinal);
 		
 		
 		for(i=0;i<dataAmount;++i){
@@ -168,6 +169,7 @@ export default class LineChart extends React.Component{
 									.attr('stroke-width',2)
 									.attr('fill','white');
 			}
+			
 			var lastOne=Object.entries(data)[i][1].value.length-1
 			graphic.append('circle').attr('class',Object.entries(data)[i][0]+' circle circle'+lastOne)
 									.attr('cx',scaleX(lastOne))
@@ -199,12 +201,12 @@ export default class LineChart extends React.Component{
 			label.append('circle').attr('class','labelBtn labelBtn-'+Object.entries(data)[i][0])
 								.attr('r',5)
 								.attr('fill',color[i%9])
-								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+30)+','+($('svg#'+this.props.name).height()*0.92+15)+')');
+								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+30)+','+($('svg#'+this.props.name).height()*0.92+12)+')');
 			label.append('circle').attr('class','cover cover-'+Object.entries(data)[i][0]).attr('display','none')
 								.attr('r',5).attr('fill','#ddd')
-								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+30)+','+($('svg#'+this.props.name).height()*0.92+15)+')');
+								.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+30)+','+($('svg#'+this.props.name).height()*0.92+13)+')');
 			label.append('text').text(Object.entries(data)[i][0]).attr('class','circle-text')
-						.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+38)+','+($('svg#'+this.props.name).height()*0.93+15)+')');
+						.attr('transform','translate('+($('svg#'+this.props.name).width()*0.3*i+38)+','+($('svg#'+this.props.name).height()*0.93+13)+')');
 			/*-- /the label on the bottom --*/
 
 		}
@@ -231,10 +233,14 @@ export default class LineChart extends React.Component{
 										.attr('transform','translate(50,30)');
 		const gridX=d3.axisBottom(scaleX).tickFormat("").tickSize(-$('svg#'+this.props.name).height()*0.7,0);
 		const gridY=d3.axisLeft(scaleY).tickFormat("").tickSize(-$('svg#'+this.props.name).width()*0.7,0);
+		
+		/*
 		svg.select('#gridX').call(gridX)
 							.attr('fill','none')
 							.attr('stroke-width','0.2')
 							.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
+		
+		*/
 		svg.select('#gridY').call(gridY)
 							.attr('fill','none')
 							.attr('stroke-width','0.2')

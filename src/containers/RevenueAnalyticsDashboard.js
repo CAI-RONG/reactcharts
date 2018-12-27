@@ -4,11 +4,11 @@ import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
 import * as d3 from 'd3';
 
-import '../components/Revenue/Revenue.css';
-import makeData from '../components/Revenue/RevenueData.json';
+import '../assets/Revenue.css';
+import makeData from '../data/RevenueData.json';
 import GridContainer from "./GridContainer";
-import TileCountContainer from './TileCountContainer';
-import ContainerFilter from './containerFilter';
+import TopTilesContainer from './TopTilesContainer';
+import FilterContainer from './FilterContainer';
 import UnitSelector from '../components/UnitSelector/UnitSelector';
 
 
@@ -65,8 +65,8 @@ class RevenueAnalyticsDashboard extends React.Component{
       <Provider store={this.state.store}>
         <div>
           <div className="right_col" role="main">
-						<ContainerFilter/>
-            <TileCountContainer />
+						<FilterContainer/>
+            <TopTilesContainer />
             <GridContainer name='路外停車' header='業者'/>
             <GridContainer name='路邊停車' header='機關'/>
 						<UnitSelector/>

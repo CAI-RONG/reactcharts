@@ -18,9 +18,9 @@ const mapDispatchToProps=(dispatch)=>{
     }
 }
 
-const ContainerCompareFilter=connect(
+const CompareFilterContainer=connect(
     mapStateToProps,
     mapDispatchToProps
 )(CompareFilter);
 
-export default ContainerCompareFilter;
+export default CompareFilterContainer;

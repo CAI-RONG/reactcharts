@@ -14,9 +14,9 @@ const mapDispatchToProps=(dispatch)=>{
     }
 }
 
-const ContainerTimeUnit=connect(
+const TimeUnitContainer=connect(
     mapStateToProps,
     mapDispatchToProps
 )(TimeUnit);
 
-export default ContainerTimeUnit;
+export default TimeUnitContainer;

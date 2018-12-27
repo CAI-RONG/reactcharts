@@ -19,9 +19,9 @@ const mapDispatchToProps=(dispatch)=>{
     }
 }
 
-const ContainerDayPicker=connect(
+const DayPickerContainer=connect(
     mapStateToProps,
     mapDispatchToProps
 )(DayPicker);
 
-export default ContainerDayPicker;
+export default DayPickerContainer;

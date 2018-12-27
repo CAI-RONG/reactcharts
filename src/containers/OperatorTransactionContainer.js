@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import OperatorTransaction from  "../components/Revenue/OperatorTransaction";
+import OperatorTransaction from  "../components/RevenueGrid/OperatorTransaction";
 import * as d3 from 'd3';
 
 const mapStateToProp=(state,props)=>{

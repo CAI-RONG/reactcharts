@@ -3,7 +3,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import LineChart from '../Charts/LineChart/LineChart';
+import LineChart from '../LineChart';
 import {Row,Col} from 'react-bootstrap';
 import numberWithCommas from "../../utils/numberWithCommas";
 
