@@ -71,8 +71,10 @@ export default class BarChart extends React.Component{
 							.attr('fill','none')
 							.attr('stroke-width','0.2')
 							.attr('transform','translate(80,'+(data.value.length*30)+')');
-		//display gridY
+		
 		var i;
+		/*
+		//display gridY
 		for(i=0; i<data.value.length; ++i)
 			svg.select('#gridY').append('line').attr('fill','none')
 										.attr('stroke','black')
@@ -80,14 +82,14 @@ export default class BarChart extends React.Component{
 										.attr('transform','translate(80,0)')
 										.attr('x1',0).attr('x2',scaleX(Math.ceil(d3.max(data.value)/1000+1)*1000))
 										.attr('y1',i*30).attr('y2',i*30);
-		
+		*/
 		//display bankTitle
 		const bankTitle=svg.append('g').attr('id','bankTitle').style('font-family','微軟正黑體').style('font-weight','bold');
 		for(i=0; i<data.value.length; ++i)
 			bankTitle.append('text').text(data.bank[i])
 									.attr('x',0).attr('y',i>0?i*30+20:20);
 		
-		//display detail 							
+		//display tooltip 							
 		const focus=svg.append('g').attr('class','focus').style('display','none');
 		focus.append('rect').attr('width',100)
 							.attr('height',50)
