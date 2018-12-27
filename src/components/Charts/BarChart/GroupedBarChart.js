@@ -9,7 +9,6 @@ export default class GroupedBarChart extends React.Component{
             data:props.data,
             shift:{
                 會員:0,
-                綁定信用卡:0,
                 綁定車牌:0,
                 自助計費:0
             }
@@ -21,7 +20,7 @@ export default class GroupedBarChart extends React.Component{
     }
 
     drawChart(){
-        const data=this.state.data;
+        const data=this.props.data;
         const color=['#13A0DA', '#726BC0', '#22B0A6', '#197EB5', '#8948AE',
                 '#3C8D93','#9DAA15', '#DFAB19', '#BF7F34', '#B0367C'];
         const keys=Object.keys(data[0]).slice(1);//except 'bank'
@@ -46,21 +45,29 @@ export default class GroupedBarChart extends React.Component{
 
         const barChart=svg.select('#barChart');
 
+
         //bar
-        const bar=barChart.append('g').attr('class','bar').attr('transform','translate(60,0)');
-        bar.selectAll('g').data(data).enter().append('g')
-            .attr('transform',d=>'translate(0,'+y0(d.bank)+')')
-            .selectAll('rect').data((d) => keys.map(key => {return {bank:d.bank, key: key, value: d[key]}}))
-            .enter().append('rect').attr('class',d=>d.key)
+        const bar=barChart.append('g').attr('class','bar').attr('transform','translate(60,0)')
+                            .selectAll('g').data(data).enter().append('g')
+                            .attr('class',d=>d.bank)
+                            .attr('transform',d=>'translate(0,'+y0(d.bank)+')');
+        bar.selectAll('g').data((d) => keys.map(key => {return {bank:d.bank, key: key, value: d[key]}}))
+            .enter().append('g').attr('class',d=>d.key)
+            .on('mousemove',function(d){
+                var x=d3.mouse(this)[0];
+                var y=d3.mouse(this)[1];
+                tooltip.attr('display',null).attr('transform','translate('+(x+80)+','+(y0(d.bank)+y)+')');
+            })
+            .append('g')
+            .append('rect')
             .attr('x',0)
             .attr('y',d=>y1(d.key))
             .attr('height',y1.bandwidth())
             .attr('width',d=>scaleX(d.value))
             .attr('fill',d=>colorPicker(d.key))
-            .on('mousemove',function(d){
-                var x=d3.mouse(this)[0];var y=d3.mouse(this)[1];
-                tooltip.attr('display',null).attr('transform','translate('+(x+80)+','+(y0(d.bank)+y)+')');
-                tooltip.select('text').text(()=>d.key+': '+d.value).attr('transform','translate(8,14)');
+            .style('cursor',d=>{if(d.key==='自助計費')return 'pointer';})
+            .on('mousemove',function(t,i){
+                tooltip.select('text').text(()=>keys[i]+': '+data.filter(d=>d.bank===t.bank)[0][keys[i]]).attr('transform','translate(8,14)');
                 d3.select(this).attr('opacity',0.8);
             })
             .on('mouseout',function(){
@@ -68,6 +75,44 @@ export default class GroupedBarChart extends React.Component{
                 d3.select(this).attr('opacity',1);
             });
 
+        //to show the detail of autoPay
+        const autoPay=this.props.autoPay;
+        const keys_autoPay=Object.keys(autoPay[0]).slice(1);
+        bar.data(autoPay).select('g.自助計費').select('g')//.append('g').attr('class','more')
+            .on('click',function(d,i){
+                const currentBar=d3.select(this.parentNode).append('g').attr('class','more')
+                                    //.attr('transform','translate(0,'+y1(d.key)+')')
+                                    .attr('opacity',0);
+                //const keysMore=Object.keys(more);
+                const total=d3.sum(keys_autoPay.map(k=>d[k]));
+                const scaleMore=d3.scaleLinear().domain([0,total]).range([0,parseInt(d3.select(currentBar.node().parentElement).select('g').select('rect').attr('width'))]);
+                var currentX=0;
+                keys_autoPay.forEach(function(key){
+                    currentBar.append('rect').attr('class',key)
+                                .attr('x',currentX)
+                                .attr('y',y1('自助計費'))
+                                .attr('width',scaleMore(d[key]))
+                                .attr('height',y1.bandwidth())
+                                .attr('fill',colorPicker(key))
+                                .style('cursor','pointer')
+                                .on('mousemove',function(){
+                                    tooltip.select('text').text(()=>key+': '+d[key]+' 佔'+(d[key]/total*100).toFixed(1)+'%').attr('transform','translate(8,14)');
+                                    d3.select(this).attr('opacity',0.6);
+                                })
+                                .on('mouseout',function(){
+                                    tooltip.attr('display','none');
+                                    d3.select(this).attr('opacity',1);
+                                })
+                                .on('click',function(){
+                                    setTimeout(()=>currentBar.remove(),1000);
+                                    currentBar.transition().duration(1000).attr('opacity',0);
+                                });
+                    currentX+=scaleMore(d[key]);
+                });
+                currentBar.transition().duration(1000).attr('opacity',1);
+            }
+        );
+        
         //tooltip
         const tooltip=barChart.append('g').attr('display','none');
         tooltip.append('rect').attr('width',120).attr('height',20).attr('rx',10).attr('ry',10).attr('fill','rgba(100,100,100,0.8)');
@@ -94,8 +139,8 @@ export default class GroupedBarChart extends React.Component{
         //bankTitle
         barChart.select('#bankTitle')
                 .selectAll('text').data(data).enter()
-                .append('text').text(d=>d.bank+' -').attr('x',20).attr('y',(d,i)=>i*(y0.bandwidth()+y1.bandwidth())+y0.bandwidth()/2+y1.bandwidth()/2-2);
-        
+                .append('text').text(d=>d.bank+' -').attr('x',20).attr('y',(d,i)=>i*(y0.bandwidth()+12)+y0.bandwidth()/2+6);
+
         //legend
         const legend=svg.select('#legend').selectAll('g')
                         .data(keys).enter().append('g')
@@ -104,8 +149,8 @@ export default class GroupedBarChart extends React.Component{
         legend.append('rect').attr('width',10).attr('height',10).attr('fill','#ddd').attr('display','none').attr('class',d=>'cover-'+d);
         legend.append('text').attr('x',15).attr('y',10).text(d=>d);
         legend.style('cursor','pointer').on('click',(d,i)=>{
+            var currentShift=this.state.shift;
             if(bar.select('.'+d).attr('display')==='none'){
-                var currentShift=this.state.shift;
                 legend.selectAll('.cover-'+d).attr('display','none');
                 keys.forEach((k,n)=>{
                     if(n<i){
@@ -119,10 +164,9 @@ export default class GroupedBarChart extends React.Component{
                         bar.selectAll('.'+k).transition().duration(1000).attr('transform','translate(0,'+(this.state.shift[k])+')');
                     }
                 });
-                bar.selectAll('.'+d).attr('display',null);
+                setTimeout(()=>bar.selectAll('.'+d).attr('display',null),1000);
             }
             else{
-                var currentShift=this.state.shift;
                 bar.selectAll('.'+d).attr('display','none');
                 legend.selectAll('.cover-'+d).attr('display',null);
                 keys.forEach((k,n)=>{
