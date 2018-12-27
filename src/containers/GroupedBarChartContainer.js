@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import GroupedBarChart from '../components/Charts/BarChart/GroupedBarChart';
+import GroupedBarChart from '../components/GroupedBarChart';
 
 const mapStateToProps=state=>{
     const testData=[
