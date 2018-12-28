@@ -11,7 +11,7 @@ export default class GroupedBarChart extends React.Component{
             shift:{
                 會員:0,
                 綁定車牌:0,
-                自助計費:0
+                自動繳費:0
             }
         }
     }
@@ -66,7 +66,7 @@ export default class GroupedBarChart extends React.Component{
             .attr('height',y1.bandwidth())
             .attr('width',d=>scaleX(d.value))
             .attr('fill',d=>colorPicker(d.key))
-            .style('cursor',d=>{if(d.key==='自助計費')return 'pointer';})
+            .style('cursor',d=>{if(d.key==='自動繳費')return 'pointer';})
             .on('mousemove',function(t,i){
                 tooltip.select('text').text(()=>keys[i]+': '+numberWithCommas(data.filter(d=>d.bank===t.bank)[0][keys[i]])).attr('transform','translate(8,14)');
                 d3.select(this).attr('opacity',0.8);
@@ -79,7 +79,7 @@ export default class GroupedBarChart extends React.Component{
         //to show the detail of autoPay
         const autoPay=this.props.autoPay;
         const keys_autoPay=Object.keys(autoPay[0]).slice(1);
-        bar.data(autoPay).select('g.自助計費').select('g')//.append('g').attr('class','more')
+        bar.data(autoPay).select('g.自動繳費').select('g')//.append('g').attr('class','more')
             .on('click',function(d,i){
                 const currentBar=d3.select(this.parentNode).append('g').attr('class','more')
                                     //.attr('transform','translate(0,'+y1(d.key)+')')
@@ -91,7 +91,7 @@ export default class GroupedBarChart extends React.Component{
                 keys_autoPay.forEach(function(key){
                     currentBar.append('rect').attr('class',key)
                                 .attr('x',currentX)
-                                .attr('y',y1('自助計費'))
+                                .attr('y',y1('自動繳費'))
                                 .attr('width',scaleMore(d[key]))
                                 .attr('height',y1.bandwidth())
                                 .attr('fill',colorPicker(key))

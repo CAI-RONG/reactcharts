@@ -232,7 +232,7 @@ export default class LineChart extends React.Component{
 		svg.select('#axisY').call(axisY).attr('stroke-width','2')
 										.attr('transform','translate(50,30)');
 		const gridX=d3.axisBottom(scaleX).tickFormat("").tickSize(-$('svg#'+this.props.name).height()*0.7,0);
-		const gridY=d3.axisLeft(scaleY).tickFormat("").tickSize(-$('svg#'+this.props.name).width()*0.7,0);
+		const gridY=d3.axisLeft(scaleY).tickFormat("").tickSize(-$('svg#'+this.props.name).width()*0.7,0).ticks(6);
 		
 		/*
 		svg.select('#gridX').call(gridX)
