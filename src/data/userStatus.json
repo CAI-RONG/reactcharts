@@ -451,6 +451,17 @@
 				"autoPay_Taipei":120,
 				"autoPay_NewTaipei":100,
 				"autoPay_Kaohsiung":80
+			},
+			{
+				"date":"2019-01-03",
+				"downloads":599,
+				"members":16500,
+				"bind":550,
+				"subscribe":1024,
+				"activedUser":11602,
+				"autoPay_Taipei":120,
+				"autoPay_NewTaipei":100,
+				"autoPay_Kaohsiung":80
 			}
 		],
 		"androidData":[
@@ -894,6 +905,18 @@
 				"autoPay_NewTaipei":100,
 				"autoPay_Kaohsiung":80
 			},
+			{
+				"date":"2018-12-02",
+				"downloads":599,
+				"members":16500,
+				"bind":550,
+				"subscribe":1024,
+				"activedUser":11602,
+				"autoPay_Taipei":120,
+				"autoPay_NewTaipei":100,
+				"autoPay_Kaohsiung":80
+			},
+			
 			{
 				"date":"2018-12-02",
 				"downloads":599,

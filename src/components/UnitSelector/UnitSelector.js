@@ -2,11 +2,8 @@ import React from 'react';
 import TimeUnitContainer from '../../containers/TimeUnitContainer';
 import DataUnitContainer from '../../containers/DataUnitContainer';
 
-export default class UnitSelector extends React.Component{
-
-
-    render(){
-        const fixed={
+function UnitSelector (){
+    const fixed={
             width:120,
             height:150,
             borderRadius:20,
@@ -18,12 +15,14 @@ export default class UnitSelector extends React.Component{
             flexDirection:'column',
             justifyContent:'center',
             alignItems:'center'
-        };
-        return (
-            <div style={fixed}>
-                <TimeUnitContainer/>
-                <DataUnitContainer/>
-            </div>
-        )
-    }
+    };
+    return (
+        <div style={fixed}>
+            <TimeUnitContainer/>
+            <DataUnitContainer/>
+        </div>
+    )
+    
 }
+
+export default UnitSelector
