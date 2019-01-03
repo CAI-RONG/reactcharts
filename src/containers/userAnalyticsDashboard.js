@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import reducer from '../redux/reducers/reducers';
 import creditCard from '../data/creditCard.json';
 import UserData from '../data/userStatus.json';
+import $ from 'jquery';
 
 import Growth from '../components/Growth/growth';
 import ActivedUser from '../components/ActivedUser';
@@ -29,6 +30,18 @@ export default class UserAnalyticsDashboard extends React.Component{
 										competitorNumber:1
 										})
 		}
+	}
+
+	componentDidMount(){
+		$.ajax({
+			url:'http://localhost:5000/api/userAnalyticsDashboard',
+			type:'GET',
+			data:null,
+			success:function(reponse){
+				console.log(reponse.data);
+			}.bind(this),
+			error:()=>alert('Error!')
+		})
 	}
 	
 	render(){

@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import LineChart from '../components/LineChart';
 import transform from '../utils/dataTransform';
 import * as d3 from 'd3';
+import $ from 'jquery';
 
 const mapStateToProp=(state,props)=>{
 	var transformedData=transform(state,props);
@@ -39,7 +40,17 @@ const mapStateToProp=(state,props)=>{
 
 	for(var lines in output)
 		output[lines].date.map(setTimeFilter);
-	
+
+	/*ReSTful API*/
+	if(!props.active){
+		$.ajax({
+			url:'http://localhost:5000/api/lineChart/name='+props.name+'/begin='+state.beginDate+'/end='+state.endDate+'/timeScale='+state.timeScaleFilter,
+			type:'GET',
+			dataType:'json',
+			success:response=>console.log('name: '+response.name+'\nbegin: '+response.beginDate+'\nend: '+response.endDate+'\ntimeScale: '+response.timeScale),
+			error:()=>alert('Error!')
+		})
+	}
 	return {
 		data:output,
 		name:transformedData.name,
