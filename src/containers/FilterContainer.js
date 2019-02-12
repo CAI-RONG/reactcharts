@@ -4,7 +4,7 @@ import {filterOptionChange} from '../redux/actions/userActions';
 
 const mapStateToProps=(state)=>{
     return {
-        mainOption:state.filterOption
+        mainOption:state.filterReducer.filterOption
     }
 }
 

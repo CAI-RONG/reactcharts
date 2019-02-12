@@ -151,7 +151,7 @@ class Grid extends React.Component{
                   style={{cellspacing:0,  width:"100%", textAlign: 'right'}} 
                   data = {this.props.MonthlyData}
                   columns={columns}
-                  defaultPageSize={this.props.data.length}
+                  defaultPageSize={5}
                   //resizable={false}
                   className="-striped -highlight"
                   onExpandedChange={(expanded, index, event) => {

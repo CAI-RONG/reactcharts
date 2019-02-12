@@ -1,8 +1,10 @@
 import React from "react";
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import reducer from '../redux/reducers/reducers';
+import reducer from '../redux/reducers';
 import * as d3 from 'd3';
+import {connect} from 'react-redux';
+import Axios from 'axios';
 
 import '../assets/Revenue.css';
 import makeData from '../data/RevenueData.json';
@@ -10,12 +12,32 @@ import GridContainer from "./GridContainer";
 import TopTilesContainer from './TopTilesContainer';
 import FilterContainer from './FilterContainer';
 import UnitSelector from '../components/UnitSelector/UnitSelector';
+import Loading from '../components/Loading';
+import {getAccessToken} from '../redux/actions/userActions';
+import {persistor} from '../redux/store';
 
+const axios=Axios;
 
-class RevenueAnalyticsDashboard extends React.Component{
+class RevenueAnalyticsDashboard_ extends React.Component{
   constructor(){
-    super();
-    var firstDataOfPKLots=makeData.revenuePKLotsData.map(
+		super();
+		this.state={
+			isLoading:false
+		}
+		axios.interceptors.request.use(
+			config=>{
+				this.setState({isLoading:true});
+				return config;
+			}
+		);
+
+		axios.interceptors.response.use(
+			response=>{
+				this.setState({isLoading:false});
+				return response;
+			}
+		);
+    /*var firstDataOfPKLots=makeData.revenuePKLotsData.map(
 								function(d){
 									return d.PKLots.map(function(p){
 															return p.transactions[0].date
@@ -57,24 +79,93 @@ class RevenueAnalyticsDashboard extends React.Component{
 					competitor:'week',
 					competitorNumber:1
         })
-    }
-  }
+    }*/
+	}
+	
+	getData(){
+		axios.get('localhost:5000/api/revenueAnalyticsDashboard/',{
+				params:{
+					begin:this.props.begin,
+					end:this.props.end,
+					timeUnit:this.props.timeUnit,
+					page:this.props.page,
+					per_page:this.props.per_page
+				},
+				headers:{
+					Authorization:this.props.access_token
+				}
+			}
+		).then(
+			response=>{
+				
+			}
+		).catch(
+			error=>{
+				alert(error);
+				if(error.response){
+					if(error.response.status===401 && error.response.data.msg==='Token has been revoked')
+						window.location.href=window.location.origin+'/login';
+					else{
+						alert(error.response.data.msg);
+						axios.get('http://localhost:5000/api/get_refresh_token/',{
+							headers:{
+								Authorization:this.props.refresh_token
+							}
+						}).then(response=>{
+							this.props.set_access_token(response.data.access_token);
+							this.getData();
+						}).catch(error=>{
+							console.log(error);
+							persistor.purge();
+							window.location.href=window.location.origin+'/login';
+						});
+					}
+				}
+			}
+		)
+	}
+	
+	componentWillMount(){
+		this.getData();
+	}
   
 	render(){
     return (
-      <Provider store={this.state.store}>
+      
         <div>
+					<Loading isLoading={this.state.isLoading}/>
           <div className="right_col" role="main">
 						<FilterContainer/>
             <TopTilesContainer />
             <GridContainer name='路外停車' header='業者'/>
             <GridContainer name='路邊停車' header='機關'/>
+						<GridContainer name='訂閱會員' header='方案'/>
 						<UnitSelector/>
           </div>
         </div>
-      </Provider>
+      
     )
   }
 };
+
+const RevenueAnalyticsDashboard=connect(
+	state=>{
+		return {
+			access_token:'Bearer '+state.authReducer.access_token,
+			refresh_token:'Bearer '+state.authReducer.refresh_token,
+			page:state.revenueAnalyticsReducer.metadata.page,
+			total_pages:state.revenueAnalyticsReducer.metadata.total_pages,
+			rows_count:state.revenueAnalyticsReducer.metadata.rows_count,
+			per_page:state.revenueAnalyticsReducer.metadata.per_page,
+			begin:state.filterReducer.beginDate,
+			end:state.filterReducer.endDate
+		}
+	},
+	dispatch=>{
+		return {
+			set_access_token:token=>dispatch(getAccessToken(token))
+		}
+	}
+)(RevenueAnalyticsDashboard_);
 
 export default RevenueAnalyticsDashboard;

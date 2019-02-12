@@ -13,15 +13,15 @@ export default class ActivedUser extends React.Component{
 				<Row>
 					<Col lg={4}>
 						<h5>Monthly Actived Users</h5>
-						<LineChartContainer active timeFilter="month" name="activedUser"/>
+						<LineChartContainer active timeFilter="month" name="MAU"/>
 					</Col>
 					<Col lg={4}>
 						<h5>Weekly Actived Users</h5>
-						<LineChartContainer active timeFilter="week" name="activedUser"/>
+						<LineChartContainer active timeFilter="week" name="WAU"/>
 					</Col>
 					<Col lg={4}>
 						<h5>Daily Actived Users</h5>
-						<LineChartContainer active timeFilter="day" name="activedUser"/>
+						<LineChartContainer active timeFilter="day" name="DAU"/>
 					</Col>
 				</Row>
 			</div>

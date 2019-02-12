@@ -76,3 +76,58 @@ export const lowerLimitChange=number=>{
 		number
 	}
 }
+
+export const apiTestDataChange=data=>{
+	return {
+		type:"TEST_DATA_CHANGE",
+		data
+	}
+}
+
+export const getAccessToken=token=>{
+	return {
+		type:"GET_ACCESS_TOKEN",
+		token
+	}
+}
+
+export const getRefreshToken=token=>{
+	return {
+		type:"GET_REFRESH_TOKEN",
+		token
+	}
+}
+
+export const isLogin=status=>{
+	return {
+		type:"LOGIN_STATUS_CHANGE",
+		status
+	}
+}
+
+export const getUID=uid=>{
+	return {
+		type:"GET_USER_ID",
+		uid
+	}
+}
+
+export const updateMetadata=metadata=>{
+	return {
+		type:"UPDATE_METADATA",
+		metadata
+	}
+}
+
+export const logout=()=>{
+	return {
+		type:"USER_LOGOUT"
+	}
+}
+
+export const fetchData=data=>{
+	return {
+		type:'USER_ANALYTICS_DATA',
+		data
+	}
+}

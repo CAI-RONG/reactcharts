@@ -4,13 +4,13 @@ import {timeScaleFilter, beginDateFilter, endDateFilter} from '../redux/actions/
 import * as d3 from 'd3';
 
 const mapStateToProps=(state,props)=>{
-	const firstDay=d3.timeParse("%Y-%m-%d")(state.userDataFirstDay);
-	const lastDay=d3.timeParse("%Y-%m-%d")(state.userDataLastDay);
+	const firstDay=d3.timeParse("%Y-%m-%d")(state.userAnalyticsReducer.userDataFirstDay);
+	const lastDay=d3.timeParse("%Y-%m-%d")(state.userAnalyticsReducer.userDataLastDay);
 	return {
 		dateOfFirstData:firstDay,
 		dateOfLastData:lastDay,
 		name:props.name,
-		timeScale:state.timeScaleFilter
+		timeScale:state.filterReducer.timeScaleFilter
 	}
 }
 

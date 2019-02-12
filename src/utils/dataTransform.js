@@ -2,16 +2,16 @@ import * as d3 from 'd3';
 
 export default function transform(state,props){
 	var outputData={'iOS':{'date':[],'value':[]},'Android':{'date':[],'value':[]}};
-	var selectedData={'ios':state.userData.iosData.slice(),'android':state.userData.androidData.slice()};
+	var selectedData={'ios':state.userAnalyticsReducer.userData.iosData.slice(),'android':state.userAnalyticsReducer.userData.androidData.slice()};
 	
-	var begin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.beginDate));
-	var	end=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.endDate));
+	var begin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.filterReducer.beginDate));
+	var	end=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(state.filterReducer.endDate));
 	
-	if(state.beginDate>state.endDate || state.endDate===undefined)
-		end=d3.timeParse("%Y-%m-%d")(state.userDataLastDay);
+	if(state.filterReducer.beginDate>state.filterReducer.endDate || state.filterReducer.endDate===undefined)
+		end=d3.timeParse("%Y-%m-%d")(state.userAnalyticsReducer.userDataLastDay);
 	
 	var i,j;
-	if(state.beginDate){
+	if(state.filterReducer.beginDate){
 		i=0;j=0;
 		selectedData.ios.forEach(
 			function(data){if(d3.timeParse("%Y-%m-%d")(data.date)<begin)i++;}
@@ -23,7 +23,7 @@ export default function transform(state,props){
 		selectedData.android.splice(0,j);
 	}
 
-	if(state.endDate){
+	if(state.filterReducer.endDate){
 		i=0;j=0;
 		selectedData.ios.forEach(
 			function(data){if(d3.timeParse("%Y-%m-%d")(data.date)>end)i++;}
@@ -36,7 +36,7 @@ export default function transform(state,props){
 	}
 	
 	
-	switch(state.timeScaleFilter){
+	switch(state.filterReducer.timeScaleFilter){
 		case "day":
 			dataParse(d3.timeFormat("%Y/%m/%d"),props.name);
 			break;
@@ -61,7 +61,7 @@ export default function transform(state,props){
 					if(parsedDate!==currentFilter){
 						currentFilter=parsedDate;
 						var lastDay,limit;
-						switch(state.timeScaleFilter){
+						switch(state.filterReducer.timeScaleFilter){
 							case 'day':
 								lastDay=d3.timeParse("%Y/%m/%d")(parsedDate);
 								break;
@@ -90,7 +90,7 @@ export default function transform(state,props){
 								return console.log("Error!");
 						}
 						var sum=0;
-						state.userData.iosData.forEach(
+						state.userAnalyticsReducer.userData.iosData.forEach(
 							function(d){
 								var currentDate=d3.timeParse("%Y-%m-%d")(d.date);
 								if(currentDate>=limit && currentDate<=lastDay)
@@ -122,7 +122,7 @@ export default function transform(state,props){
 					if(parsedDate!==currentFilter){
 						currentFilter=parsedDate;
 						var lastDay,limit;
-						switch(state.timeScaleFilter){
+						switch(state.filterReducer.timeScaleFilter){
 							case 'day':
 								lastDay=d3.timeParse("%Y/%m/%d")(parsedDate);
 								break;
@@ -151,7 +151,7 @@ export default function transform(state,props){
 								return console.log("Error!");
 						}
 						var sum=0;
-						state.userData.androidData.forEach(
+						state.userAnalyticsReducer.userData.androidData.forEach(
 							function(d){
 								var currentDate=d3.timeParse("%Y-%m-%d")(d.date);
 								if(currentDate>=limit && currentDate<=lastDay)

@@ -145,6 +145,49 @@ export default class LineChart extends React.Component{
 					.y(function(d,i){return scaleY(d);});
 					//.curve(d3.curveCardinal);
 		
+		const axisX=d3.axisBottom(scaleX).tickFormat(function(d){return Object.entries(data)[0][1].date[d]})
+					.ticks(Object.entries(data)[0][1].date.length-1===0?1:Object.entries(data)[0][1].date.length-1);
+		
+		if(Object.entries(data)[0][1].date.length>=5)axisX.ticks(Object.entries(data)[0][1].date.length/2);			
+		if(Object.entries(data)[0][1].date.length>=10)axisX.ticks(Object.entries(data)[0][1].date.length/4);
+		if(Object.entries(data)[0][1].date.length>20)axisX.ticks(Object.entries(data)[0][1].date.length/6);
+		if(Object.entries(data)[0][1].date.length>30)axisX.ticks(Object.entries(data)[0][1].date.length/8);
+		if(Object.entries(data)[0][1].date.length>40)axisX.ticks(Object.entries(data)[0][1].date.length/10);
+		
+		const axisY=d3.axisLeft(scaleY).ticks(4);
+		if(unit===1000)axisY.tickFormat(function(d){return d+'K';});
+		
+		const gridX=d3.axisBottom(scaleX).tickFormat("").tickSize(-$('svg#'+this.props.name).height()*0.7,0);
+		const gridY=d3.axisLeft(scaleY).tickFormat("").tickSize(-$('svg#'+this.props.name).width()*0.7,0).ticks(6);
+		
+		/*
+		svg.select('#gridX').call(gridX)
+							.attr('fill','none')
+							.attr('stroke-width','0.2')
+							.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
+		*/
+		
+		svg.select('#axisX').call(axisX).attr('stroke-width','2')
+			.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
+		svg.select('#axisY').call(axisY).attr('stroke-width','2')
+			.attr('transform','translate(50,30)');
+		svg.select('#gridY').call(gridY)
+			.attr('fill','none')
+			.attr('stroke-width','0.2')
+			.attr('transform','translate(50,30)');
+
+		// "No Data"
+		if(Object.entries(data)[0][1].date.length<1){
+			const empty=svg.append('g').attr('class','empty');
+			empty.append('rect').attr('width',80).attr('height',30).attr('rx',10).attr('ry',10).attr('fill','#bbb')
+				.attr('transform','translate('+($('svg#'+this.props.name).width()/2-40)+',100)');
+			empty.append('text').text(()=>'No Data').attr('transform','translate('+($('svg#'+this.props.name).width()/2-30)+',120)').style('font-weight','bold');
+			return;
+		}
+		else{
+			svg.selectAll('g.empty').remove();
+		}
+		
 		
 		for(i=0;i<dataAmount;++i){
 			var graphic=svg.append('g').attr('class','graphic graphic-'+Object.entries(data)[i][0]);
@@ -211,40 +254,6 @@ export default class LineChart extends React.Component{
 
 		}
 		
-		
-		const axisX=d3.axisBottom(scaleX).tickFormat(function(d){return Object.entries(data)[0][1].date[d]})
-					.ticks(Object.entries(data)[0][1].date.length-1===0?1:Object.entries(data)[0][1].date.length-1);
-					
-
-
-
-		if(Object.entries(data)[0][1].date.length>=5)axisX.ticks(Object.entries(data)[0][1].date.length/2);			
-		if(Object.entries(data)[0][1].date.length>=10)axisX.ticks(Object.entries(data)[0][1].date.length/4);
-		if(Object.entries(data)[0][1].date.length>20)axisX.ticks(Object.entries(data)[0][1].date.length/6);
-		if(Object.entries(data)[0][1].date.length>30)axisX.ticks(Object.entries(data)[0][1].date.length/8);
-		if(Object.entries(data)[0][1].date.length>40)axisX.ticks(Object.entries(data)[0][1].date.length/10);
-		
-		const axisY=d3.axisLeft(scaleY).ticks(4);
-		if(unit===1000)axisY.tickFormat(function(d){return d+'K';});
-
-		svg.select('#axisX').call(axisX).attr('stroke-width','2')
-										.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
-		svg.select('#axisY').call(axisY).attr('stroke-width','2')
-										.attr('transform','translate(50,30)');
-		const gridX=d3.axisBottom(scaleX).tickFormat("").tickSize(-$('svg#'+this.props.name).height()*0.7,0);
-		const gridY=d3.axisLeft(scaleY).tickFormat("").tickSize(-$('svg#'+this.props.name).width()*0.7,0).ticks(6);
-		
-		/*
-		svg.select('#gridX').call(gridX)
-							.attr('fill','none')
-							.attr('stroke-width','0.2')
-							.attr('transform','translate(50,'+($('svg#'+this.props.name).height()*0.7+30)+')');
-		
-		*/
-		svg.select('#gridY').call(gridY)
-							.attr('fill','none')
-							.attr('stroke-width','0.2')
-							.attr('transform','translate(50,30)');
 							
 		this.showValue(highestData,dataAmount,svg,scaleX,scaleY);
 	}
@@ -252,8 +261,8 @@ export default class LineChart extends React.Component{
 	
 	render(){
 		d3.selectAll("svg#"+this.props.name+" path").remove();
-		d3.selectAll("circle").remove();
-		d3.selectAll('text.circle-text').remove();
+		d3.select("svg#"+this.props.name).selectAll(".circle").remove();
+		d3.select("svg#"+this.props.name).selectAll('g.label').remove();
 		return (
 			
 				<svg id={this.props.name} style={{marginLeft:-15, marginBottom:20}}>

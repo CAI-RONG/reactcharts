@@ -16,7 +16,7 @@ const mapStateToProp=(state,props)=>{
 	lastWeekBegin=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(lastWeekBegin));
 	lastWeekEnd=d3.timeParse("%Y-%m-%d")(d3.timeFormat("%Y-%m-%d")(lastWeekEnd));
 	
-	state.userData.iosData.forEach(
+	state.userAnalyticsReducer.userData.iosData.forEach(
 		function(data){
 			const date=d3.timeParse("%Y-%m-%d")(data.date);
 			if(date>=begin && date<=end)
@@ -25,7 +25,7 @@ const mapStateToProp=(state,props)=>{
 				lastWeekTotal+=data[props.name];
 		}
 	)
-	state.userData.androidData.forEach(
+	state.userAnalyticsReducer.userData.androidData.forEach(
 		function(data){
 			const date=d3.timeParse("%Y-%m-%d")(data.date);
 			if(date>=begin && date<=end)

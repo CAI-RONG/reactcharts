@@ -1,8 +1,9 @@
 import React from 'react';
 import "./SideDrawer.css";
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
 
-const SideDrawer = props => {
+const SideDrawer_ = props => {
 
 	let drawerClasses = 'side-drawer';
 
@@ -21,7 +22,7 @@ const SideDrawer = props => {
 			</div>
 			<div className="info" >
 			    <span>Welcome,</span>
-			    <h6>John Doe</h6>
+			    <h6>{props.isLogin?props.uid:'John Doe'}</h6>
 			</div>
 			<div className="sidebar-menu">
 				<ul className="nav side-menu">
@@ -43,5 +44,14 @@ const SideDrawer = props => {
 
 	);
 }
+
+const SideDrawer=connect(
+	state=>{
+		return {
+			uid:state.authReducer.uid,
+			isLogin:state.authReducer.isLogin
+		}
+	}
+)(SideDrawer_);
 
 export default SideDrawer;

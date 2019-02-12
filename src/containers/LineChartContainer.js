@@ -3,69 +3,74 @@ import LineChart from '../components/LineChart';
 import transform from '../utils/dataTransform';
 import * as d3 from 'd3';
 import $ from 'jquery';
+import axios from 'axios';
 
 const mapStateToProp=(state,props)=>{
-	var transformedData=transform(state,props);
-	var total={'Total':{'date':[],'value':[]}};
-	total.Total.date=transformedData.data.iOS.date.slice();
-	total.Total.value=transformedData.data.iOS.value.map(
-		function(d,i){
-			return d+transformedData.data.Android.value[i];
+	var output={}
+
+	function makeData(propName){
+		var date=[],iOS=[],Android=[],Total=[];
+		if(state.userAnalyticsReducer.userAnalyticsData.iOS){
+			date.push(...state.userAnalyticsReducer.userAnalyticsData.iOS.map(
+				d=>{
+					return (
+						d3.timeFormat("%m/%d")(d3.timeParse('%Y-%m-%d')(d.beginDate))
+						+'-'+
+						d3.timeFormat("%m/%d")(d3.timeParse('%Y-%m-%d')(d.endDate))
+					);
+				}
+			));
+			iOS.push(...state.userAnalyticsReducer.userAnalyticsData.iOS.map(d=>d[propName]));
 		}
-	);
-	var output={};
-	output=Object.assign({},total);
-	output=Object.assign({},output,transformedData.data);
+		if(state.userAnalyticsReducer.userAnalyticsData.Android){
+			Android.push(...state.userAnalyticsReducer.userAnalyticsData.Android.map(d=>d[propName]));
+		}
+		if(state.userAnalyticsReducer.userAnalyticsData.iOS && state.userAnalyticsReducer.userAnalyticsData.Android)
+			Total.push(...state.userAnalyticsReducer.userAnalyticsData.iOS.map((d,i)=>d[propName]+state.userAnalyticsReducer.userAnalyticsData.Android[i][propName]));
+		return {
+			'Total':{'date':date,'value':Total},
+			'iOS':{'date':date,'value':iOS},
+			'Android':{'date':date,'value':Android}
+		}
+	}
+
+	switch(props.name){
+		case 'downloads':
+			output=makeData('num_downloads');
+			break;
+		case 'members':
+			output=makeData('num_user');
+			break;
+		case 'bind':
+			output=makeData('num_user_with_lp');
+			break;
+		case 'subscribe':
+			output=makeData('num_user_with_subscription');
+			break;
+		case 'MAU':
+			output=makeData('MAU');
+			break;
+		case 'WAU':
+			output=makeData('WAU');
+			break;
+		case 'DAU':
+			output=makeData('DAU');
+			break;
+		default:
+			output={'none':{'date':[],'value':[]}}
+			break;
+	}
 	
-	function setTimeFilter(d){
-		var currentDate=d3.timeParse("%Y-%m-%d")(d);
-		var firstDayOftheWeek;
-		switch(state.timeScaleFilter){
-			case 'day':
-				output[lines].date[output[lines].date.indexOf(d)]=d3.timeFormat("%m/%d")(currentDate);
-				break;
-			case 'week':
-				firstDayOftheWeek=d3.timeParse("%Y/%U")(d3.timeFormat("%Y/%U")(currentDate));
-				//var lastDayOftheWeek=new Date(firstDayOftheWeek.getFullYear(),firstDayOftheWeek.getMonth(),firstDayOftheWeek.getDate()+6);
-				output[lines].date[output[lines].date.indexOf(d)]=(currentDate>firstDayOftheWeek?d3.timeFormat("%m/%d")(currentDate):d3.timeFormat("%m/%d")(firstDayOftheWeek))+'-'
-				+(new Date(firstDayOftheWeek.valueOf()+86400000*6)<=state.endDate?d3.timeFormat("%m/%d")(new Date(firstDayOftheWeek.valueOf()+86400000*6)):d3.timeFormat("%m/%d")(state.endDate));
-				break;
-			case 'month':
-				output[lines].date[output[lines].date.indexOf(d)]=d3.timeFormat("%Y/%m")(currentDate);
-				break;
-			default:
-				return console.log("LineChart State TimeFilter Error")
-		}
-	}
-
-	for(var lines in output)
-		output[lines].date.map(setTimeFilter);
-
-	/*ReSTful API*/
-	if(!props.active){
-		$.ajax({
-			url:'http://localhost:5000/api/lineChart/name='+props.name+'/begin='+state.beginDate+'/end='+state.endDate+'/timeScale='+state.timeScaleFilter,
-			type:'GET',
-			dataType:'json',
-			success:response=>console.log('name: '+response.name+'\nbegin: '+response.beginDate+'\nend: '+response.endDate+'\ntimeScale: '+response.timeScale),
-			error:()=>alert('Error!')
-		})
-	}
 	return {
 		data:output,
-		name:transformedData.name,
+		name:props.name,
 		width:'100%',
 		unit:state.unitFilter==='K'?1000:1
-	};
-}
-
-const mapDispatchToProp=dispatch=>{
-	return {};
+	}
 }
 
 const LineChartContainer=connect(
-	mapStateToProp,
-	mapDispatchToProp
+	mapStateToProp
 )(LineChart);
 
 export default LineChartContainer;

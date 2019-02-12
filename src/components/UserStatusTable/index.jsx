@@ -63,18 +63,18 @@ class UserStatusTable extends React.Component{
         { 
           Header: '期間',
           columns: [
-            {Header: '開始', accessor:'begin',width:90,headerStyle: {  textAlign: "center"}},
-            {Header: '結束', accessor:'end',width:90,headerStyle: {  textAlign: "center"}}
+            {Header: '開始', accessor:'beginDate',width:90,headerStyle: {  textAlign: "center"}},
+            {Header: '結束', accessor:'endDate',width:90,headerStyle: {  textAlign: "center"}}
           ],
-					headerStyle: {  textAlign: "center"}
+		  headerStyle: {  textAlign: "center"}
         },
         { 
           Header: 'Downloads',
           columns: [
-            { Header: '安裝事件', accessor: d => numberWithCommas(d.installation) ,id: 'installation', minWidth: 80,headerStyle: {  textAlign: "center"}},
-            { Header: '使用中裝置', accessor: d => numberWithCommas(d.DevicesInUse) ,id: 'DevicesInUse', minWidth: 90,headerStyle: {  textAlign: "center"}}
+            { Header: '安裝事件', accessor: d => numberWithCommas(d.num_downloads) ,id: 'installation', minWidth: 80,headerStyle: {  textAlign: "center"}},
+            { Header: '使用中裝置', accessor: d => numberWithCommas(d.num_valid_device) ,id: 'DevicesInUse', minWidth: 90,headerStyle: {  textAlign: "center"}}
           ],
-					headerStyle: {  textAlign: "center"}
+		  headerStyle: {  textAlign: "center"}
         },
         { 
           Header: 'Active User',
@@ -84,15 +84,15 @@ class UserStatusTable extends React.Component{
             { Header: 'DAU', accessor: d => numberWithCommas(d.DAU) ,id: 'DAU', minWidth: 70,headerStyle: {  textAlign: "center"}},
             { Header: 'Stickiness', accessor: d => numberWithCommas(d.stickiness) ,id: 'stickiness', minWidth: 80}
           ],
-					headerStyle: {  textAlign: "center"}
+		  headerStyle: {  textAlign: "center"}
         },
         {
           Header: '會員',
           columns: [
-						{ Header: '註冊會員', accessor: d => numberWithCommas(d.member) ,id: 'member', minWidth: 80,headerStyle: {  textAlign: "center"}},
-						{ Header: '訂閱會員', accessor: d => numberWithCommas(d.subscribe) ,id: 'subscribe', minWidth: 80,headerStyle: {  textAlign: "center"}},
-            { Header: '綁定信用卡', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 100,headerStyle: {  textAlign: "center"}},
-            { Header: '綁定車牌', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 90,headerStyle: {  textAlign: "center"}}
+			{ Header: '註冊會員', accessor: d => numberWithCommas(d.num_user) ,id: 'member', minWidth: 80,headerStyle: {  textAlign: "center"}},
+			{ Header: '訂閱會員', accessor: d => numberWithCommas(d.num_user_with_subscription) ,id: 'subscribe', minWidth: 80,headerStyle: {  textAlign: "center"}},
+            { Header: '綁定信用卡', accessor: d => numberWithCommas(d.num_user) ,id: 'bindCreditCard', minWidth: 100,headerStyle: {  textAlign: "center"}},
+            { Header: '綁定車牌', accessor: d => numberWithCommas(d.num_user_with_lp) ,id: 'bindLicensePlate', minWidth: 90,headerStyle: {  textAlign: "center"}}
           ],
 					headerStyle: {  textAlign: "center"}
         },
@@ -182,23 +182,24 @@ class UserStatusTable extends React.Component{
 								const subCol=[
 									{
 										Header:'平台',
-										accessor:'os',
+										id:'device_type',
+										accessor:d=>d.device_type==1?'iOS':'Android',
 										width:70,
 										headerStyle: {display:'none',  textAlign: "center"}
 									},
 									{ 
 										Header: '期間',
 										columns: [
-											{Header: '開始', accessor:'begin',width:90,headerStyle: {  display:'none',  textAlign: "center"}},
-											{Header: '結束', accessor:'end',width:90,headerStyle: {  display:'none',  textAlign: "center"}}
+											{Header: '開始', accessor:'beginDate',width:90,headerStyle: {  display:'none',  textAlign: "center"}},
+											{Header: '結束', accessor:'endDate',width:90,headerStyle: {  display:'none',  textAlign: "center"}}
 										],
 										headerStyle: {  display:'none',  textAlign: "center"}
 									},
 									{ 
 										Header: 'Downloads',
 										columns: [
-											{ Header: '安裝事件', accessor: d => numberWithCommas(d.installation) ,id: 'installation', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
-											{ Header: '使用中裝置', accessor: d => numberWithCommas(d.DevicesInUse) ,id: 'DevicesInUse', minWidth: 90,headerStyle: {  display:'none',  textAlign: "center"}}
+											{ Header: '安裝事件', accessor: d => numberWithCommas(d.num_downloads) ,id: 'installation', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '使用中裝置', accessor: d => numberWithCommas(d.num_valid_device) ,id: 'DevicesInUse', minWidth: 90,headerStyle: {  display:'none',  textAlign: "center"}}
 										],
 										headerStyle: {  display:'none',  textAlign: "center"}
 									},
@@ -215,10 +216,10 @@ class UserStatusTable extends React.Component{
 									{
 										Header: '會員',
 										columns: [
-											{ Header: '註冊會員', accessor: d => numberWithCommas(d.member) ,id: 'member', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
-											{ Header: '訂閱會員', accessor: d => numberWithCommas(d.subscribe) ,id: 'subscribe', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
-											{ Header: '綁定信用卡', accessor: d => numberWithCommas(d.bindCreditCard) ,id: 'bindCreditCard', minWidth: 100,headerStyle: {  display:'none',  textAlign: "center"}},
-											{ Header: '綁定車牌', accessor: d => numberWithCommas(d.bindLicensePlate) ,id: 'bindLicensePlate', minWidth: 90,headerStyle: {  display:'none',  textAlign: "center"}}
+											{ Header: '註冊會員', accessor: d => numberWithCommas(d.num_user) ,id: 'member', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '訂閱會員', accessor: d => numberWithCommas(d.num_user_with_subscription) ,id: 'subscribe', minWidth: 80,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '綁定信用卡', accessor: d => numberWithCommas(d.num_user) ,id: 'bindCreditCard', minWidth: 100,headerStyle: {  display:'none',  textAlign: "center"}},
+											{ Header: '綁定車牌', accessor: d => numberWithCommas(d.num_user_with_lp) ,id: 'bindLicensePlate', minWidth: 90,headerStyle: {  display:'none',  textAlign: "center"}}
 										],
 										headerStyle: {  display:'none',  textAlign: "center"}
 									},
@@ -269,7 +270,7 @@ class UserStatusTable extends React.Component{
 								return (
 									<div>
 										<ReactTable className="sub -striped -highlight"
-												data={this.props.subData}
+												data={row.original.subData}
 												columns={subCol}
 												defaultPageSize={2}
 												showPagination={false}

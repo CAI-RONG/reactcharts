@@ -26,7 +26,7 @@ export default function Gridcalculator(state, type, beginDate, timeFilter, opera
 
 	var outputData;
 	if(type==='operator'){
-		outputData=state.data.map(
+		outputData=state.revenueAnalyticsReducer.data.map(
 			function(d){
 				var calculatedData=d.PKLots.map(
 					function(t){
@@ -96,7 +96,7 @@ export default function Gridcalculator(state, type, beginDate, timeFilter, opera
 	}
 	else if(type==='PKLots'){
 		outputData=[];
-		var output=state.data.map(
+		var output=state.revenueAnalyticsReducer.data.map(
 			function(d){
 				var calculatedData=d.PKLots.map(
 					function(t){

@@ -11,7 +11,7 @@ const mapStateToProp=state=>{
 			return -1;
 		return 0;
 	}
-	sorted=state.banks.sort(compare);
+	sorted=state.userAnalyticsReducer.banks.sort(compare);
 	outputData.bank=sorted.map(function(d){return d.bank});
 	outputData.value=sorted.map(function(d){return d.values});
 	outputData.bank.splice(10);
@@ -22,7 +22,7 @@ const mapStateToProp=state=>{
 	}
 }
 
-const mapDispatchToProp=state=>{
+const mapDispatchToProp=dispatch=>{
 	return {}
 }
 
