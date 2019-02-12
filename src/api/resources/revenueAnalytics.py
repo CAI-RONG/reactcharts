@@ -3,7 +3,9 @@ from flask_jwt_extended import jwt_required,get_jwt_identity
 from google.cloud import bigquery
 import sqlalchemy.sql as sql
 import sqlalchemy_bigquery.base as bq
+from sqlalchemy.sql import func
 import math
+from pandas import DataFrame
 
 
 #request parameter
@@ -42,7 +44,7 @@ class revenueAnalyticsDashboard(Resource):
             },
             'metadata':{
                 'page':0,
-                'per-page':0,
+                'per_page':0,
                 'rows_count':0,
                 'total_pages':0
             },
@@ -57,23 +59,35 @@ class revenueAnalyticsDashboard(Resource):
         begin=args['begin']
         end=args['end']
         timeUnit=args['timeUnit']
-        page=args['page']
-        per_page=args['per_page']
+        page=int(args['page'])
+        per_page=int(args['per_page'])
 
         #generate SQL string
         if timeUnit == 'week':# there will be a table for weekly data on bigquery
             sqlstr=sql.select([
                 brand_name, week_no,
-                order_qty, order_amt
+                sql.label('order_qty',func.sum(order_qty)),
+                sql.label('order_amt',func.sum(order_amt))
             ]).select_from(
-                sql.table('dataset.table')
-            ).group_by(
-                brand_name, week_no
+                sql.table('pklots_test.weekly_revenueAnalyticsDashboard')
             ).where(
-                sql.and_('endDate >= \'%s\''%begin, 'beginDate <= \'%s\''%end)
+                sql.and_('beginDate <= \'%s\''%end,
+                    week_no.in_(
+                        sql.select(
+                            [week_no],
+                            distinct=True
+                        ).select_from(
+                            sql.table('pklots_test.weekly_revenueAnalyticsDashboard')
+                        ).order_by(
+                            week_no.desc()
+                        ).limit(2)
+                    )
+                )
+            ).group_by(
+                brand_name,week_no,endDate
             ).order_by(
                 endDate.desc()
-            ).limit(2).compile(dialect=bq.BQDialect())
+            ).compile(dialect=bq.BQDialect())
 
         query=client.query(str(sqlstr))
         result=query.result()
@@ -88,7 +102,24 @@ class revenueAnalyticsDashboard(Resource):
         for i in range(page-1):
             resultIterator._next_page()
 
-        #fill data into response
+        for row in resultIterator:
+            arr=list(map(lambda d:d['brand_name'],response['data']['offRoad']))
+            if row.brand_name in arr:
+                current_object=response['data']['offRoad'][arr.index(row.brand_name)]
+                current_object['last_qty']=row.order_qty
+                current_object['diff_qty']=current_object['current_qty']-current_object['last_qty']
+                current_object['ratio_qty']=int((float(current_object['diff_qty'])/float(current_object['last_qty']))*100)
+                current_object['last_amt']=row.order_amt
+                current_object['diff_amt']=current_object['current_amt']-current_object['last_amt']
+                current_object['ratio_amt']=int((float(current_object['diff_amt'])/float(current_object['last_amt']))*100)
+            else:
+                response['data']['offRoad'].append(
+                    {
+                        'brand_name':row.brand_name,
+                        'current_qty':row.order_qty,
+                        'current_amt':row.order_amt
+                    }
+                )
 
         response['metadata']['page']=page
         response['metadata']['per_page']=per_page

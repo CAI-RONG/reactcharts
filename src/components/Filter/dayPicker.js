@@ -26,7 +26,8 @@ export default class DayPicker extends React.Component{
                             }
                         }
                         dayPickerProps={{
-                            disabledDays:{before:this.state.before,after:this.state.after}
+                            disabledDays:{before:this.state.before,after:this.state.after},
+                            showWeekNumbers:true
                         }}
                     />
                 </div>
@@ -44,7 +45,8 @@ export default class DayPicker extends React.Component{
                             }
                         }
                         dayPickerProps={{
-                            disabledDays:{before:this.state.selectedDay,after:this.state.after}
+                            disabledDays:{before:this.state.selectedDay,after:this.state.after},
+                            showWeekNumbers:true
                         }}
                     />
                 </div>

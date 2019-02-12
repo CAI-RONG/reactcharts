@@ -28,7 +28,7 @@ class Grid extends React.Component{
           { 
             Header: '',
             headerStyle: {textAlign: "center"},
-            accessor: 'name',
+            accessor: 'brand_name',
             sortable: false,
           }
         ]
@@ -41,30 +41,30 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            id:'lastAmount',
-            accessor:d=> numberWithCommas(d.lastAmount),
+            id:'last_qty',
+            accessor:d=> numberWithCommas(d.last_qty),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '本期',
-            id: 'currentAmount',
-            accessor:d=> numberWithCommas(d.currentAmount),
+            id: 'current_qty',
+            accessor:d=> numberWithCommas(d.current_qty),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '差異',
-            id:'diffAmount',
-            accessor:d=> numberWithCommas(d.diffAmount),
+            id:'diff_qty',
+            accessor:d=> numberWithCommas(d.diff_qty),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '％',
-            id:'ratioAmount',
-            headerStyle: {backgroundColor: "#118fc3"},
-            accessor: d => d.ratioAmount,
+            id:'ratio_qty',
+            headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
+            accessor: d => d.ratio_qty,
             Cell: row => <span>{row.value}%</span>,
             minWidth: 70
       
@@ -77,36 +77,36 @@ class Grid extends React.Component{
         columns: [
           { 
             Header: '上期',
-            id: 'lastValue',
-            accessor: d => numberWithCommas(d.lastValue),
+            id: 'last_amt',
+            accessor: d => numberWithCommas(d.last_amt),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '本期',
-            id: 'currentValue',
-            accessor: d => numberWithCommas(d.currentValue),
+            id: 'current_amt',
+            accessor: d => numberWithCommas(d.current_amt),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '差異',
-            id:'diffValue',
-            accessor: d => numberWithCommas(d.diffValue),
+            id:'diff_amt',
+            accessor: d => numberWithCommas(d.diff_amt),
             headerStyle: {backgroundColor: "#118fc3", textAlign: "center"},
             minWidth: 70
           },
           { 
             Header: '％',
-            id:'ratioValue',
+            id:'ratio_amt',
             headerStyle: {  backgroundColor: "#118fc3", textAlign: "center"},
-            accessor: d => d.ratioValue,
+            accessor: d => d.ratio_amt,
             Cell: row => <span>{row.value}%</span>,
             minWidth: 70
           }
         ]
       },
-      {
+      /*{
         Header: "Actions",
         id: "Actions",
         headerStyle: {  textAlign: "center"},
@@ -117,7 +117,7 @@ class Grid extends React.Component{
           {
             return (
               <OperatorTransactionContainer 
-                Operator={rest.original.name}
+                Operator={rest.original.brand_name}
                 data ={this.props.data}
                 />
             );
@@ -130,7 +130,7 @@ class Grid extends React.Component{
           {
             return (
               <PKLotsTransactionContainer
-                Operator={rest.original.name}
+                Operator={rest.original.brand_name}
                 data ={this.props.data}
                 />
             );
@@ -138,7 +138,7 @@ class Grid extends React.Component{
           width: 80
         }
         ]
-      }
+      }*/
     ];
     
     return (

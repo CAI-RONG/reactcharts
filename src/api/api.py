@@ -40,7 +40,7 @@ def add_claims_into_token(identity):
 
 
 api.add_resource(userAnalyticsDashboard,'/api/userAnalyticsDashboard/')
-api.add_resource(revenueAnalyticsDashboard,'/api/revenueAnalyticsDashborad')
+api.add_resource(revenueAnalyticsDashboard,'/api/revenueAnalyticsDashboard/')
 api.add_resource(authorization,'/api/auth/')
 api.add_resource(refresh_token,'/api/get_refresh_token/')
 api.add_resource(logout_access,'/api/logout_access/')
