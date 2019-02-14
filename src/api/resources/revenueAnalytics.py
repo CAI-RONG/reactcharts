@@ -29,7 +29,7 @@ week_no=sql.column('week_no')
 
 
 #BigQuery client
-client=bigquery.Client.from_service_account_json('C:\\Users\\BingZe Yu\\Downloads\\My_Project-c01a947a8626.json')# tables for revenue haven't exist yet
+client=bigquery.Client.from_service_account_json("/Users/una/Downloads/My_Project-c01a947a8626.json")# tables for revenue haven't exist yet
 
 class revenueAnalyticsDashboard(Resource):
     @jwt_required

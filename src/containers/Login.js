@@ -3,7 +3,7 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "../assets/Login.css";
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {getAccessToken,getRefreshToken,isLogin,getUID} from '../redux/actions/userActions';
+import {getAccessToken,getRefreshToken,isLogin,getID} from '../redux/actions/userActions';
 import {Redirect} from 'react-router';
 
 class Login_ extends Component {
@@ -21,14 +21,14 @@ class Login_ extends Component {
     axios.get('http://localhost:5000/api/auth/',{
             params:{
               email:this.state.email,
-              pwd:this.state.password
+              password:this.state.password
             }
         })
         .then(response=>{
             console.log(response.data);
             this.props.getAccessToken(response.data.access_token);
             this.props.getRefreshToken(response.data.refresh_token);
-            this.props.getUID(response.data.uid);
+            this.props.getID(response.data.id);
             this.props.login(true);
         })
         .catch((error)=>alert(error.response.data.msg));
@@ -99,7 +99,7 @@ const mapDispatchToState=dispatch=>{
     getAccessToken:token=>dispatch(getAccessToken(token)),
     getRefreshToken:token=>dispatch(getRefreshToken(token)),
     login:status=>dispatch(isLogin(status)),
-    getUID:uid=>dispatch(getUID(uid))
+    getID:id=>dispatch(getID(id))
   }
 }
 

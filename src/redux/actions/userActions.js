@@ -105,10 +105,10 @@ export const isLogin=status=>{
 	}
 }
 
-export const getUID=uid=>{
+export const getID=id=>{
 	return {
 		type:"GET_USER_ID",
-		uid
+		id
 	}
 }
 

@@ -9,20 +9,21 @@ from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_restful import Api
-from flask_sqlalchemy import SQLAlchemy
 import datetime
+
 from models import revoke
+from models import db
 
 
-App=Flask(__name__)
-api=Api(App)
-CORS(App)
+app=Flask(__name__)
+api=Api(app)
+CORS(app)
 
-jwt=JWTManager(App)
-App.config['JWT_SECRET_KEY']='test123'
-App.config['JWT_ACCESS_TOKEN_EXPIRES']=datetime.timedelta(minutes=15)
-App.config['JWT_REFRESH_TOKEN_EXPIRES']=datetime.timedelta(hours=5)
-App.config['JWT_BLACKLIST_ENABLED']=True
+jwt=JWTManager(app)
+app.config['JWT_SECRET_KEY']='test123'
+app.config['JWT_ACCESS_TOKEN_EXPIRES']=datetime.timedelta(minutes=15)
+app.config['JWT_REFRESH_TOKEN_EXPIRES']=datetime.timedelta(hours=5)
+app.config['JWT_BLACKLIST_ENABLED']=True
 
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
@@ -32,11 +33,17 @@ def check_if_token_in_blacklist(decrypted_token):
     else:
         return False
 
-@jwt.user_claims_loader
-def add_claims_into_token(identity):
-    return {
-        'uid':identity
-    }
+
+#--- SQLALCHEMY setting ---       
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:1051446@127.0.0.1:5432/test'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'some-secret-string'
+
+db.init_app(app)
+
+with app.app_context():
+	# within this block, current_app points to app.
+    db.create_all()
 
 
 api.add_resource(userAnalyticsDashboard,'/api/userAnalyticsDashboard/')
@@ -47,4 +54,4 @@ api.add_resource(logout_access,'/api/logout_access/')
 api.add_resource(logout_refresh,'/api/logout_refresh/')
 
 if __name__ == '__main__':
-    App.run(debug=True,port=5000)
+    app.run(threaded=True)

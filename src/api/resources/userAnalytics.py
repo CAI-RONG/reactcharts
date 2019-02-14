@@ -44,7 +44,7 @@ class activeUser(Resource):
         try:
             currentUserId=0#get_jwt_identity()
             #claims=get_jwt_claims()
-            #uid=claims['uid']
+            #id=claims['id']
             args=parser.parse_args()
             #name=args['name']
             begin=datetime.datetime.strptime(args['begin'],'%Y-%m-%d').date()
@@ -162,7 +162,7 @@ num_user_with_lp=sql.column('num_user_with_lp')
 num_user_with_subscription=sql.column('num_user_with_subscription')
 
 #BigQuery client
-client=bigquery.Client.from_service_account_json('C:\\Users\\BingZe Yu\\Downloads\\My_Project-c01a947a8626.json')
+client=bigquery.Client.from_service_account_json("/Users/una/Downloads/My_Project-c01a947a8626.json")
 
 class userAnalyticsDashboard(Resource):
     @jwt_required
