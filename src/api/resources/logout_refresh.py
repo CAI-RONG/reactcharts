@@ -5,6 +5,10 @@ from models.revokeToken import revoke
 class logout_refresh(Resource):
     @jwt_refresh_token_required
     def post(self):
-        jti=get_raw_jwt()['jti']
-        revoke.add(jti=jti)
-        return {'msg':'Successfully logged out!'}, 200
+        try: 
+        	jti=get_raw_jwt()['jti']
+        	revoke.add(jti=jti)
+        	return {'msg':'Successfully logged out!'}, 200
+    	except Exception as e:
+        	print(type(e), str(e))
+        	return {'msg':'something wrong'}, 500

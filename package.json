@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap-css-only": "^4.1.1",
     "chart.js": "^2.7.2",
     "d3": "^5.7.0",
@@ -24,6 +25,7 @@
     "react-scripts": "2.0.4",
     "react-table": "^6.8.6",
     "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
     "rollup": "^0.66.6",
     "rollup-plugin-node-resolve": "^3.4.0"
   },
@@ -41,5 +43,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.7.2"
+  }
 }
