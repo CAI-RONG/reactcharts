@@ -2,6 +2,7 @@ import React from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import PropTypes from 'prop-types';
+import {Glyphicon} from 'react-bootstrap';
 //import './Revenue.css';
 import OperatorTransactionContainer from  "../../containers/OperatorTransactionContainer";
 import PKLotsTransactionContainer from  "../../containers/PKLotsTransactionContainer";
@@ -21,23 +22,29 @@ class Grid extends React.Component{
  
   render(){
     const columns = [
+      {//exapnder for iOS and Android
+        Header:'平台',
+        expander:true,
+        Expander:({isExpanded})=>{
+            return (
+              <div>
+                Total{" "}
+                {isExpanded?<Glyphicon glyph='triangle-bottom'/>:<Glyphicon glyph='triangle-right'/>}
+              </div>
+            )
+        },
+        width:70,
+        headerStyle: {  textAlign: "center"}
+      },
       { 
         Header: () => <span>{this.props.header}</span>,
         headerStyle: {textAlign: "center", borderRight:"0px"},
-        columns: [
-          { 
-            Header: '',
-            headerStyle: {textAlign: "center"},
-            accessor: 'brand_name',
-            sortable: false,
-          }
-        ]
-        
+        accessor: 'brand_name',
+        sortable: false
       },
       { 
         Header: '訂單數量',
         headerStyle: {backgroundColor: "#118fc3", borderright: "1px solid #118fc3 !important", textAlign: "center"},
-        
         columns: [
           { 
             Header: '上期',
@@ -67,7 +74,6 @@ class Grid extends React.Component{
             accessor: d => d.ratio_qty,
             Cell: row => <span>{row.value}%</span>,
             minWidth: 70
-      
           }
         ]
       },
@@ -106,39 +112,39 @@ class Grid extends React.Component{
           }
         ]
       },
-      /*{
+      {
         Header: "Actions",
         id: "Actions",
         headerStyle: {  textAlign: "center"},
         columns: [
         {
-          expander: true,
-          Expander: ({ isExpanded, ...rest }) =>
+          id:'operator_transaction',
+          accessor:d=>d.brand_name,
+          Cell:row =>
           {
             return (
               <OperatorTransactionContainer 
-                Operator={rest.original.brand_name}
-                data ={this.props.data}
+                Operator={row.value}
                 />
             );
           },
           width: 80
         },
         {
-          expander: true,
-          Expander: ({ isExpanded, ...rest }) =>
+          id:'pklot_transaction',
+          accessor:d=>d.brand_name,
+          Cell:row =>
           {
             return (
               <PKLotsTransactionContainer
-                Operator={rest.original.brand_name}
-                data ={this.props.data}
+                Operator={row.value}
                 />
             );
           },
           width: 80
         }
         ]
-      }*/
+      }
     ];
     
     return (
@@ -149,14 +155,126 @@ class Grid extends React.Component{
               <div className="row x_content" >
                 <ReactTable
                   style={{cellspacing:0,  width:"100%", textAlign: 'right'}} 
-                  data = {this.props.MonthlyData}
+                  data = {this.props.data}
                   columns={columns}
                   defaultPageSize={5}
                   //resizable={false}
                   className="-striped -highlight"
-                  onExpandedChange={(expanded, index, event) => {
-                    this.setState({expanded});            
-                  }}
+                  
+                  SubComponent={
+                    row=>{
+                      const subCol=[
+                        {
+                          Header:'平台',
+                          id:'device_type',
+                          accessor:d=>d.device_type==1?'iOS':'Android',
+                          width:70,
+                          headerStyle: {display:'none',  textAlign: "center"}
+                        },
+                        { 
+                          Header: () => <span>{this.props.header}</span>,
+                          headerStyle: {textAlign: "center", display:'none', borderRight:"0px"},
+                          accessor: 'brand_name',
+                          sortable: false
+                        },
+                        { 
+                          Header: '訂單數量',
+                          headerStyle: {display:'none',backgroundColor: "#118fc3", borderright: "1px solid #118fc3 !important", textAlign: "center"},
+                          columns: [
+                            { 
+                              Header: '上期',
+                              id:'last_qty',
+                              accessor:d=> numberWithCommas(d.last_qty),
+                              headerStyle: {display:'none',backgroundColor: "#118fc3", textAlign: "center"},
+                              minWidth: 70
+                            },
+                            { 
+                              Header: '本期',
+                              id: 'current_qty',
+                              accessor:d=> numberWithCommas(d.current_qty),
+                              headerStyle: {display:'none',backgroundColor: "#118fc3", textAlign: "center"},
+                              minWidth: 70
+                            },
+                            { 
+                              Header: '差異',
+                              id:'diff_qty',
+                              accessor:d=> numberWithCommas(d.diff_qty),
+                              headerStyle: {display:'none',backgroundColor: "#118fc3", textAlign: "center"},
+                              minWidth: 70
+                            },
+                            { 
+                              Header: '％',
+                              id:'ratio_qty',
+                              headerStyle: {display:'none',backgroundColor: "#118fc3", textAlign: "center"},
+                              accessor: d => d.ratio_qty,
+                              Cell: row => <span>{row.value}%</span>,
+                              minWidth: 70
+                            }
+                          ]
+                        },
+                        {
+                          Header: '訂單金額',
+                          headerStyle: {display:'none', backgroundColor: "#118fc3", textAlign: "center"},
+                          columns: [
+                            { 
+                              Header: '上期',
+                              id: 'last_amt',
+                              accessor: d => numberWithCommas(d.last_amt),
+                              headerStyle: {display:'none',backgroundColor: "#118fc3", textAlign: "center"},
+                              minWidth: 70
+                            },
+                            { 
+                              Header: '本期',
+                              id: 'current_amt',
+                              accessor: d => numberWithCommas(d.current_amt),
+                              headerStyle: {display:'none',backgroundColor: "#118fc3", textAlign: "center"},
+                              minWidth: 70
+                            },
+                            { 
+                              Header: '差異',
+                              id:'diff_amt',
+                              accessor: d => numberWithCommas(d.diff_amt),
+                              headerStyle: {display:'none',backgroundColor: "#118fc3", textAlign: "center"},
+                              minWidth: 70
+                            },
+                            { 
+                              Header: '％',
+                              id:'ratio_amt',
+                              headerStyle: {display:'none',  backgroundColor: "#118fc3", textAlign: "center"},
+                              accessor: d => d.ratio_amt,
+                              Cell: row => <span>{row.value}%</span>,
+                              minWidth: 70
+                            },
+                            {
+                              Header:'',
+                              width:80,
+                              headerStyle:{display:'none'}
+                            },
+                            {
+                              Header:'',
+                              width:80,
+                              headerStyle:{display:'none'}
+                            }
+                          ]
+                        }
+                      ];
+
+                      return (
+                        <div>
+                          <ReactTable
+                            className="sub -striped -highlight"
+                            data={row.original.subData}
+                            columns={subCol}
+                            defaultPageSize={2}
+                            showPagination={false}
+                            noDataText="No Data"
+                            getTheadGroupProps={()=>{return {style: { display: 'none' }}}}
+                          />
+                          <br/><br/>
+                        </div>
+                      )
+                    }
+                  }
                 />
               </div> 
             </div>

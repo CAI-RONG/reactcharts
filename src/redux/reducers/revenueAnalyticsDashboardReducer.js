@@ -1,6 +1,10 @@
 const initial_state={
-    //data
     data:[],
+    offRoadData:{},
+    roadSideData:{},
+    subscriptionData:{},
+    operatorTransactionData:{},
+    pklotTransactionData:{},
     metadata:{
 		page:1,
 		total_pages:1,
@@ -8,9 +12,15 @@ const initial_state={
 		per_page:5
 	}
 }
-//not done yet
+
 const revenueAnalyticsReducer=(state=initial_state,action)=>{
     switch(action.type){
+        case "OFFROAD_DATA_CHANGE":
+            return Object.assign({},state,{offRoadData:action.data});
+        case "OPERATOR_TRANSACTION_DATA_CHANGE":
+            return Object.assign({},state,{operatorTransactionData:action.data});
+        case "PKLOT_TRANSACTION_DATA_CHANGE":
+            return Object.assign({},state,{pklotTransactionData:action.data});
         default:
             return state;
     }

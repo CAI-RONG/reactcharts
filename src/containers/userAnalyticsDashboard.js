@@ -44,7 +44,7 @@ class UserAnalyticsDashboard_ extends React.Component{
 				//name:'avtivedUser',
 				begin:this.props.begin,
 				end:this.props.end,
-				timeUnit:'week',
+				timeUnit:this.props.timeUnit,
 				page:this.props.page,
 				per_page:this.props.per_page
 			},
@@ -148,7 +148,8 @@ const UserAnalyticsDashboard=connect(
 			rows_count:state.userAnalyticsReducer.metadata.rows_count,
 			per_page:state.userAnalyticsReducer.metadata.per_page,
 			begin:state.filterReducer.beginDate,
-			end:state.filterReducer.endDate
+			end:state.filterReducer.endDate,
+			timeUnit:state.filterReducer.timeScaleFilter
 		}
 	},
 	dispatch=>{

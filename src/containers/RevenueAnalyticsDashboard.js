@@ -13,7 +13,7 @@ import TopTilesContainer from './TopTilesContainer';
 import FilterContainer from './FilterContainer';
 import UnitSelector from '../components/UnitSelector/UnitSelector';
 import Loading from '../components/Loading';
-import {getAccessToken} from '../redux/actions/userActions';
+import {getAccessToken,offRoadData} from '../redux/actions/userActions';
 import {persistor} from '../redux/store';
 
 const axios=Axios;
@@ -83,7 +83,7 @@ class RevenueAnalyticsDashboard_ extends React.Component{
 	}
 	
 	getData(){
-		axios.get('localhost:5000/api/revenueAnalyticsDashboard/',{
+		axios.get('http://localhost:5000/api/revenueAnalyticsDashboard/',{
 				params:{
 					begin:this.props.begin,
 					end:this.props.end,
@@ -97,7 +97,7 @@ class RevenueAnalyticsDashboard_ extends React.Component{
 			}
 		).then(
 			response=>{
-				
+				this.props.set_offRoad_data(response.data.data.offRoad);
 			}
 		).catch(
 			error=>{
@@ -158,12 +158,14 @@ const RevenueAnalyticsDashboard=connect(
 			rows_count:state.revenueAnalyticsReducer.metadata.rows_count,
 			per_page:state.revenueAnalyticsReducer.metadata.per_page,
 			begin:state.filterReducer.beginDate,
-			end:state.filterReducer.endDate
+			end:state.filterReducer.endDate,
+			timeUnit:state.filterReducer.timeScaleFilter
 		}
 	},
 	dispatch=>{
 		return {
-			set_access_token:token=>dispatch(getAccessToken(token))
+			set_access_token:token=>dispatch(getAccessToken(token)),
+			set_offRoad_data:data=>dispatch(offRoadData(data))
 		}
 	}
 )(RevenueAnalyticsDashboard_);

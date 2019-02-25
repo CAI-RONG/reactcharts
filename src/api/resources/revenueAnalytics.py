@@ -10,11 +10,8 @@ from pandas import DataFrame
 
 #request parameter
 parser=reqparse.RequestParser()
-parser.add_argument('begin')
 parser.add_argument('end')
 parser.add_argument('timeUnit')
-parser.add_argument('page')
-parser.add_argument('per_page')
 
 #columns in the table
 beginDate=sql.column('beginDate')
@@ -29,7 +26,7 @@ week_no=sql.column('week_no')
 
 
 #BigQuery client
-client=bigquery.Client.from_service_account_json('C:\\Users\\BingZe Yu\\Downloads\\My_Project-c01a947a8626.json')# tables for revenue haven't exist yet
+client=bigquery.Client.from_service_account_json('C:\\Users\\BingZe Yu\\Downloads\\My_Project-c01a947a8626.json')
 
 class revenueAnalyticsDashboard(Resource):
     @jwt_required
@@ -38,15 +35,12 @@ class revenueAnalyticsDashboard(Resource):
         #initialize return value
         response={
             'data':{
-                'offRoad':[],
+                'offRoad':{
+                    'iOS':[],
+                    'Android':[]
+                },
                 'roadSide':[],
                 'subscribe':[]
-            },
-            'metadata':{
-                'page':0,
-                'per_page':0,
-                'rows_count':0,
-                'total_pages':0
             },
             'error':'no error',
             'currentUserId':0
@@ -56,22 +50,20 @@ class revenueAnalyticsDashboard(Resource):
 
         #get request arguments
         args=parser.parse_args()
-        begin=args['begin']
         end=args['end']
         timeUnit=args['timeUnit']
-        page=int(args['page'])
-        per_page=int(args['per_page'])
 
         #generate SQL string
         if timeUnit == 'week':# there will be a table for weekly data on bigquery
             sqlstr=sql.select([
-                brand_name, week_no,
+                device_type, brand_name, week_no,
                 sql.label('order_qty',func.sum(order_qty)),
                 sql.label('order_amt',func.sum(order_amt))
             ]).select_from(
                 sql.table('pklots_test.weekly_revenueAnalyticsDashboard')
             ).where(
-                sql.and_('beginDate <= \'%s\''%end,
+                sql.and_(
+                    'beginDate <= \'%s\''%end,
                     week_no.in_(
                         sql.select(
                             [week_no],
@@ -84,7 +76,7 @@ class revenueAnalyticsDashboard(Resource):
                     )
                 )
             ).group_by(
-                brand_name,week_no,endDate
+                brand_name,week_no,endDate,device_type
             ).order_by(
                 endDate.desc()
             ).compile(dialect=bq.BQDialect())
@@ -95,17 +87,15 @@ class revenueAnalyticsDashboard(Resource):
             client=client,
             api_request=result.api_request,
             path=result.path,
-            schema=result.schema,
-            page_size=per_page
+            schema=result.schema
         )
 
-        for i in range(page-1):
-            resultIterator._next_page()
-
-        for row in resultIterator:
-            arr=list(map(lambda d:d['brand_name'],response['data']['offRoad']))
+        def fillData(row,type_):
+            arr=list(map(lambda d:d['brand_name'],response['data']['offRoad'][type_]))#which brand_name has been added into response['data']['offRoad']
+            #combine current week and last week
             if row.brand_name in arr:
-                current_object=response['data']['offRoad'][arr.index(row.brand_name)]
+                current_object=response['data']['offRoad'][type_][arr.index(row.brand_name)]
+                current_object['device_type']=row.device_type
                 current_object['last_qty']=row.order_qty
                 current_object['diff_qty']=current_object['current_qty']-current_object['last_qty']
                 current_object['ratio_qty']=int((float(current_object['diff_qty'])/float(current_object['last_qty']))*100)
@@ -113,18 +103,27 @@ class revenueAnalyticsDashboard(Resource):
                 current_object['diff_amt']=current_object['current_amt']-current_object['last_amt']
                 current_object['ratio_amt']=int((float(current_object['diff_amt'])/float(current_object['last_amt']))*100)
             else:
-                response['data']['offRoad'].append(
+                response['data']['offRoad'][type_].append(
                     {
                         'brand_name':row.brand_name,
                         'current_qty':row.order_qty,
                         'current_amt':row.order_amt
                     }
                 )
+            
 
-        response['metadata']['page']=page
-        response['metadata']['per_page']=per_page
-        response['metadata']['rows_count']=int(resultIterator.total_rows/2)
-        response['metadata']['total_pages']=math.ceil(resultIterator.total_rows/(per_page*2))
+        
+        for row in resultIterator:
+            if row.device_type == 1:#iOS
+                fillData(row,'iOS')
+            else:#Android
+                fillData(row,'Android')
+        
+        #sort
+        response['data']['offRoad']['iOS']=sorted(response['data']['offRoad']['iOS'], key=lambda d:d['brand_name'])
+        response['data']['offRoad']['Android']=sorted(response['data']['offRoad']['Android'], key=lambda d:d['brand_name'])
+
         response['currentUserId']=currentUserId
-
+        response['raw_data']=result.to_dataframe().to_dict()
+        response['raw_SQL']=str(sqlstr)
         return response, 200

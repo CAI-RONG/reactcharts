@@ -4,6 +4,8 @@ from resources import authorization
 from resources import refresh_token
 from resources import logout_access
 from resources import logout_refresh
+from resources import operatorTransaction
+from resources import pklotTransaction
 
 from flask import Flask
 from flask_jwt_extended import JWTManager
@@ -45,6 +47,8 @@ api.add_resource(authorization,'/api/auth/')
 api.add_resource(refresh_token,'/api/get_refresh_token/')
 api.add_resource(logout_access,'/api/logout_access/')
 api.add_resource(logout_refresh,'/api/logout_refresh/')
+api.add_resource(operatorTransaction,'/api/operatorTransaction/')
+api.add_resource(pklotTransaction,'/api/pklotTransaction/')
 
 if __name__ == '__main__':
     App.run(debug=True,port=5000)

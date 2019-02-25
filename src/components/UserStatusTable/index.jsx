@@ -13,22 +13,22 @@ class UserStatusTable extends React.Component{
   constructor() { 
     super();
     this.state={
-		show:false,
-		total:0,
-		autoPayData:[
-			{
-				key:'Taipei',
-				value:0
-			},
-			{
-				key:'New_Taipei',
-				value:0
-			},
-			{
-				key:'Kaohsiung',
-				value:0
-			}
-		]
+			show:false,
+			total:0,
+			autoPayData:[
+				{
+					key:'Taipei',
+					value:0
+				},
+				{
+					key:'New_Taipei',
+					value:0
+				},
+				{
+					key:'Kaohsiung',
+					value:0
+				}
+			]
     };
     this.reactTable = null;
 	this.handleShow=this.handleShow.bind(this);

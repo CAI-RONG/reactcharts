@@ -3,8 +3,8 @@ import React from 'react';
 import Modal from 'react-modal';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import LineChart from '../LineChart';
-import {Row,Col} from 'react-bootstrap';
+import LineChartContainer from '../../containers/LineChartContainer';
+import {Row,Col,Glyphicon} from 'react-bootstrap';
 import numberWithCommas from "../../utils/numberWithCommas";
 
 const customStyles = {
@@ -16,7 +16,7 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
 	  overflow			  : 'scroll',
-	  width				  : '80%',
+	  width				  : '82%',
 	  height				  : '80%'
   },
   overlay:{zIndex:1000}
@@ -28,12 +28,18 @@ class PKLotsTransactionAnalytics extends React.Component {
     this.state = {
       showModal: false
     };
+    this.handleClick=this.handleClick.bind(this);
+  }
+
+  handleClick(){
+    this.setState({ showModal: true});
+    this.props.loadComponent();
   }
 
   render () {
     return (
       <div>
-        <button className="btn btn-sm btn-primary" onClick={() => this.setState({ showModal: true})}>
+        <button className="btn btn-sm btn-primary" onClick={this.handleClick}>
           <i className="fas fa-table"/>
         </button>
         <Modal 
@@ -41,116 +47,231 @@ class PKLotsTransactionAnalytics extends React.Component {
            style={customStyles}
            onRequestClose={()=>this.setState({showModal:false})}
         >
-          <button style={{float:'right', border:'0px'}} onClick={() => this.setState({ showModal: false})} >X</button>
-          <p style={{fontSize:"20px"}}> {this.props.Operator} - 各停車場站每月訂單分析 </p>
+          {/*<button style={{float:'right', border:'0px'}} onClick={() => this.setState({ showModal: false})} >X</button>*/}
+          <p style={{fontSize:"20px"}}>
+            {this.props.operator} - 各停車場站每月訂單分析 
+            <Glyphicon glyph='remove' style={{float:'right'}} onClick={()=>this.setState({showModal:false})} />
+          </p>
 
           <ReactTable 
          		style={{cellspacing:0,  width:"100%", textAlign: 'right'}}
-                data={this.props.data}     		
-                columns={[
-            	  { 
-            	    Header: '停車場站名稱',
-                  headerStyle: {textAlign: "center"},
-					        id:'PKLotName',
-            	   	accessor: d=>d.dataForTable.name,
-                  width:150
-            	  },
-            	  { 
-            	    Header: '訂單數量',
-                  headerStyle: {textAlign: "center"},
-            	    columns: [
-            	    { 
-            	       Header: '上期',
-                     headerStyle: {textAlign: "center"},
-					           id:'LastAmount',
-                     accessor: d=>numberWithCommas(d.dataForTable.lastAmount)
-            		  },
-            		  { 
-            		    Header: '本期',
+            data={this.props.data}     		
+            columns={[
+              {//exapnder for iOS and Android
+                Header:'平台',
+                expander:true,
+                Expander:({isExpanded})=>{
+                  return (
+                    <div>
+                      Total{" "}
+                      {isExpanded?<Glyphicon glyph='triangle-bottom'/>:<Glyphicon glyph='triangle-right'/>}
+                    </div>
+                  )
+                },
+                width:70,
+                headerStyle: {  textAlign: "center"}
+              },
+              { 
+                Header: '停車場站名稱',
+                headerStyle: {textAlign: "center"},
+                id:'PKLotName',
+                accessor: d=>d.parkinglot_name,
+                width:150
+              },
+              { 
+                Header: '訂單數量',
+                headerStyle: {textAlign: "center"},
+                columns: [
+                  { 
+                    Header: '上期',
                     headerStyle: {textAlign: "center"},
-						        id:'CurrentAmount',
-                    accessor: d=>numberWithCommas(d.dataForTable.currentAmount)
-            		  },
-            		  {	 
-            		    Header: '差異',
+                    id:'last_qty',
+                    accessor: d=>numberWithCommas(d.last_qty)
+                  },
+                  { 
+                    Header: '本期',
                     headerStyle: {textAlign: "center"},
-            		    id:'diffAmount',
-                    accessor: d=>numberWithCommas(d.dataForTable.diffAmount),
+                    id:'current_qty',
+                    accessor: d=>numberWithCommas(d.current_qty)
+                  },
+                  {	 
+                    Header: '差異',
+                    headerStyle: {textAlign: "center"},
+                    id:'diff_qty',
+                    accessor: d=>numberWithCommas(d.diff_qty),
                     Cell: row =>  (
                         <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
                         </span>
                     )
-            		  },
-            		  { 
-            		    Header: '％',
+                  },
+                  { 
+                    Header: '％',
                     headerStyle: {textAlign: "center"},
-                    id:'RatioAmount',
-                    accessor: d=>d.dataForTable.ratioAmount,
+                    id:'ratio_qty',
+                    accessor: d=>d.ratio_qty,
                     Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
-            		  }]	
-            	  },
-            	  {
-            		  Header: '訂單金額',
-                  headerStyle: {textAlign: "center"},
-            		  columns: [
-            		  { 
-            		    Header:'上期',
+                  }
+                ]	
+              },
+              {
+                Header: '訂單金額',
+                headerStyle: {textAlign: "center"},
+                columns: [
+                  { 
+                    Header:'上期',
                     headerStyle: {textAlign: "center"},
-						        id:'LastValue',
-                     accessor: d=>numberWithCommas(d.dataForTable.lastValue)
-    				      },
-            		  { 
-            		    Header:'本期',
+                    id:'last_amt',
+                    accessor: d=>numberWithCommas(d.last_amt)
+                  },
+                  { 
+                    Header:'本期',
                     headerStyle: {textAlign: "center"},
-						        id:'currentValue',
-                    accessor: d=>numberWithCommas(d.dataForTable.currentValue)
-            		  },
-            		  { 
-            		    Header:'差異',
+                    id:'current_amt',
+                    accessor: d=>numberWithCommas(d.current_amt)
+                  },
+                  { 
+                    Header:'差異',
                     headerStyle: {textAlign: "center"},
-            		    id:'diffValue',
-                    accessor: d=>numberWithCommas(d.dataForTable.diffValue),
-            		    Cell: row =>  (
+                    id:'diff_amt',
+                    accessor: d=>numberWithCommas(d.diff_amt),
+                    Cell: row =>  (
                       <span style={{color: row.value >= 0 ? 'null': 'red'}}>
                           {row.value}
                       </span>
-                 )
-            		  },
-            		  { 
-            		    Header: '％',
+                )
+                  },
+                  { 
+                    Header: '％',
                     headerStyle: {textAlign: "center"},
-            		    id:'RatioValue',
-                    accessor: d=>d.dataForTable.ratioValue,
+                    id:'ratio_amt',
+                    accessor: d=>d.ratio_amt,
                     Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
-    				
-    				      }]
-    				    }]}
+            
+                  }
+                ]
+              }
+            ]}
     				defaultPageSize={6}
-            pageSize={this.props.data.length}
+            pageSize={5}
     				className="-striped -highlight"  
-            SubComponent={row => {
-				      var amountData={'Amount':row.original.TransactionAmount};
-				      var valueData={'Value':row.original.TransactionValue};
-              return (
-                <Row>
-					         <Col lg={6}>
-						          <h3 style={{textAlign: "left"}}>訂單數分析</h3>
-						          <LineChart data={amountData} name={row.original.dataForTable.name+"-amount"} width='100%' unit={this.props.unit}/>
-					         </Col>
-					         <Col lg={6}>
-						          <h3 style={{textAlign: "left"}}>訂單金額分析</h3>
-						          <LineChart data={valueData} name={row.original.dataForTable.name+"-value"} width='100%' unit={this.props.unit}/>
-					         </Col>
-{/*
-                      <span style={{display:'flex'}}>
-                        <LineChart data={amountData} name={row.original.dataForTable.name+"amount"} width='50%' />
-                        <LineChart data={valueData} name={row.original.dataForTable.name+"value"} width='50%' />
-                      </span>
-*/}
-                </Row>
-              )
-            }}
+            SubComponent={
+              row => {
+                const subCol=[
+                  {
+                    Header:'平台',
+                    id:'device_type',
+                    accessor:d=>d.device_type==1?'iOS':'Android',
+                    width:70,
+                    headerStyle: {display:'none',  textAlign: "center"}
+                  },
+                  { 
+                    Header: '停車場站名稱',
+                    headerStyle: {display:'none',textAlign: "center"},
+                    id:'PKLotName',
+                    accessor: d=>d.parkinglot_name,
+                    width:150
+                  },
+                  { 
+                    Header: '訂單數量',
+                    headerStyle: {display:'none',textAlign: "center"},
+                    columns: [
+                      { 
+                        Header: '上期',
+                        headerStyle: {display:'none',textAlign: "center"},
+                        id:'last_qty',
+                        accessor: d=>numberWithCommas(d.last_qty)
+                      },
+                      { 
+                        Header: '本期',
+                        headerStyle: {display:'none',textAlign: "center"},
+                        id:'current_qty',
+                        accessor: d=>numberWithCommas(d.current_qty)
+                      },
+                      {	 
+                        Header: '差異',
+                        headerStyle: {display:'none',textAlign: "center"},
+                        id:'diff_qty',
+                        accessor: d=>numberWithCommas(d.diff_qty),
+                        Cell: row =>  (
+                            <span style={{color: row.value >= 0 ? 'null': 'red'}}>
+                              {row.value}
+                            </span>
+                        )
+                      },
+                      { 
+                        Header: '％',
+                        headerStyle: {display:'none',textAlign: "center"},
+                        id:'ratio_qty',
+                        accessor: d=>d.ratio_qty,
+                        Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
+                      }
+                    ]	
+                  },
+                  {
+                    Header: '訂單金額',
+                    headerStyle: {display:'none',textAlign: "center"},
+                    columns: [
+                      { 
+                        Header:'上期',
+                        headerStyle: {display:'none',textAlign: "center"},
+                        id:'last_amt',
+                        accessor: d=>numberWithCommas(d.last_amt)
+                      },
+                      { 
+                        Header:'本期',
+                        headerStyle: {display:'none',textAlign: "center"},
+                        id:'current_amt',
+                        accessor: d=>numberWithCommas(d.current_amt)
+                      },
+                      { 
+                        Header:'差異',
+                        headerStyle: {display:'none',textAlign: "center"},
+                        id:'diff_amt',
+                        accessor: d=>numberWithCommas(d.diff_amt),
+                        Cell: row =>  (
+                          <span style={{color: row.value >= 0 ? 'null': 'red'}}>
+                              {row.value}
+                          </span>
+                    )
+                      },
+                      { 
+                        Header: '％',
+                        headerStyle: {display:'none',textAlign: "center"},
+                        id:'ratio_amt',
+                        accessor: d=>d.ratio_amt,
+                        Cell: row => <span style={{color: row.value >= 0 ? 'null': 'red'}}>{row.value}%</span>
+                
+                      }
+                    ]
+                  }
+                ]
+                
+                return (
+                  <div>
+                    <ReactTable
+                      className="sub -striped -highlight"
+                      data={row.original.subData}
+                      columns={subCol}
+                      defaultPageSize={2}
+                      showPagination={false}
+                      noDataText="No Data"
+                      getTheadGroupProps={()=>{return {style: { display: 'none' }}}}
+                    />
+                    <Row>
+                      <Col lg={6}>
+                          <h3 style={{textAlign: "left"}}>訂單數分析</h3>
+                          <LineChartContainer name='pklotTransaction_qty' pklot={row.original.parkinglot_name}/>
+                      </Col>
+                      <Col lg={6}>
+                          <h3 style={{textAlign: "left"}}>訂單金額分析</h3>
+                          <LineChartContainer name='pklotTransaction_amt' pklot={row.original.parkinglot_name}/>
+                      </Col>
+                    </Row>
+                  </div>
+                )
+              }
+            }
           />
         </Modal>
       </div>

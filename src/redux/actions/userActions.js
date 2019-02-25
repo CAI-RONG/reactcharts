@@ -131,3 +131,24 @@ export const fetchData=data=>{
 		data
 	}
 }
+
+export const offRoadData=data=>{
+	return {
+		type:"OFFROAD_DATA_CHANGE",
+		data
+	}
+}
+
+export const operatorTransactionData=data=>{
+	return {
+		type:"OPERATOR_TRANSACTION_DATA_CHANGE",
+		data
+	}
+}
+
+export const pklotTransactionData=data=>{
+	return {
+		type:"PKLOT_TRANSACTION_DATA_CHANGE",
+		data
+	}
+}

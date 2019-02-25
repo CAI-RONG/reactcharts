@@ -70,13 +70,13 @@ export default class GrowthElement extends React.Component{
 	    }
 		return (
 			<div className="col-lg-3 col-md-6 col-xs-12" >
-			 	{bankButton}
-               	<span className="count_top"><i className={this.state.icon}></i>{this.state.title}</span>
-                <div style={count}>{this.props.data}</div>
-                <Glyphicon glyph={this.props.glyph.icon} style={{color:this.props.glyph.color}}/> {this.props.grow}% from last week
-        
-                <LineChartContainer name={this.state.name}/>
-            </div>
+				{bankButton}
+				<span className="count_top"><i className={this.state.icon}></i>{this.state.title}</span>
+				<div style={count}>{this.props.data}</div>
+				<Glyphicon glyph={this.props.glyph.icon} style={{color:this.props.glyph.color}}/> {this.props.grow}% from last week
+
+				<LineChartContainer name={this.state.name}/>
+			</div>
 		)
 	}
 }
