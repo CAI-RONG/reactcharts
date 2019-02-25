@@ -13,12 +13,14 @@ class userModel(db.Model):
     def __repr__(self):
         return '<UserModel %r>' % self.username
 
+
     # def save_to_db(self):
     #     new_user = userModel(username='user1', email='test@test', password='123') 
     #     db.session.add(new_user)
     #     db.session.add(self)
     #     db.session.commit()
     #     db.session.close()
+
 
     @staticmethod
     def find_user_by_email(email):
@@ -32,6 +34,7 @@ class userModel(db.Model):
         except Exception as e:
             print(type(e), str(e))
             return {'msg':'something wrong'}, 500
+
 
     @staticmethod
     def generate_hash(password):

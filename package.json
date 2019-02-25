@@ -4,12 +4,13 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "bootstrap-css-only": "^4.1.1",
+    "bootstrap-css-only": "^4.3.1",
     "chart.js": "^2.7.2",
-    "d3": "^5.7.0",
+    "d3": "^5.9.1",
+    "font-awesome": "^4.7.0",
     "i": "^0.3.6",
     "jquery": "^3.3.1",
-    "mdbreact": "^4.8.1",
+    "mdbreact": "^4.10.0",
     "moment": "^2.22.2",
     "npm": "^6.4.1",
     "react": "^16.7.0-alpha.0",
@@ -22,7 +23,7 @@
     "react-redux": "^5.1.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.4",
+    "react-scripts": "^2.0.4",
     "react-table": "^6.8.6",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
@@ -33,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:dev": "webpack --mode production",
+    "start:dev": "webpack-dev-server --open chrome"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,6 +48,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.7.2"
+    "@fortawesome/fontawesome-free": "^5.7.2",
+    "webpack-cli": "^3.2.3"
   }
 }

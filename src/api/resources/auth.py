@@ -14,7 +14,6 @@ class authorization(Resource):
         args=parser.parse_args()
         email=args['email']
         password=args['password']
-
         current_user = userModel.find_user_by_email(email)
 
         if current_user is None: #True

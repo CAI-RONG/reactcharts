@@ -22,7 +22,7 @@ const SideDrawer_ = props => {
 			</div>
 			<div className="info" >
 			    <span>Welcome,</span>
-			    <h6>{props.isLogin?props.uid:'John Doe'}</h6>
+			    <h6>{props.isLogin?props.id:'John Doe'}</h6>
 			</div>
 			<div className="sidebar-menu">
 				<ul className="nav side-menu">
@@ -48,7 +48,7 @@ const SideDrawer_ = props => {
 const SideDrawer=connect(
 	state=>{
 		return {
-			uid:state.authReducer.uid,
+			id:state.authReducer.id,
 			isLogin:state.authReducer.isLogin
 		}
 	}

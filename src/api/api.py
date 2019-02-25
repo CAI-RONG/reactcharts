@@ -11,13 +11,12 @@ from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_restful import Api
-from flask_admin import Admin, BaseView, expose
+from flask_admin import Admin
 
 import datetime
 
 from models import revoke
 from models import db
-
 
 app=Flask(__name__)
 api=Api(app)

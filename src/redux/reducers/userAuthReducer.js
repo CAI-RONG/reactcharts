@@ -2,7 +2,7 @@ const initial_state={
     access_token:'',
 	refresh_token:'',
 	isLogin:false,
-	uid:''
+	id:''
 }
 
 const authReducer=(state=initial_state,action)=>{
@@ -14,7 +14,7 @@ const authReducer=(state=initial_state,action)=>{
 		case "LOGIN_STATUS_CHANGE":
 			return Object.assign({},state,{isLogin:action.status});
 		case "GET_USER_ID":
-			return Object.assign({},state,{uid:action.uid});
+			return Object.assign({},state,{id:action.id});
 		case "USER_LOGOUT":
 			return initial_state;
         default:
